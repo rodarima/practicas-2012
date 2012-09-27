@@ -10,12 +10,10 @@ double microsegundos() {
 	return (t.tv_usec + t.tv_sec * 1000000.0);
 }
 
-
 int fib1(int n){
 	if(n<2) return n;
 	else return (fib1(n-1)+fib1(n-2));
 }
-
 int fib2(int n){
 	int i=1, j=0;
 	int k;
@@ -25,7 +23,6 @@ int fib2(int n){
 	}
 	return j;
 }
-
 int fib3(int n){
 	int i=1, j=0, k=0, h=1, t=0;
 	
@@ -61,7 +58,6 @@ void medir_f1(int n){
 	fib1(n);
 	t2 = microsegundos();
 	t = t2-t1;
-	//printf(" t=%f ",t);
 	int k=10000;
 	if(t<500){
 		entro=1;
@@ -77,7 +73,6 @@ void medir_f1(int n){
 		t12=t2-t1;
 		
 		t=t12/((double)k);
-		//printf(" tr=%f ",t);
 	}
 	
 	x = t / pow(1.1,n);								//SUBESTIMADA
@@ -91,14 +86,13 @@ void medir_f1(int n){
 	}
 }
 void medir_f2(int n){
-	double t1, t2, t12, t, ta, tb, tab;
+	double t1, t2, t12, t;
 	double x, y, z;
 	int entro = 0;
 	t1 = microsegundos();
 	fib2(n);
 	t2 = microsegundos();
 	t = t2-t1;
-	//printf(" t=%f ",t);
 	int k=10000;
 	if(t<500){
 		entro=1;
@@ -110,22 +104,14 @@ void medir_f2(int n){
 		}
 		t2 = microsegundos();
 		
-		ta = microsegundos();
-		for(i=0; i<k; i++){
-			
-		}
-		tb = microsegundos();
-		
 		t12=t2-t1;
-		tab=tb-ta;
 		
-		t=(t12-tab)/((double)k);
-		//printf(" tr=%f ",t);
+		t=t12/((double)k);
 	}
 	
-	x = t / pow(n,0.8);					//SUBESTIMADA
-	y = t / ((double)n);							//AJUSTADA
-	z = t / (((double)n)*(log((double)n)));					//SOBREESTIMADA
+	x = t / pow(n,0.8);							//SUBESTIMADA
+	y = t / ((double)n);						//AJUSTADA
+	z = t / (((double)n)*(log((double)n)));		//SOBREESTIMADA
 	printf("%12d%15.3f%15.6f%15.6f%15.6f", n, t, x, y, z);
 	if(entro){
 		printf("%15d\n", k);
@@ -134,7 +120,7 @@ void medir_f2(int n){
 	}
 }
 void medir_f3(int n){
-	double t1, t2, t12, t, ta, tb, tab;
+	double t1, t2, t12, t;
 	double x, y, z;
 	int entro = 0;
 	t1 = microsegundos();
@@ -153,16 +139,9 @@ void medir_f3(int n){
 		}
 		t2 = microsegundos();
 		
-		ta = microsegundos();
-		for(i=0; i<k; i++){
-			
-		}
-		tb = microsegundos();
-		
 		t12=t2-t1;
-		tab=tb-ta;
 		
-		t=(t12-tab)/((double)k);
+		t=t12/((double)k);
 		//printf(" tr=%f ",t);
 	}
 	
@@ -184,7 +163,6 @@ int main() {
 	for(i=2; i<=32; i*=2){
 		medir_f1(i);
 	}
-		
 	
 	printf("Midiendo tiempo para fib2\n");
 	printf("           n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)              k\n");
@@ -198,11 +176,5 @@ int main() {
 		medir_f3(i);
 	}
 }
-/*
-int main(int argc, char **argv)
-{
-	test(20);
-	return 0;
-}*/
 
 
