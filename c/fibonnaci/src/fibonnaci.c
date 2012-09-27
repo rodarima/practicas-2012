@@ -157,24 +157,26 @@ void medir_f3(int n){
 }
 
 int main() {
-	printf("Midiendo tiempo para fib1\n");
-	printf("        n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)        k\n");
 	int i;
+	printf("Tabla fib1:\n");
+	printf("        n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)        k\n");
 	for(i=2; i<=32; i*=2){
 		medir_f1(i);
 	}
-	
-	printf("Midiendo tiempo para fib2\n");
+	printf("                            SUBESTIMADA       ESTIMADA  SOBREESTIMADA         \n");
+	printf("\nTabla fib2:\n");
 	printf("        n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)        k\n");
 	for(i=1000; i<=10000000; i*=10){
 		medir_f2(i);
 	}
-	
-	printf("Midiendo tiempo para fib3\n");
+	printf("                            SUBESTIMADA       ESTIMADA  SOBREESTIMADA         \n");
+
+	printf("\nTabla fib3:\n");
 	printf("        n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)        k\n");
 	for(i=1000; i<=10000000; i*=10){
 		medir_f3(i);
 	}
+	printf("                            SUBESTIMADA       ESTIMADA  SOBREESTIMADA         \n");
 }
 
 
