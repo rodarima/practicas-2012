@@ -124,3 +124,9 @@ sobreestimada y ajustada. Esta última se aproxima al valor 0.013
 
 -------------------------------- CONCLUSIONES ----------------------------------
 
+Observando detenidamente los tiempos de ejecución de los tres algoritmos podemos
+determinar que los que son de forma iterativa son mucho más eficientes que el 
+recursivo. El más eficiente es el nº3, que presenta tiempos de menos de 1 micro-
+segundo aun cuando el algoritmo es ejecutado en bucle para un término muy eleva-
+do de la sucesión.
+
