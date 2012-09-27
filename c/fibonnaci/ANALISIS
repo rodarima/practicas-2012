@@ -2,6 +2,97 @@ ALGORITMOS: PRÁCTICA 1.
 Rodrigo Arias Mallo; login: rodrigo.arias
 Carlos Pérez Ramil; login: c.pramil
 
-Verificación empírica de los análisis de tres algoritmos para la sucesión de Fibonacci.
+
+Verificación empírica de los análisis de tres algoritmos para la sucesión de 
+Fibonacci.
+
+
+	/	Características de la máquina donde fue realizado el experimento:	/
+	/																		/
+	/		- Procesador Intel(R) Core(TM) i7 CPU Q 720  @ 1.60GHz			/
+	/		- Memoria RAM 4GB												/
+	
+
+Nos proponemos realizar un análisis de la eficiencia de tres algoritmos diferen-
+tes para la sucesión de Fibonacci, centrándonos en el estudio de los tiempos de 
+ejecución. Dichos tiempos serán medidos siempre en microsegundos.
+
+El primer algoritmo es recursivo, de complejidad O(z^n), siendo 
+z = (1+sqrt(5))/2
+
+función fib1 (n);
+	si n<2 entonces devolver n
+	sino devolver fib1(n-1) + fib1(n-2)
+	fin si
+fin función
+
+
+Los dos algoritmos restantes son iterativos, de complejidad O(n) y O(logn), 
+respectivamente.
+
+función fib2 (n);
+	i := 1; j := 0;
+	para k := 1 hasta n hacer
+		j := i + j; i := j - i
+	fin para;
+	devolver j
+fin función
+
+función fib3 (n);
+	i := 1; j := 0; k := 0; h := 1; t := 0
+	mientras n>0 hacer
+		si n es impar entonces
+			t := jh;
+			j := ih + jk + t;
+			i := ik + t
+		fin si;
+		t := h2 ;
+		h := 2kh + t;
+		k := k2 + t;
+		n := n div 2
+	fin mientras;
+	devolver j
+fin función
+
+
+Tras implementar los algoritmos en lenguaje C y comprobar que funcionan 
+correctamente, obtenemos las siguientes tablas de tiempos:
+
+	- La primera columna indica el término n-ésimo de la sucesión
+	- La segunda columna indica el tiempo de ejecución del algoritmo
+	  * En las filas que aparece "k", el tiempo de ejecución es un promedio de k
+	    ejecuciones
+	
+Tabla fib1:	h(n) = 1.1^n ; g(n) = ((1+sqrt(5))/2)^n ; f(n) = 2^n
+
+        n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)        k
+        2        0.01180       0.009752       0.004507       0.002950    10000
+        4        0.03110       0.021242       0.004537       0.001944    10000
+        8        0.31150       0.145317       0.006631       0.001217    10000
+       16       12.99940       2.829048       0.005890       0.000198    10000
+       32    30424.00000    1440.954897       0.006246       0.000007
+
+
+       
+Tabla fib2: h(n) = n^0.8 ; g(n) = n ; f(n) = n*log(n)
+
+        n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)        k
+     1000          6.180       0.024604       0.006180       0.000895    10000
+    10000         60.078       0.037907       0.006008       0.000652    10000
+   100000        727.000       0.072700       0.007270       0.000631
+  1000000       6133.000       0.097201       0.006133       0.000444
+ 10000000      62439.000       0.156840       0.006244       0.000387
+
+
+Tabla fib3: h(n) = sqrt(log(n)) ; g(n) = log(n) ; f(n) = n^0.5ç
+
+        n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)        k
+     1000          0.111       0.042233       0.016069       0.003510    10000
+    10000          0.132       0.043330       0.014277       0.001315    10000
+   100000          0.157       0.046271       0.013637       0.000496    10000
+  1000000          0.158       0.042401       0.011407       0.000158    10000
+ 10000000          0.196       0.048795       0.012154       0.000062    10000
+
+
 
 
