@@ -78,9 +78,9 @@ void medir_f1(int n){
 	x = t / pow(1.1,n);								//SUBESTIMADA
 	y = t / pow((1.0+sqrt(5.0))/2.0, (double)n);	//AJUSTADA
 	z = t / pow(2.0, n);							//SOBREESTIMADA
-	printf("%12d%15.5f%15.6f%15.6f%15.6f", n, t, x, y, z);
+	printf("%9d%15.5f%15.6f%15.6f%15.6f", n, t, x, y, z);
 	if(entro){
-		printf("%15d\n", k);
+		printf("%9d\n", k);
 	}else{
 		printf("\n");
 	}
@@ -112,9 +112,9 @@ void medir_f2(int n){
 	x = t / pow(n,0.8);							//SUBESTIMADA
 	y = t / ((double)n);						//AJUSTADA
 	z = t / (((double)n)*(log((double)n)));		//SOBREESTIMADA
-	printf("%12d%15.3f%15.6f%15.6f%15.6f", n, t, x, y, z);
+	printf("%9d%15.3f%15.6f%15.6f%15.6f", n, t, x, y, z);
 	if(entro){
-		printf("%15d\n", k);
+		printf("%9d\n", k);
 	}else{
 		printf("\n");
 	}
@@ -148,9 +148,9 @@ void medir_f3(int n){
 	x = t / sqrt(log(n));	//SUBESTIMADA
 	y = t / log(n);			//AJUSTADA
 	z = t / pow(n,0.5);		//SOBREESTIMADA
-	printf("%12d%15.3f%15.6f%15.6f%15.6f", n, t, x, y, z);
+	printf("%9d%15.3f%15.6f%15.6f%15.6f", n, t, x, y, z);
 	if(entro){
-		printf("%15d\n", k);
+		printf("%9d\n", k);
 	}else{
 		printf("\n");
 	}
@@ -158,20 +158,20 @@ void medir_f3(int n){
 
 int main() {
 	printf("Midiendo tiempo para fib1\n");
-	printf("           n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)              k\n");
+	printf("        n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)        k\n");
 	int i;
 	for(i=2; i<=32; i*=2){
 		medir_f1(i);
 	}
 	
 	printf("Midiendo tiempo para fib2\n");
-	printf("           n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)              k\n");
+	printf("        n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)        k\n");
 	for(i=1000; i<=10000000; i*=10){
 		medir_f2(i);
 	}
 	
 	printf("Midiendo tiempo para fib3\n");
-	printf("           n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)              k\n");
+	printf("        n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)        k\n");
 	for(i=1000; i<=10000000; i*=10){
 		medir_f3(i);
 	}
