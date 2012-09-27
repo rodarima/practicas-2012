@@ -100,9 +100,15 @@ Tabla fib2: h(n) = n^0.8 ; g(n) = n ; f(n) = n*log(n)
 							SUBESTIMADA		  AJUSTADA	 SOBREESTIMADA
 
 De forma análoga a lo observado en la tabla anterior, vemos que para este 
-segundo algoritmo
+segundo algoritmo también tenemos una cota subestimada -h(n)- y una sobreestima-
+da -f(n)- perfectamente definidas.
 
-Tabla fib3: h(n) = sqrt(log(n)) ; g(n) = log(n) ; f(n) = n^0.5ç
+En este caso, la cota ajustada g(n) converge hacia 0.0061, a pesar de que se
+observa una anomalía en la tercera fila.
+
+
+
+Tabla fib3: h(n) = sqrt(log(n)) ; g(n) = log(n) ; f(n) = n^0.5
 
         n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)        k
      1000          0.111       0.042233       0.016069       0.003510    10000
@@ -112,5 +118,7 @@ Tabla fib3: h(n) = sqrt(log(n)) ; g(n) = log(n) ; f(n) = n^0.5ç
  10000000          0.196       0.048795       0.012154       0.000062    10000
 							SUBESTIMADA		  AJUSTADA	 SOBREESTIMADA
 
+Para el último algoritmo tenemos también las correspondientes cotas subestimada,
+sobreestimada y ajustada. Esta última se aproxima al valor 0.013
 
 
