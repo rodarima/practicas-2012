@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+//Solucion: T/n * log n
+
 int sumaSubMax2(int v[], int n);
 int sumaSubMaxAux(int v[], int izq, int der);
 int max(int a, int b, int c);
