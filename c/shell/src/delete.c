@@ -1,5 +1,6 @@
 #include "delete.h"
 
+
 int cmd_delete(char **arg)
 {
 	if(arg[1]==NULL){
