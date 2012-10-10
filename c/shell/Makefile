@@ -12,7 +12,7 @@ OBJ_LIB = $(LIB)/*.o
 
 test_cmd: $(LIB)/entrada.o $(LIB)/parametros.o $(SRC)/comandos.h \
 		$(TEST)/test_cmd.c $(SRC)/pwd.o $(SRC)/pid.o $(SRC)/delete.o \
-		$(LIB)/usuario.o $(LIB)/path.o
+		$(SRC)/chdir.o $(LIB)/usuario.o $(LIB)/path.o
 	$(CC) $(CFLAGS) $^ -o $(TEST)/test_cmd
 
 test_entrada: $(LIB)/entrada.o $(LIB)/parametros.o $(TEST)/test_entrada.c

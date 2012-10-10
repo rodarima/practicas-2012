@@ -4,6 +4,7 @@
 #include "pwd.h"
 #include "pid.h"
 #include "delete.h"
+#include "chdir.h"
 
 struct cmd_t {
 	char * name;
@@ -19,6 +20,7 @@ struct cmd_t lista_cmd[] =
 	{"pwd", cmd_pwd},
 	{"pid", cmd_pid},
 	{"delete", cmd_delete},
+	{"chdir", cmd_chdir},
 	{NULL, NULL}
 };
 
