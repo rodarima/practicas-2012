@@ -8,10 +8,18 @@ int cmd_delete(char **arg)
 	}
 	int i = 1, r = 0;;
 	while(arg[i]){
+		
 		if(unlink(arg[i])!=0){
-			printf("delete: no se puede borrar «%s»: %s\n", 
-							arg[i], 
-							sys_errlist[errno]);
+			
+			char * str = "delete: no se puede borrar «%s»";
+			char * err = malloc(strlen(str) - 1 + strlen(arg[i]));
+			if(!err){
+				perror("Algo ha fallado en malloc");
+				continue;
+			}
+			sprintf(err, str, arg[i]);
+			perror(err);
+			free(err);
 			r=-1;
 		}
 		i++;
