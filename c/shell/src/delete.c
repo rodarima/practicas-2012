@@ -8,7 +8,6 @@ int cmd_delete(char **arg)
 	}
 	int i = 1, r = 0;;
 	while(arg[i]){
-		
 		if(unlink(arg[i])!=0){
 			
 			char * str = "delete: no se puede borrar «%s»";
