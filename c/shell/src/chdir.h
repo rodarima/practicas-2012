@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include "pwd.h"
 
 int cmd_chdir(char **arg);
 

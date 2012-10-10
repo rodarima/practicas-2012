@@ -5,6 +5,7 @@
 #include "pid.h"
 #include "delete.h"
 #include "chdir.h"
+#include "list.h"
 
 struct cmd_t {
 	char * name;
@@ -21,6 +22,15 @@ struct cmd_t lista_cmd[] =
 	{"pid", cmd_pid},
 	{"delete", cmd_delete},
 	{"chdir", cmd_chdir},
+	{"list", cmd_list},
+	
+	// Funciones reales
+	
+	{"rm", cmd_delete},
+	{"cd", cmd_chdir},
+	{"ls", cmd_list},
+	
+	
 	{NULL, NULL}
 };
 
