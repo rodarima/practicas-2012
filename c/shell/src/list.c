@@ -1,5 +1,5 @@
 #include "list.h"
-
+/*
 int listar(char *directorio){
 	struct dirent **namelist;
 	int n;
@@ -26,7 +26,8 @@ int cmd_list(char **argv)
 
 	return listar(directorio);
 }
-/*
+*/
+
 int strlen_utf8(char *s) {
 	int i = 0, j = 0;
 	while (s[i]) {
@@ -61,7 +62,7 @@ int cmd_list(char **argv)
 	
 	
 	if (n < 0){
-		perror("scandir");
+		perror("list");
 		return -1;
 	}
 	printf("total %d\n", n);
@@ -91,4 +92,4 @@ int cmd_list(char **argv)
 	free(namelist);
 	return 0;
 }
-*/
+
