@@ -28,11 +28,12 @@ int cmd_list(char **argv)
 }
 */
 
+//Devuelve la verdadera longitud de una cadena, incluyendo acentos y demás
 int strlen_utf8(char *s) {
 	int i = 0, j = 0;
 	while (s[i]) {
 		if ((s[i] & 0xc0) != 0x80) j++;
-			i++;
+		i++;
 	}
 	return j;
 }
@@ -46,11 +47,32 @@ void imprime_entrada(char* entrada, int ancho){
 
 int ancho_terminal()
 {
-    struct winsize w;
-    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+	struct winsize w;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 
-    return w.ws_col;
+	return w.ws_col;
 }
+
+int imprime_directorio(char * dir, int ancho){
+	int len = strlen_utf8(dir);
+	
+	printf("%s", dir);
+	
+	struct stat statbuf;
+	
+	if(stat(dir, &statbuf) == -1){
+		perror("stat");
+		return -1;
+	}
+        if(S_ISDIR(statbuf.st_mode)){
+		printf("/");
+		len++;
+	}
+	while(len++ < ancho) printf(" ");
+	return 0;
+
+}
+
 int cmd_list(char **argv)
 {
 	struct dirent **namelist;
@@ -65,7 +87,6 @@ int cmd_list(char **argv)
 		perror("list");
 		return -1;
 	}
-	printf("total %d\n", n);
 	
 	int max = 0;
 	int i = 0;
@@ -82,8 +103,7 @@ int cmd_list(char **argv)
 		for(j=0; j<col; j++){
 			int indice = (col*i)+j;
 			if(indice<n) {
-				imprime_entrada(namelist[indice]->d_name,
-								max);
+				imprime_directorio(namelist[indice]->d_name, max);
 				free(namelist[indice]);
 			}
 		}
