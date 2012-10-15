@@ -1,5 +1,5 @@
 #include "list.h"
-/*
+
 int listar(char *directorio){
 	struct dirent **namelist;
 	int n;
@@ -13,7 +13,8 @@ int listar(char *directorio){
 	
 	int i = 0;
 	for(i=0; i<n; i++){
-		printf("%s\n", namelist[i]->d_name);
+		if(namelist[i]->d_name[0]!='.')
+			printf(" %s\n", namelist[i]->d_name);
 		free(namelist[i]);
 	}
 	free(namelist);
@@ -26,8 +27,8 @@ int cmd_list(char **argv)
 
 	return listar(directorio);
 }
-*/
 
+/*
 //Devuelve la verdadera longitud de una cadena, incluyendo acentos y demás
 int strlen_utf8(char *s) {
 	int i = 0, j = 0;
@@ -73,6 +74,27 @@ int imprime_directorio(char * dir, int ancho){
 
 }
 
+struct dirent ** ocultar_entradas(struct dirent ***e, int n)
+{
+	struct dirent ** entry1 = *e;
+	
+	int num_puntos = 0;
+	int i;
+	
+	for(i=0; i<n; i++){
+		if(entry1[i]->d_name[0] == '.') num_puntos++;
+	}
+	struct dirent **entry2 = malloc(num_puntos*sizeof(struct dirent *));
+	
+	for(i=0; i<n; i++){
+		if(entry1[i]->d_name[0] == '.') {
+			entry2[i]=entry1[1];
+		}
+	}
+	
+	return entry2;
+}
+
 int cmd_list(char **argv)
 {
 	struct dirent **namelist;
@@ -81,7 +103,6 @@ int cmd_list(char **argv)
 	char *directorio = argv[1] ? argv[1]:".";
 
 	n = scandir(directorio, &namelist, 0, alphasort);
-	
 	
 	if (n < 0){
 		perror("list");
@@ -113,3 +134,4 @@ int cmd_list(char **argv)
 	return 0;
 }
 
+*/

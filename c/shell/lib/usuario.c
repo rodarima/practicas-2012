@@ -9,13 +9,13 @@ char *nombre_login()
 
 char *nombre_pc(){
 	char buffer[1024];
-	buffer[1023]='\0';
 	
 	if(gethostname(buffer, 1023)!=0){
 		perror("Algo ha fallado en gethostname");
 		return NULL;
 	}
 	
+	buffer[1023]='\0';
 	int len = strlen(buffer);
 	
 	char *pc = malloc(len*sizeof(char)+1);
