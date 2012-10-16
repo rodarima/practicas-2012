@@ -7,17 +7,21 @@ double microsegundos()
 	if (gettimeofday(&t, 0) < 0 ) return 0.0;
 	return (t.tv_usec + t.tv_sec * 1000000.0);
 }
-/* calcula el tiempo en double que tarda en ejecutarse la funcion f */
-double medir_tiempo_fvector(int (*f)(int [], int), int v[], int n, int *entro)
+/* calcula el tiempo en double que tarda en ejecutarse la funcion */
+double medir_tiempo_fvector(struct funcion_t *funcion, int *e)
 {
+	int (*f)(int [], int) = funcion->f;
+	int *v = funcion->v;
+	int n = funcion->n;
+	int k = funcion->k;
+	
 	double t;
-	(*entro) = 0;
-	int k = MAX_K;
+	int entro = 0;
 	t = microsegundos();
 	f(v,n);
 	t = microsegundos() - t;
 	if(t<MIN_MICRO){
-		(*entro)=1;
+		entro=1;
 		int i=0;
 		
 		t = microsegundos();
@@ -28,6 +32,7 @@ double medir_tiempo_fvector(int (*f)(int [], int), int v[], int n, int *entro)
 		
 		t=t/((double)k);
 	}
+	if(e) (*e)=entro;
 	return t;
 }
 
