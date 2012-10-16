@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "Tiempo.h"
+#include "tiempo.h"
 //s
 //Solucion: T/n * log n
 //
@@ -68,11 +68,14 @@ int sumaSubMaxAux(int v[], int izq, int der){
 
 int main(int argc, char **argv)
 {
+	
 	vector tabla[6] = {{-9, 2, -5, -4, 6},{4, 0, 9, 2, 5},{-2, -1, -9, -7, -1},{9, -2, 1, -7, -8},{15, -2, -5, -4, 16}, {7, -5, 6, 7, -7}};
 
 	int i;
 	for (i=0; i<6; i++) {
-		printf("%d  ---  %d\n", medir_tiempo_fvector(&sumaSubMax1, tabla[i], 5), sumaSubMax2(tabla[i], 5));
+		int entro;
+		double f = medir_tiempo_fvector(&sumaSubMax1, tabla[i], 5, &entro);
+		printf("%f  ---  %d\n", medir_tiempo_fvector(&sumaSubMax1, tabla[i], 5, &entro), sumaSubMax2(tabla[i], 5));
 	}
 
 	//medir_tiempo_fvector(&sumaSubMax1, tabla[0], 5);
