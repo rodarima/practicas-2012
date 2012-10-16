@@ -1,6 +1,8 @@
 #include <stdio.h>
-
+#include "Tiempo.h"
+//s
 //Solucion: T/n * log n
+//
 
 typedef int vector[5];
 
@@ -70,8 +72,10 @@ int main(int argc, char **argv)
 
 	int i;
 	for (i=0; i<6; i++) {
-		printf("%d  ---  %d\n", sumaSubMax1(tabla[i], 5), sumaSubMax2(tabla[i], 5));
+		printf("%d  ---  %d\n", medir_tiempo_fvector(&sumaSubMax1, tabla[i], 5), sumaSubMax2(tabla[i], 5));
 	}
+
+	//medir_tiempo_fvector(&sumaSubMax1, tabla[0], 5);
 
 	return 0;
 }
