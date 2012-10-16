@@ -144,7 +144,7 @@ int main(int argc, char **argv)
 	};
 	
 	
-	//imprimir_tabla(&tabla_t1);
+	imprimir_tabla(&tabla_t1);
 	
 	
 	struct tabla_t tabla_t2 = {
