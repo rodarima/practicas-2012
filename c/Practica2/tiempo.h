@@ -1,18 +1,12 @@
-/*
- * Tiempo.h
- *
- *  Created on: 04/10/2012
- *      Author: rodrigo
- */
-
-#ifndef TIEMPO_H_
-#define TIEMPO_H_
+#ifndef TIEMPO_H
+#define TIEMPO_H
 
 #include <sys/time.h>
 
 #define MIN_MICRO	500
 #define MAX_K		10000
 
-double medir_tiempo_fvector(int (*f)(int [], int), int v[], int n, int *entro);
+double microsegundos();
+double medir_tiempo_fvector(struct funcion_t *funcion, int *e);
 
-#endif /* TIEMPO_H_ */
+#endif
