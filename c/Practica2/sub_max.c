@@ -104,6 +104,23 @@ double cota1_sobre(int n, double t)
 	return t/pow(nd, 2.2);
 }
 
+
+double cota2_sub(int n, double t)
+{
+	double nd = n;
+	return t/nd;
+}
+double cota2(int n, double t)
+{
+	double nd = n;
+	return t/(nd*log(nd));
+}
+double cota2_sobre(int n, double t)
+{
+	double nd = n;
+	return t/pow(nd, 1.1);
+}
+
 int main(int argc, char **argv)
 {
 	srand((int)microsegundos());
@@ -127,13 +144,13 @@ int main(int argc, char **argv)
 	};
 	
 	
-	imprimir_tabla(&tabla_t1);
+	//imprimir_tabla(&tabla_t1);
 	
 	
 	struct tabla_t tabla_t2 = {
 		"Suma Subsecuencia Máxima 2", 	//titulo
 		
-		1, 		//min
+		32, 		//min
 		65536,	 	//max
 		2,  		//paso
 		10000,		//k
@@ -143,9 +160,9 @@ int main(int argc, char **argv)
 		rellenar_vector,//rellenar
 		destruir_vector,//destruir
 		
-		cota1_sub,	//subestimada
-		cota1, 		//estimada
-		cota1_sobre	//sobrestimada
+		cota2_sub,	//subestimada
+		cota2, 		//estimada
+		cota2_sobre	//sobrestimada
 	};
 	
 	
