@@ -1,16 +1,10 @@
 #include <stdio.h>
-<<<<<<< .mine
-#include <stdlib.h>
 #include "tiempo.h"
-=======
-#include "tiempo.h"
->>>>>>> .r53
 //s
 //Solucion: T/n * log n
 //
 
-typedef int vector_est[5];
-typedef int *vector_din;
+typedef int vector[5];
 
 int sumaSubMax1 (int v[], int n);
 int sumaSubMax2(int v[], int n);
@@ -74,27 +68,17 @@ int sumaSubMaxAux(int v[], int izq, int der){
 
 int main(int argc, char **argv)
 {
-<<<<<<< .mine
-	//Secuencias propuestas:
-	vector_est tabla[6] = {{-9, 2, -5, -4, 6},{4, 0, 9, 2, 5},{-2, -1, -9, -7, -1},{9, -2, 1, -7, -8},{15, -2, -5, -4, 16}, {7, -5, 6, 7, -7}};
-	
-	printf("Secuencias propuestas");
-=======
 	
 	vector tabla[6] = {{-9, 2, -5, -4, 6},{4, 0, 9, 2, 5},{-2, -1, -9, -7, -1},{9, -2, 1, -7, -8},{15, -2, -5, -4, 16}, {7, -5, 6, 7, -7}};
 
->>>>>>> .r53
 	int i;
 	for (i=0; i<6; i++) {
 		int entro;
 		double f = medir_tiempo_fvector(&sumaSubMax1, tabla[i], 5, &entro);
 		printf("%f  ---  %d\n", medir_tiempo_fvector(&sumaSubMax1, tabla[i], 5, &entro), sumaSubMax2(tabla[i], 5));
 	}
-	
-	//Secuencias aleatorias:
 
 	//medir_tiempo_fvector(&sumaSubMax1, tabla[0], 5);
-	//se le pasa int[] y número elementos
 
 	return 0;
 }
