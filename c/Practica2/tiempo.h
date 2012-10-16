@@ -7,6 +7,6 @@
 #define MAX_K		10000
 
 double microsegundos();
-double medir_tiempo_fvector(struct funcion_t *funcion, int *e);
+double medir_tiempo_fvector(int (*f)(int [], int), int v[], int n, int k, int *e);
 
 #endif

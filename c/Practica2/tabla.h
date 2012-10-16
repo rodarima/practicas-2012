@@ -1,12 +1,9 @@
 #ifndef TABLA_H
 #define TABLA_H
+#include <stdio.h>
+#include <stdlib.h>
+#include "tiempo.h"
 
-struct funcion_t{
-	int (*f)(int [], int);
-	int v[];
-	int n;
-	int k;
-};
 
 struct tabla_t{
 	char *titulo;
@@ -14,13 +11,20 @@ struct tabla_t{
 	int min;
 	int max;
 	int paso;
+	int k;
 	
-	struct funcion_t *funcion;
+	int (*funcion)(int *, int);
+	int (*crear)(int **, int);
+	int (*rellenar)(int *, int);
+	int (*borrar)(int *, int);
 	
 	double (*subestimada)	(int, double);
 	double (*estimada)	(int, double);
 	double (*sobrestimada)	(int, double);
 };
+
+
+void imprimir_tabla(struct tabla_t *tabla);
 
 #endif
 

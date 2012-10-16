@@ -1,5 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "tiempo.h"
+#include "tabla.h"
+#include "cotas.h"
 //s
 //Solucion: T/n * log n
 //
@@ -12,7 +16,7 @@ int sumaSubMaxAux(int v[], int izq, int der);
 int max(int a, int b, int c);
 
 
-int sumaSubMax1 (int v[], int n)	{
+int sumaSubMax1 (int v[], int n){
 	int sumaMax = 0;
 	int i;
 	for (i=0; i<n; i++) {
@@ -66,10 +70,88 @@ int sumaSubMaxAux(int v[], int izq, int der){
 	}
 }
 
+int crear_vector(int **v, int n){
+	(*v) = malloc(n*sizeof(int));
+	if(v==NULL) return -1;
+	else return 0;
+}
+
+int destruir_vector(int *v, int n){
+	free(v);
+	return 0;
+}
+
+int rellenar_vector(int *v, int n) {
+	int i;
+	for (i=0; i < n; i++)
+		v[i] = (rand() % 21) - 10;
+	return 0;
+}
+
+double cota1_sub(int n, double t)
+{
+	double nd = n;
+	return t/pow(nd, 1.6);
+}
+double cota1(int n, double t)
+{
+	double nd = n;
+	return t/pow(nd, 1.8);
+}
+double cota1_sobre(int n, double t)
+{
+	double nd = n;
+	return t/pow(nd, 2.2);
+}
+
 int main(int argc, char **argv)
 {
+	srand((int)microsegundos());
+
+	struct tabla_t tabla_t1 = {
+		"Suma Subsecuencia Máxima 1", 	//titulo
+		
+		1, 		//min
+		65536,	 	//max
+		2,  		//paso
+		10000,		//k
+		
+		sumaSubMax1, 	//funcion
+		crear_vector,	//crear
+		rellenar_vector,//rellenar
+		destruir_vector,//destruir
+		
+		cota1_sub,	//subestimada
+		cota1, 		//estimada
+		cota1_sobre	//sobrestimada
+	};
 	
-	vector tabla[6] = {{-9, 2, -5, -4, 6},{4, 0, 9, 2, 5},{-2, -1, -9, -7, -1},{9, -2, 1, -7, -8},{15, -2, -5, -4, 16}, {7, -5, 6, 7, -7}};
+	
+	imprimir_tabla(&tabla_t1);
+	
+	
+	struct tabla_t tabla_t2 = {
+		"Suma Subsecuencia Máxima 2", 	//titulo
+		
+		1, 		//min
+		65536,	 	//max
+		2,  		//paso
+		10000,		//k
+		
+		sumaSubMax2, 	//funcion
+		crear_vector,	//crear
+		rellenar_vector,//rellenar
+		destruir_vector,//destruir
+		
+		cota1_sub,	//subestimada
+		cota1, 		//estimada
+		cota1_sobre	//sobrestimada
+	};
+	
+	
+	imprimir_tabla(&tabla_t2);
+	
+	/*vector tabla[6] = {{-9, 2, -5, -4, 6},{4, 0, 9, 2, 5},{-2, -1, -9, -7, -1},{9, -2, 1, -7, -8},{15, -2, -5, -4, 16}, {7, -5, 6, 7, -7}};
 
 	int i;
 	for (i=0; i<6; i++) {
@@ -77,7 +159,7 @@ int main(int argc, char **argv)
 		double f = medir_tiempo_fvector(&sumaSubMax1, tabla[i], 5, &entro);
 		printf("%f  ---  %d\n", medir_tiempo_fvector(&sumaSubMax1, tabla[i], 5, &entro), sumaSubMax2(tabla[i], 5));
 	}
-
+*/
 	//medir_tiempo_fvector(&sumaSubMax1, tabla[0], 5);
 
 	return 0;

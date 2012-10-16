@@ -7,14 +7,10 @@ double microsegundos()
 	if (gettimeofday(&t, 0) < 0 ) return 0.0;
 	return (t.tv_usec + t.tv_sec * 1000000.0);
 }
+
 /* calcula el tiempo en double que tarda en ejecutarse la funcion */
-double medir_tiempo_fvector(struct funcion_t *funcion, int *e)
+double medir_tiempo_fvector(int (*f)(int [], int), int v[], int n, int k, int *e)
 {
-	int (*f)(int [], int) = funcion->f;
-	int *v = funcion->v;
-	int n = funcion->n;
-	int k = funcion->k;
-	
 	double t;
 	int entro = 0;
 	t = microsegundos();
