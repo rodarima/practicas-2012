@@ -15,6 +15,8 @@ void imprimir_linea_tabla(struct tabla_t *tabla, int *v, int n)
 void imprimir_tabla(struct tabla_t *tabla)
 {
 	printf("\nTabla de: %s\n\n", tabla->titulo);
+	printf("        n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)        k\n");
+	
 	int i;
 	for(i=tabla->min; i<=tabla->max; i*=tabla->paso){
 		int *v;

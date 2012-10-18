@@ -76,6 +76,18 @@ int crear_vector(int **v, int n){
 	else return 0;
 }
 
+void ejecutar_propuesto(){
+	vector tabla[6] = {{-9, 2, -5, -4, 6},{4, 0, 9, 2, 5},{-2, -1, -9, -7, -1},{9, -2, 1, -7, -8},{15, -2, -5, -4, 16}, {7, -5, 6, 7, -7}};
+	int valores[] = {6, 20, 0, 9, 20, 15};
+
+	int i;
+	printf("Esperado  ssm1  ssm2\n");
+	for (i=0; i<6; i++) {
+		printf("%4d %7d %5d\n", valores[i], sumaSubMax1(tabla[i],5), sumaSubMax2(tabla[i], 5));
+	}
+	printf("\n");
+}
+
 int destruir_vector(int *v, int n){
 	free(v);
 	return 0;
@@ -91,12 +103,12 @@ int rellenar_vector(int *v, int n) {
 double cota1_sub(int n, double t)
 {
 	double nd = n;
-	return t/pow(nd, 1.6);
+	return t/pow(nd, 1.8);
 }
 double cota1(int n, double t)
 {
 	double nd = n;
-	return t/pow(nd, 1.8);
+	return t/pow(nd, 2.0);
 }
 double cota1_sobre(int n, double t)
 {
@@ -108,28 +120,30 @@ double cota1_sobre(int n, double t)
 double cota2_sub(int n, double t)
 {
 	double nd = n;
-	return t/nd;
+	return t/(nd*pow(log(nd),0.3));
 }
 double cota2(int n, double t)
 {
 	double nd = n;
-	return t/(nd*log(nd));
+	return t/(nd*pow(log(nd),0.57));
 }
 double cota2_sobre(int n, double t)
 {
 	double nd = n;
-	return t/pow(nd, 1.1);
+	return t/(nd*pow(log(nd),0.8));
 }
 
 int main(int argc, char **argv)
 {
 	srand((int)microsegundos());
+	
+	ejecutar_propuesto();
 
 	struct tabla_t tabla_t1 = {
 		"Suma Subsecuencia Máxima 1", 	//titulo
 		
-		1, 		//min
-		65536,	 	//max
+		2, 		//min
+		32768*32,	 	//max
 		2,  		//paso
 		10000,		//k
 		
@@ -150,8 +164,8 @@ int main(int argc, char **argv)
 	struct tabla_t tabla_t2 = {
 		"Suma Subsecuencia Máxima 2", 	//titulo
 		
-		32, 		//min
-		65536,	 	//max
+		512, 		//min
+		32768,		//max
 		2,  		//paso
 		10000,		//k
 		
