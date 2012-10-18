@@ -11,7 +11,9 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-
+#define MODO_L	0x01
+#define MODO_R	0x02
+#define MODO_H	0x04
 
 int cmd_list(char **argv);
 
