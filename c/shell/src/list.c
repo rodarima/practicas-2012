@@ -1,5 +1,7 @@
 #include "list.h"
 
+
+
 int listar(char *directorio){
 	struct dirent **namelist;
 	int n;
@@ -23,9 +25,50 @@ int listar(char *directorio){
 
 int cmd_list(char **argv)
 {
-	char *directorio = argv[1] ? argv[1]:".";
+	
+	int argc = 0;
+	char modo = 0;
+	while(argv[argc]) argc++;
+	
+	/* RESETEAR A CERO!! */
+	optind = 0;
+	
+	int opt;
+	while ((opt = getopt(argc, argv, "lrh")) != -1) {
+		switch (opt) {
+		case 'l':
+			modo|=MODO_L;
+			break;
+		case 'r':
+			modo|=MODO_R;
+			break;
+		case 'h':
+			modo|=MODO_H;
+			break;
+		default: /* '?' */
+			fprintf(stderr, "Uso: %s [-l] [-r] [-h] [dir]\n",
+			argv[0]);
+			return -1;
+		}
+	}
+	printf("El modo es %d\n", modo);
+	
+	
+	char *dir;
+	//si no se especifica el directorio
+	if (optind >= argc) {
+		dir = ".";
+	}else{
+		dir = argv[optind];
+	}
 
-	return listar(directorio);
+	printf("Listar: %s\n", dir);
+	
+	return 0;
+	
+	/*char *directorio = argv[1] ? argv[1]:".";
+
+	return listar(directorio);*/
 }
 
 /*
