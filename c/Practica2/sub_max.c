@@ -142,8 +142,8 @@ int main(int argc, char **argv)
 	struct tabla_t tabla_t1 = {
 		"Suma Subsecuencia Máxima 1", 	//titulo
 		
-		2, 		//min
-		32768*32,	 	//max
+		512, 		//min
+		32768,	 	//max
 		2,  		//paso
 		10000,		//k
 		
