@@ -120,7 +120,7 @@ double cota1_sobre(int n, double t)
 double cota2_sub(int n, double t)
 {
 	double nd = n;
-	return t/(nd*pow(log(nd),0.3));
+	return t/(nd*pow(log(nd),0.1));
 }
 double cota2(int n, double t)
 {
@@ -130,7 +130,7 @@ double cota2(int n, double t)
 double cota2_sobre(int n, double t)
 {
 	double nd = n;
-	return t/(nd*pow(log(nd),0.8));
+	return t/(nd*pow(log(nd),0.95));
 }
 
 int main(int argc, char **argv)
