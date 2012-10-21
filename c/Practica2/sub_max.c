@@ -4,9 +4,6 @@
 #include "tiempo.h"
 #include "tabla.h"
 #include "cotas.h"
-//s
-//Solucion: T/n * log n
-//
 
 typedef int vector[5];
 
@@ -77,13 +74,24 @@ int crear_vector(int **v, int n){
 }
 
 void ejecutar_propuesto(){
-	vector tabla[6] = {{-9, 2, -5, -4, 6},{4, 0, 9, 2, 5},{-2, -1, -9, -7, -1},{9, -2, 1, -7, -8},{15, -2, -5, -4, 16}, {7, -5, 6, 7, -7}};
+	vector tabla[6] = {
+		{-9,  2, -5, -4,  6},
+		{ 4,  0,  9,  2,  5},
+		{-2, -1, -9, -7, -1},
+		{ 9, -2,  1, -7, -8},
+		{15, -2, -5, -4, 16},
+		{ 7, -5,  6,  7, -7}
+	};
 	int valores[] = {6, 20, 0, 9, 20, 15};
 
 	int i;
 	printf("Esperado  ssm1  ssm2\n");
 	for (i=0; i<6; i++) {
-		printf("%4d %7d %5d\n", valores[i], sumaSubMax1(tabla[i],5), sumaSubMax2(tabla[i], 5));
+		printf("%4d %7d %5d\n", 
+			valores[i], 
+			sumaSubMax1(tabla[i],5), 
+			sumaSubMax2(tabla[i], 5)
+		);
 	}
 	printf("\n");
 }
@@ -125,7 +133,7 @@ double cota2_sub(int n, double t)
 double cota2(int n, double t)
 {
 	double nd = n;
-	return t/(nd*pow(log(nd),0.57));
+	return t/(nd*pow(log(nd),0.56));
 }
 double cota2_sobre(int n, double t)
 {
@@ -145,7 +153,7 @@ int main(int argc, char **argv)
 		512, 		//min
 		32768,	 	//max
 		2,  		//paso
-		10000,		//k
+		1000,		//k
 		
 		sumaSubMax1, 	//funcion
 		crear_vector,	//crear
@@ -167,7 +175,7 @@ int main(int argc, char **argv)
 		512, 		//min
 		32768,		//max
 		2,  		//paso
-		10000,		//k
+		1000,		//k
 		
 		sumaSubMax2, 	//funcion
 		crear_vector,	//crear
@@ -181,17 +189,6 @@ int main(int argc, char **argv)
 	
 	
 	imprimir_tabla(&tabla_t2);
-	
-	/*vector tabla[6] = {{-9, 2, -5, -4, 6},{4, 0, 9, 2, 5},{-2, -1, -9, -7, -1},{9, -2, 1, -7, -8},{15, -2, -5, -4, 16}, {7, -5, 6, 7, -7}};
-
-	int i;
-	for (i=0; i<6; i++) {
-		int entro;
-		double f = medir_tiempo_fvector(&sumaSubMax1, tabla[i], 5, &entro);
-		printf("%f  ---  %d\n", medir_tiempo_fvector(&sumaSubMax1, tabla[i], 5, &entro), sumaSubMax2(tabla[i], 5));
-	}
-*/
-	//medir_tiempo_fvector(&sumaSubMax1, tabla[0], 5);
 
 	return 0;
 }
