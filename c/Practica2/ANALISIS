@@ -15,10 +15,9 @@ Realizaremos un  análisis de la eficiencia de dos  algoritmos diferentes para l
 suma de la subsecuencia máxima.  Nos centraremos en el estudio de los tiempos de 
 ejecución, que serán medidos siempre en microsegundos.
 
-
-Ambos algoritmos son recursivos,  pero el segundo es más eficiente que el prime-
-ro, ya que emplea la técnica de divide y vencerás.  Aquí presentamos ambos algo-
-ritmos:
+El primer algoritmo es  iterativo,  mientras que el  segundo es recursivo siendo
+este más eficiente que el primero,  ya que emplea  la técnica de divide y vence-
+rás. Aquí presentamos ambos algoritmos:
 
 función sumaSubMax1 (v[1..n])
 	sumaMax := 0;
@@ -138,10 +137,10 @@ serva una anomalía en la primera fila de la tabla.
 
 -------------------------------- CONCLUSIONES ----------------------------------
 
-Aunque ambos algoritmos son recursivos, se puede aprecier claramente la diferen-
-cia de tiempos de SumaSubMax1 con SumaSubMax2. Si observamos el tiempo que tarda
-la fila de ambas tablas para el último valor, n=32768, vemos que el primer algo-
-ritmo tarda unos 2,7 segundos en completarse,  mientras que el segundo algoritmo
-se ejecuta en tan  sólo 4,3 milisegundos.  Por tanto comprobamos que sumaSubMax2 
-es claramente más rápido.
+Aunque el primer algoritmo es iterativo,  se puede apreciar claramente la  dife-
+rencia de tiempos de  SumaSubMax1  con SumaSubMax2.  Si observamos el tiempo que 
+tarda la fila de ambas tablas para el último valor, n=32768, vemos que el primer
+algoritmo tarda unos 2,7 segundos en completarse,  mientras que el segundo algo-
+ritmo se ejecuta en tan  sólo 4,3 milisegundos.  Por tanto comprobamos que suma-
+SubMax2 es claramente más rápido.
 
