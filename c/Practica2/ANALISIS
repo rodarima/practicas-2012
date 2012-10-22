@@ -108,7 +108,8 @@ Por el contrario, la función f(n)  tiene un crecimiento superior al de t(n), co
 lo cual la serie de la tabla es decreciente, y f(n) es la cota sobreestimada.
 
 La función g(n) crece de forma similar a t(n), y por tanto los valores de la ta-
-bla tienden a una constante de valor 0.0026.  De todas formas,  el cálculo es a-proximado,  ya que se observan algunos valores  anómalos en la medición,  debido 
+bla tienden a una constante de valor 0.0026.  De todas formas,  el cálculo es a-
+proximado,  ya que se observan algunos valores  anómalos en la medición,  debido 
 por ejemplo a interrupciones del sistema operativo.
 
 
@@ -116,6 +117,7 @@ por ejemplo a interrupciones del sistema operativo.
 Tabla sumaSubMax2: 
 h(n) = n * log(n)^0.1; g(n) = n * log(n)^0.57; f(n) = n * log(n)^0.95
 
+                            SUBESTIMADA       AJUSTADA  SOBREESTIMADA
         n           t(n)      t(n)/h(n)      t(n)/g(n)      t(n)/f(n)        k
       512         56.965       0.092647       0.039187       0.019544    10000
      1024        113.600       0.091411       0.036797       0.017632    10000
@@ -125,7 +127,6 @@ h(n) = n * log(n)^0.1; g(n) = n * log(n)^0.57; f(n) = n * log(n)^0.95
     16384       2122.000       0.103188       0.035462       0.014953
     32768       4354.000       0.105135       0.034978       0.014367
 
-							SUBESTIMADA		  AJUSTADA	 SOBREESTIMADA
 
 Procedemos de forma similar  para analizar  este segundo algoritmo, y observamos
 también una cota subestimada -h(n)- y una sobreestimada -f(n)- perfectamente de-
