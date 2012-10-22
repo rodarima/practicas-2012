@@ -1,33 +1,85 @@
 #include "list.h"
 
+int ocultar(const struct dirent *dir);
+int is_dir(char *dir);
+int listar_l(struct dirent *dir);
+int listar_r(char *ruta, struct dirent **dirlist, int n);
+int listar_h(char *directorio);
 
+char modo;
 
-int listar(char *directorio){
-	struct dirent **namelist;
-	int n;
-	
-	n = scandir(directorio, &namelist, 0, alphasort);
-	
-	if (n < 0){
-		perror("list");
+int ocultar(const struct dirent *dir)
+{
+	if(!(modo & MODO_H) && (dir->d_name[0]=='.')) return 0;
+	return 1;
+}
+
+int is_dir(char *dir)
+{
+	struct stat sb;
+
+	if (stat(dir, &sb) == -1) {
+		perror("stat");
 		return -1;
 	}
-	
-	int i = 0;
-	for(i=0; i<n; i++){
-		if(namelist[i]->d_name[0]!='.')
-			printf(" %s\n", namelist[i]->d_name);
-		free(namelist[i]);
+	return S_ISDIR(sb.st_mode);
+
+}
+
+int listar_l(struct dirent *dir)
+{
+	if(modo&MODO_L){
+		printf("   laargo: %s\n", dir->d_name);
+	}else{
+		printf("   %s\n", dir->d_name);
 	}
-	free(namelist);
 	return 0;
 }
+
+int listar_r(char *ruta, struct dirent **dirlist, int n)
+{
+	int i;
+	for(i=0; i<n; i++){
+		listar_l(dirlist[i]);
+		//directorio? recursividad
+		char *dirname = dirlist[i]->d_name;
+		char *new_path = malloc(strlen(dirname) + strlen(ruta) + 2);
+		strcpy(new_path, ruta);
+		strcat(new_path, "/");
+		strcat(new_path, dirname);
+		if((modo & MODO_R) && (is_dir(new_path))){
+			if((strcmp(dirname, ".")!=0) && (strcmp(dirname, "..")!=0))
+				listar_h(new_path);
+		}
+		free(new_path);
+		free(dirlist[i]);
+	}
+	return 0;
+}
+
+int listar_h(char *directorio)
+{
+	printf("listando: %s\n", directorio);
+	struct dirent **namelist;
+	int n;
+	n = scandir(directorio, &namelist, ocultar, alphasort);
+	if (n < 0){
+		perror("scandir");
+		return -1;
+	}
+	else {
+		listar_r(directorio, namelist, n);
+		free(namelist);
+	}
+	return 0;
+}
+
 
 int cmd_list(char **argv)
 {
 	
 	int argc = 0;
-	char modo = 0;
+	modo = 0;
 	while(argv[argc]) argc++;
 	
 	/* RESETEAR A CERO!! */
@@ -61,14 +113,11 @@ int cmd_list(char **argv)
 	}else{
 		dir = argv[optind];
 	}
-
+	
 	printf("Listar: %s\n", dir);
-	
-	return 0;
-	
-	/*char *directorio = argv[1] ? argv[1]:".";
+	listar_h(dir);
 
-	return listar(directorio);*/
+	return 0;
 }
 
 /*
