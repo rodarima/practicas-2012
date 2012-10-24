@@ -29,18 +29,38 @@ int is_dir(char *dir)
 int listar_l(char *ruta, struct dirent *dir)
 {
 	if(modo&MODO_L){
-		struct stat *info = malloc(sizeof(struct stat));
-		if (info == NULL) {
-			printf("Error: malloc falló");
-			return -1;
-		}
+		struct stat info;
+		int check_stat;
 		
 		ruta = concatenar_carpeta(ruta, dir->dname);
+		check_stat = stat(ruta, &info);		
 		
-		
-		
-		printf("   laargo: %s\n", dir->d_name);
-	
+		if (!check_stat) {
+			printf("%ld ", (long)info.st_ino); 		//I-nodo
+			
+			//Obtener permisos juas juas
+			printf("% ", ); 				//Permisos
+			printf("%ld ", (long)info.st_nlink); 		//Links
+			
+			struct passwd *user = getpwuid(info.st_uid);
+			if (user)
+				printf("%s ", user->pw_name); 		//Propietario (usuario)
+			else
+				printf("Error uid ");
+			
+			struct group *gr = getgrgid(info.st_gid);
+			if (group)
+				printf("%s ", gr->gr_name);		//Propietario (grupo)
+			else
+				printf("Error gid ");
+				
+			printf("%lld ", (long long)info.st_size); 	//Tamaño (bytes)
+			printf("%s ", ctime(&info.st_mtime)); 		//Fecha de última modificación
+			printf("%s\n", dir->d_name); 			//Nombre
+		}else {
+			printf("Error: stat falló");
+		}
+					
 	}else{
 		printf("   %s\n", dir->d_name);
 	}
