@@ -5,6 +5,7 @@ int is_dir(char *dir);
 int listar_l(char* ruta, struct dirent *dir);
 int listar_r(char *ruta, struct dirent **dirlist, int n);
 int listar_h(char *directorio);
+char * concatenar_carpeta(char *path, char *path2);
 
 char modo;
 
@@ -67,7 +68,8 @@ int listar_l(char *ruta, struct dirent *dir)
 	return 0;
 }
 
-char * concatenar_carpeta(char *path, char *path2){
+char * concatenar_carpeta(char *path, char *path2)
+{
 	int l_path = strlen(path);
 	char *fin;
 	if((l_path>=0) && (path[l_path-1]=='/')){
