@@ -164,7 +164,7 @@ int listar_l(char *ruta_vieja, struct dirent *dir)
 		}
 					
 	}else{
-		printf("   %s\n", dir->d_name);
+		printf(" %s\n", dir->d_name);
 	}
 	return 0;
 }
