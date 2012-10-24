@@ -13,6 +13,7 @@
 #include <sys/types.h>
 #include <pwd.h>
 #include <grp.h>
+#include <time.h>
 
 
 #define MODO_L	0x01
