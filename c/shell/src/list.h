@@ -14,6 +14,7 @@
 #include <pwd.h>
 #include <grp.h>
 #include <time.h>
+#include <sys/time.h>
 
 
 #define MODO_L	0x01

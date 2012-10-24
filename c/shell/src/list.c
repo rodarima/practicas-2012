@@ -27,6 +27,76 @@ int is_dir(char *dir)
 
 }
 
+
+/*
+ *  Importado de coreutils
+ * 
+ */
+char ftypelet (mode_t bits)
+{
+  /* These are the most common, so test for them first.  */
+  if (S_ISREG (bits))
+    return '-';
+  if (S_ISDIR (bits))
+    return 'd';
+
+  /* Other letters standardized by POSIX 1003.1-2004.  */
+  if (S_ISBLK (bits))
+    return 'b';
+  if (S_ISCHR (bits))
+    return 'c';
+  if (S_ISLNK (bits))
+    return 'l';
+  if (S_ISFIFO (bits))
+    return 'p';
+
+  /* Other file types (though not letters) standardized by POSIX.  */
+  if (S_ISSOCK (bits))
+    return 's';
+
+  /* Nonstandard file types.  
+  if (S_ISCTG (bits))
+    return 'C';
+  if (S_ISDOOR (bits))
+    return 'D';
+  if (S_ISMPB (bits) || S_ISMPC (bits))
+    return 'm';
+  if (S_ISNWK (bits))
+    return 'n';
+  if (S_ISPORT (bits))
+    return 'P';
+  if (S_ISWHT (bits))
+    return 'w';
+  */
+
+  return '?';
+}
+
+/* Like filemodestring, but rely only on MODE.  */
+
+void strmode (mode_t mode, char *str)
+{
+  str[0] = ftypelet (mode);
+  str[1] = mode & S_IRUSR ? 'r' : '-';
+  str[2] = mode & S_IWUSR ? 'w' : '-';
+  str[3] = (mode & S_ISUID
+            ? (mode & S_IXUSR ? 's' : 'S')
+            : (mode & S_IXUSR ? 'x' : '-'));
+  str[4] = mode & S_IRGRP ? 'r' : '-';
+  str[5] = mode & S_IWGRP ? 'w' : '-';
+  str[6] = (mode & S_ISGID
+            ? (mode & S_IXGRP ? 's' : 'S')
+            : (mode & S_IXGRP ? 'x' : '-'));
+  str[7] = mode & S_IROTH ? 'r' : '-';
+  str[8] = mode & S_IWOTH ? 'w' : '-';
+  str[9] = (mode & S_ISVTX
+            ? (mode & S_IXOTH ? 't' : 'T')
+            : (mode & S_IXOTH ? 'x' : '-'));
+  str[10] = ' ';
+  str[11] = '\0';
+}
+
+
 int listar_l(char *ruta_vieja, struct dirent *dir)
 {
 	if(modo&MODO_L){
@@ -38,30 +108,35 @@ int listar_l(char *ruta_vieja, struct dirent *dir)
 			perror("concatenar carpeta");
 			return -1;
 		}
-		check_stat = stat(ruta, &info);		
+		check_stat = lstat(ruta, &info);		
 		
 		if (!check_stat) {
 			printf("%10ld ", (long)info.st_ino); 		//I-nodo
 			
 			//Obtener permisos juas juas
-			printf("juas"); 				//Permisos
-			printf("%ld ", (long)info.st_nlink); 		//Links
+			char buf[12];
+			strmode(info.st_mode, buf);
+			printf("%s", buf); 				//Permisos
+			printf("%3ld ", (long)info.st_nlink); 		//Links
 			
 			struct passwd *user = getpwuid(info.st_uid);
 			if (user)
-				printf("%s ", user->pw_name); 		//Propietario (usuario)
+				printf("%9s ", user->pw_name); 		//Propietario (usuario)
 			else
 				printf("?? ");
 			
 			struct group *gr = getgrgid(info.st_gid);
 			if (gr)
-				printf("%s ", gr->gr_name);		//Propietario (grupo)
+				printf("%9s ", gr->gr_name);		//Propietario (grupo)
 			else
 				printf("?? ");
 				
-			printf("%15lld ", (long long)info.st_size); 	//Tamaño (bytes)
+			printf("%9lld  ", (long long)info.st_size); 	//Tamaño (bytes)
 			
-			printf("%s ", ctime(&info.st_mtime)); 		//Fecha de última modificación
+			char time_string[50];
+			struct tm *tm_tiempo = localtime(&info.st_mtime);
+			strftime (time_string, sizeof(time_string), "%d %b %Y %H:%M", tm_tiempo);
+			printf("%s ", time_string); 			//Fecha de última modificación
 			printf("%s\n", dir->d_name); 			//Nombre
 		}else {
 			printf("Error: stat falló");
@@ -98,6 +173,7 @@ int listar_r(char *ruta, struct dirent **dirlist, int n)
 	for(i=0; i<n; i++){
 		listar_l(ruta, dirlist[i]);
 	}
+	printf("\n");
 	if(modo & MODO_R) {
 		for(i=0; i<n; i++){
 			//directorio? recursividad
@@ -123,7 +199,7 @@ int listar_r(char *ruta, struct dirent **dirlist, int n)
 
 int listar_h(char *directorio)
 {
-	printf("listando: %s\n", directorio);
+	printf("%s:\n", directorio);
 	struct dirent **namelist;
 	int n;
 	n = scandir(directorio, &namelist, ocultar, alphasort);
@@ -167,7 +243,7 @@ int cmd_list(char **argv)
 			return -1;
 		}
 	}
-	printf("El modo es %d\n", modo);
+	//printf("El modo es %d\n", modo);
 	
 	
 	char *dir;
@@ -178,7 +254,7 @@ int cmd_list(char **argv)
 		dir = argv[optind];
 	}
 	
-	printf("Listar: %s\n", dir);
+	//printf("Listar: %s\n", dir);
 	listar_h(dir);
 
 	return 0;
