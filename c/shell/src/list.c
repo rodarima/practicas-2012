@@ -27,35 +27,40 @@ int is_dir(char *dir)
 
 }
 
-int listar_l(char *ruta, struct dirent *dir)
+int listar_l(char *ruta_vieja, struct dirent *dir)
 {
 	if(modo&MODO_L){
 		struct stat info;
 		int check_stat;
 		
-		ruta = concatenar_carpeta(ruta, dir->dname);
+		char *ruta = concatenar_carpeta(ruta_vieja, dir->d_name);
+		if(!ruta){
+			perror("concatenar carpeta");
+			return -1;
+		}
 		check_stat = stat(ruta, &info);		
 		
 		if (!check_stat) {
-			printf("%ld ", (long)info.st_ino); 		//I-nodo
+			printf("%10ld ", (long)info.st_ino); 		//I-nodo
 			
 			//Obtener permisos juas juas
-			printf("% ", ); 				//Permisos
+			printf("juas"); 				//Permisos
 			printf("%ld ", (long)info.st_nlink); 		//Links
 			
 			struct passwd *user = getpwuid(info.st_uid);
 			if (user)
 				printf("%s ", user->pw_name); 		//Propietario (usuario)
 			else
-				printf("Error uid ");
+				printf("?? ");
 			
 			struct group *gr = getgrgid(info.st_gid);
-			if (group)
+			if (gr)
 				printf("%s ", gr->gr_name);		//Propietario (grupo)
 			else
-				printf("Error gid ");
+				printf("?? ");
 				
-			printf("%lld ", (long long)info.st_size); 	//Tamaño (bytes)
+			printf("%15lld ", (long long)info.st_size); 	//Tamaño (bytes)
+			
 			printf("%s ", ctime(&info.st_mtime)); 		//Fecha de última modificación
 			printf("%s\n", dir->d_name); 			//Nombre
 		}else {
