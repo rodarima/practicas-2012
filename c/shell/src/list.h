@@ -10,6 +10,8 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+
 
 #define MODO_L	0x01
 #define MODO_R	0x02

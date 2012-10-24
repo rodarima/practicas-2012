@@ -29,6 +29,15 @@ int is_dir(char *dir)
 int listar_l(char *ruta, struct dirent *dir)
 {
 	if(modo&MODO_L){
+		struct stat *info = malloc(sizeof(struct stat));
+		if (info == NULL) {
+			printf("Error: malloc falló");
+			return -1;
+		}
+		
+		ruta = concatenar_carpeta(ruta, dir->dname);
+		
+		
 		
 		printf("   laargo: %s\n", dir->d_name);
 	
