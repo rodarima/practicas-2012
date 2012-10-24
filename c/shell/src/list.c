@@ -109,9 +109,9 @@ int listar_l(char *ruta_vieja, struct dirent *dir)
 			return -1;
 		}
 		check_stat = lstat(ruta, &info);		
-		
+		free(ruta);
 		if (!check_stat) {
-			printf("%10ld ", (long)info.st_ino); 		//I-nodo
+			printf(" %7ld ", (long)info.st_ino); 		//I-nodo
 			
 			//Obtener permisos juas juas
 			char buf[12];
@@ -120,16 +120,36 @@ int listar_l(char *ruta_vieja, struct dirent *dir)
 			printf("%3ld ", (long)info.st_nlink); 		//Links
 			
 			struct passwd *user = getpwuid(info.st_uid);
-			if (user)
-				printf("%9s ", user->pw_name); 		//Propietario (usuario)
-			else
+			if (user){
+				printf("%s ", user->pw_name); 		//Propietario (usuario)
+			}
+			else{
 				printf("?? ");
+			}
 			
-			struct group *gr = getgrgid(info.st_gid);
-			if (gr)
-				printf("%9s ", gr->gr_name);		//Propietario (grupo)
-			else
+			struct group *gr = getgrgid(info.st_uid);
+			if (gr){
+				printf("%s ", gr->gr_name); 		//Propietario (grupo)
+			}
+			else{
 				printf("?? ");
+			}
+			
+			/*
+			struct group gr;
+			struct group *gr_p;
+			char bufgr[500];
+			int errgr = getgrgid_r(info.st_uid, 
+				&gr,
+				bufgr, 
+				500, 
+				&gr_p);
+			if (!errgr){
+				printf("%9s ", gr.gr_name);		//Propietario (grupo)
+			}
+			else{
+				printf("?? ");
+			}*/
 				
 			printf("%9lld  ", (long long)info.st_size); 	//Tamaño (bytes)
 			
@@ -137,6 +157,7 @@ int listar_l(char *ruta_vieja, struct dirent *dir)
 			struct tm *tm_tiempo = localtime(&info.st_mtime);
 			strftime (time_string, sizeof(time_string), "%d %b %Y %H:%M", tm_tiempo);
 			printf("%s ", time_string); 			//Fecha de última modificación
+			
 			printf("%s\n", dir->d_name); 			//Nombre
 		}else {
 			printf("Error: stat falló");
@@ -174,25 +195,24 @@ int listar_r(char *ruta, struct dirent **dirlist, int n)
 		listar_l(ruta, dirlist[i]);
 	}
 	printf("\n");
-	if(modo & MODO_R) {
-		for(i=0; i<n; i++){
-			//directorio? recursividad
-			char *dirname = dirlist[i]->d_name;
-			char *new_path = concatenar_carpeta(ruta, dirname);
-			if(!new_path){
-				free(dirlist[i]);
-				perror("concatenar_carpeta");
-				break;
-			}
-			if (is_dir(new_path)){
-				if((strcmp(dirname, ".")!=0) && 
-				   (strcmp(dirname, "..")!=0))
-				   
-					listar_h(new_path);
-			}
-			free(new_path);
-			free(dirlist[i]);
+	for(i=0; i<n; i++){
+		//directorio? recursividad
+		char *dirname = dirlist[i]->d_name;
+		char *new_path = concatenar_carpeta(ruta, dirname);
+		
+		if(!new_path){
+			perror("concatenar_carpeta");
+			break;
 		}
+		if((modo & MODO_R) && (is_dir(new_path))){
+			if((strcmp(dirname, ".")!=0) && 
+			   (strcmp(dirname, "..")!=0)){
+			   
+				listar_h(new_path);
+			}
+		}
+		free(new_path);
+		free(dirlist[i]);
 	}
 	return 0;
 }
@@ -208,6 +228,7 @@ int listar_h(char *directorio)
 		return -1;
 	}
 	else {
+		if(modo & MODO_L) printf("total: %d archivo(s)\n", n);
 		listar_r(directorio, namelist, n);
 		free(namelist);
 	}
