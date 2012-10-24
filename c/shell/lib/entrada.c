@@ -19,13 +19,16 @@ char * leer_linea(FILE * fichero){
 			fin = 1;
 		}
 		
-		linea = realloc(linea, total+num_caracteres+1);
+		char *check_linea = realloc(linea, total+num_caracteres+1);
 		
-		if(!linea) {
+		if(!check_linea) {
 			perror("Realloc ha fallado");
+			free(linea);
 			exit(-1);
 		}
-		
+
+		linea = check_linea;		
+
 		strncpy(linea+total, buffer, num_caracteres);
 		total += num_caracteres;
 		*(linea+total)='\0';
@@ -49,11 +52,16 @@ char * leer_linea_n(FILE * fichero){
 		if((num_caracteres>0) && (buffer[num_caracteres-1] == '\n')){
 			fin = 1;
 		}
-		linea = realloc(linea, total+num_caracteres+1);
-		if(!linea) {
+		char *check_linea = realloc(linea, total+num_caracteres+1);
+		
+		if(!check_linea) {
 			perror("Realloc ha fallado");
+			free(linea);
 			exit(-1);
 		}
+
+		linea = check_linea;		
+
 		strncpy(linea+total, buffer, num_caracteres);
 		total += num_caracteres;
 		*(linea+total)='\0';

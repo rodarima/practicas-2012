@@ -26,10 +26,12 @@ int is_dir(char *dir)
 
 }
 
-int listar_l(struct dirent *dir)
+int listar_l(char *ruta, struct dirent *dir)
 {
 	if(modo&MODO_L){
+		
 		printf("   laargo: %s\n", dir->d_name);
+	
 	}else{
 		printf("   %s\n", dir->d_name);
 	}
@@ -40,19 +42,23 @@ int listar_r(char *ruta, struct dirent **dirlist, int n)
 {
 	int i;
 	for(i=0; i<n; i++){
-		listar_l(dirlist[i]);
-		//directorio? recursividad
-		char *dirname = dirlist[i]->d_name;
-		char *new_path = malloc(strlen(dirname) + strlen(ruta) + 2);
-		strcpy(new_path, ruta);
-		strcat(new_path, "/");
-		strcat(new_path, dirname);
-		if((modo & MODO_R) && (is_dir(new_path))){
-			if((strcmp(dirname, ".")!=0) && (strcmp(dirname, "..")!=0))
-				listar_h(new_path);
+		listar_l(ruta, dirlist[i]);
+	}
+	if(modo & MODO_R) {
+		for(i=0; i<n; i++){
+			//directorio? recursividad
+			char *dirname = dirlist[i]->d_name;
+			char *new_path = malloc(strlen(dirname) + strlen(ruta) + 2);
+			strcpy(new_path, ruta);
+			strcat(new_path, "/");
+			strcat(new_path, dirname);
+			if (is_dir(new_path)){
+				if((strcmp(dirname, ".")!=0) && (strcmp(dirname, "..")!=0))
+					listar_h(new_path);
+			}
+			free(new_path);
+			free(dirlist[i]);
 		}
-		free(new_path);
-		free(dirlist[i]);
 	}
 	return 0;
 }
