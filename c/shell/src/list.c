@@ -2,7 +2,7 @@
 
 int ocultar(const struct dirent *dir);
 int is_dir(char *dir);
-int listar_l(struct dirent *dir);
+int listar_l(char* ruta, struct dirent *dir);
 int listar_r(char *ruta, struct dirent **dirlist, int n);
 int listar_h(char *directorio);
 
@@ -18,9 +18,9 @@ int is_dir(char *dir)
 {
 	struct stat sb;
 
-	if (stat(dir, &sb) == -1) {
-		perror("stat");
-		return -1;
+	if (lstat(dir, &sb) == -1) {
+		perror(dir);
+		return 0;
 	}
 	return S_ISDIR(sb.st_mode);
 
@@ -67,6 +67,24 @@ int listar_l(char *ruta, struct dirent *dir)
 	return 0;
 }
 
+char * concatenar_carpeta(char *path, char *path2){
+	int l_path = strlen(path);
+	char *fin;
+	if((l_path>=0) && (path[l_path-1]=='/')){
+		fin = malloc(l_path + strlen(path2) + 1);
+		if(!fin) return NULL;
+		strcpy(fin, path);
+		strcat(fin, path2);
+	}else{
+		fin = malloc(l_path + strlen(path2) + 2);
+		if(!fin) return NULL;
+		strcpy(fin, path);
+		strcat(fin, "/");
+		strcat(fin, path2);
+	}
+	return fin;
+}
+
 int listar_r(char *ruta, struct dirent **dirlist, int n)
 {
 	int i;
@@ -77,12 +95,16 @@ int listar_r(char *ruta, struct dirent **dirlist, int n)
 		for(i=0; i<n; i++){
 			//directorio? recursividad
 			char *dirname = dirlist[i]->d_name;
-			char *new_path = malloc(strlen(dirname) + strlen(ruta) + 2);
-			strcpy(new_path, ruta);
-			strcat(new_path, "/");
-			strcat(new_path, dirname);
+			char *new_path = concatenar_carpeta(ruta, dirname);
+			if(!new_path){
+				free(dirlist[i]);
+				perror("concatenar_carpeta");
+				break;
+			}
 			if (is_dir(new_path)){
-				if((strcmp(dirname, ".")!=0) && (strcmp(dirname, "..")!=0))
+				if((strcmp(dirname, ".")!=0) && 
+				   (strcmp(dirname, "..")!=0))
+				   
 					listar_h(new_path);
 			}
 			free(new_path);
