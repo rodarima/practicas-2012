@@ -6,6 +6,7 @@
 #include "delete.h"
 #include "chdir.h"
 #include "list.h"
+#include "quit.h"
 
 struct cmd_t {
 	char * name;
@@ -23,6 +24,9 @@ struct cmd_t lista_cmd[] =
 	{"delete", cmd_delete},
 	{"chdir", cmd_chdir},
 	{"list", cmd_list},
+	{"quit", cmd_quit},
+	{"fin", cmd_quit},
+	{"exit", cmd_quit},
 	
 	// Funciones reales
 	

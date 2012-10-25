@@ -4,6 +4,7 @@
 #include "../lib/usuario.h"
 #include "../lib/path.h"
 #include "../src/comandos.h"
+#include "test_cmd.h"
 
 int ejecutar(char **arg){
 	int i = 0;
@@ -30,16 +31,17 @@ int ejecutar(char **arg){
 	}
 	return 0;
 }
-
 int main(int argc, char **argv)
 {
-	char * linea;
-	while(1){
+	char *linea;
+	salir_cmd = 0;
+	while(!salir_cmd)
+	{
 		char *path = obtener_path();
 		char *pc = nombre_pc();
 		printf("%s#%s:%s$ ", nombre_login(), pc, path);
 		//Salir si pulsamos CTRL+D o introducimos EOF
-		if((linea=leer_linea(stdin))==NULL){	
+		if((linea=leer_linea(stdin))==NULL){
 			printf("\n");
 			
 			free(path);
