@@ -11,6 +11,10 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <pwd.h>
+#include <grp.h>
+#include <time.h>
+#include <sys/time.h>
 
 
 #define MODO_L	0x01

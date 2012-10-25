@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 	while(1){
 		char *path = obtener_path();
 		char *pc = nombre_pc();
-		printf("%s@%s:%s$ ", nombre_login(), pc, path);
+		printf("%s#%s:%s$ ", nombre_login(), pc, path);
 		//Salir si pulsamos CTRL+D o introducimos EOF
 		if((linea=leer_linea(stdin))==NULL){	
 			printf("\n");
