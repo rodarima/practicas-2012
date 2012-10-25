@@ -10,8 +10,10 @@ shadow:         compat
 
 por:
 
+...
 passwd:         files
 group:          files
 shadow:         files
+...
 
 Con esto, el valgrind no mostrará ninguna fuga de memoria.
