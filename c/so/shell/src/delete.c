@@ -1,10 +1,22 @@
+/* 
+ *  AUTORES:
+ * 	* Carlos Pérez Ramil
+ * 	* Rodrigo Arias Mallo
+ * 
+ *  GRUPO:
+ * 	2.3.2
+ * 
+ *  HORARIO:
+ * 	Viernes de 8:30 a 10:30
+ */
+
 #include "delete.h"
 
 
 int cmd_delete(char **arg)
 {
 	if(arg[1]==NULL){
-		printf("No se indicó el archivo a borrar.\n");
+		printf("Falta un operando\nUso: %s [ARCHIVO]\n", arg[0]);
 		return 0;
 	}
 	int i = 1, r = 0;;

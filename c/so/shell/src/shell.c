@@ -16,7 +16,7 @@
 #include "../lib/usuario.h"
 #include "../lib/path.h"
 #include "../src/comandos.h"
-#include "test_cmd.h"
+#include "shell.h"
 
 int ejecutar(char **arg){
 	int i = 0;
@@ -47,6 +47,7 @@ int main(int argc, char **argv)
 {
 	char *linea;
 	salir_cmd = 0;
+	printf("%s", INTRO_TXT);
 	while(!salir_cmd)
 	{
 		char *path = obtener_path();

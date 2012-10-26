@@ -1,3 +1,5 @@
+ATENCION!
+
 Se produce una fuga de memoria con las funciones getpwuid y getgrgid, (también
 con getpwuid_r y getgrgid_r. Para evitar estas fugas tan sólo basta con cambiar
 unas líneas del fichero /etc/nsswitch.conf , en concreto las siguientes:
@@ -15,3 +17,14 @@ group:          files
 shadow:         files
 
 Con esto, el valgrind no mostrará ninguna fuga de memoria.
+
+
+
+COMPILACIÓN
+
+Compilar con el comando make:
+
+$ make
+
+
+

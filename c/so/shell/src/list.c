@@ -1,3 +1,15 @@
+/* 
+ *  AUTORES:
+ * 	* Carlos Pérez Ramil
+ * 	* Rodrigo Arias Mallo
+ * 
+ *  GRUPO:
+ * 	2.3.2
+ * 
+ *  HORARIO:
+ * 	Viernes de 8:30 a 10:30
+ */
+
 #include "list.h"
 
 #include <sys/types.h>
@@ -89,73 +101,72 @@ void strmode (mode_t mode, char *str)
 
 int listar_l(char *ruta_vieja, struct dirent *dir)
 {
-	if(modo&MODO_L){
-		struct stat info;
-		int check_stat;
-		
-		char *ruta = concatenar_carpeta(ruta_vieja, dir->d_name);
-		if(!ruta){
-			perror("concatenar carpeta");
-			return -1;
-		}
-		check_stat = lstat(ruta, &info);		
-		free(ruta);
-		if (!check_stat) {
-			printf(" %7ld ", (long)info.st_ino); 		//I-nodo
-			
-			//Obtener permisos juas juas
-			char buf[12];
-			strmode(info.st_mode, buf);
-			printf("%s", buf); 				//Permisos
-			printf("%3ld ", (long)info.st_nlink); 		//Links
-			
-			struct passwd *user = getpwuid(info.st_uid);
-			if (user){
-				printf("%s ", user->pw_name); 		//Propietario (usuario)
-			}
-			else{
-				printf("?? ");
-			}
-			
-			struct group *gr = getgrgid(info.st_uid);
-			if (gr){
-				printf("%s ", gr->gr_name); 		//Propietario (grupo)
-			}
-			else{
-				printf("?? ");
-			}
-			
-			/*
-			struct group gr;
-			struct group *gr_p;
-			char bufgr[500];
-			int errgr = getgrgid_r(info.st_uid, 
-				&gr,
-				bufgr, 
-				500, 
-				&gr_p);
-			if (!errgr){
-				printf("%9s ", gr.gr_name);		//Propietario (grupo)
-			}
-			else{
-				printf("?? ");
-			}*/
-				
-			printf("%9lld  ", (long long)info.st_size); 	//Tamaño (bytes)
-			
-			char time_string[50];
-			struct tm *tm_tiempo = localtime(&info.st_mtime);
-			strftime (time_string, sizeof(time_string), "%d %b %Y %H:%M", tm_tiempo);
-			printf("%s ", time_string); 			//Fecha de última modificación
-			
-			printf("%s\n", dir->d_name); 			//Nombre
-		}else {
-			printf("Error: stat falló");
-		}
-					
-	}else{
+	if(!(modo&MODO_L)){
 		printf(" %s\n", dir->d_name);
+		return 0;
 	}
+	struct stat info;
+	int check_stat;
+	
+	char *ruta = concatenar_carpeta(ruta_vieja, dir->d_name);
+	if(!ruta){
+		perror("concatenar carpeta");
+		return -1;
+	}
+	check_stat = lstat(ruta, &info);		
+	free(ruta);
+	
+	if (check_stat!=0) {
+		perror("stat");
+		return 0;
+	}
+	
+	//I-nodo
+	printf(" %7ld ", (long)info.st_ino);
+	
+	//Permisos
+	char buf[12];
+	strmode(info.st_mode, buf);
+	printf("%s", buf);
+	
+	//Links
+	printf("%3ld ", (long)info.st_nlink);
+	
+	//Propietario (usuario)
+	struct passwd *user = getpwuid(info.st_uid);
+	if (user){
+		printf("%s ", user->pw_name);
+	}
+	else{
+		printf("?? ");
+	}
+	
+	//Propietario (grupo)
+	struct group *gr = getgrgid(info.st_uid);
+	if (gr){
+		printf("%s ", gr->gr_name);
+	}
+	else{
+		printf("?? ");
+	}
+	
+	//Tamaño (bytes)
+	printf("%9lld  ", (long long)info.st_size);
+	
+	char time_string[50];
+	struct tm *tm_tiempo = localtime(&info.st_mtime);
+	strftime (time_string, 
+		sizeof(time_string), 
+		"%d %b %Y %H:%M", 
+		tm_tiempo
+	);
+	
+	//Fecha de última modificación
+	printf("%s ", time_string);
+	
+	//Nombre
+	printf("%s\n", dir->d_name);
+
 	return 0;
 }
 
@@ -252,6 +263,12 @@ int cmd_list(char **argv)
 
 	return 0;
 }
+
+
+
+
+
+
 
 /*
 //Devuelve la verdadera longitud de una cadena, incluyendo acentos y demás

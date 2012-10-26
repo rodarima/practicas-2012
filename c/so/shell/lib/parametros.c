@@ -1,3 +1,15 @@
+/* 
+ *  AUTORES:
+ * 	* Carlos Pérez Ramil
+ * 	* Rodrigo Arias Mallo
+ * 
+ *  GRUPO:
+ * 	2.3.2
+ * 
+ *  HORARIO:
+ * 	Viernes de 8:30 a 10:30
+ */
+
 #include "parametros.h"
 
 /* 
@@ -11,6 +23,7 @@ char **obtener_argumentos(char *str)
 	
 	if(!arg){
 		perror("Algo ha ido mal en malloc");
+		return NULL;
 	}
 	
 	arg[0] = NULL;
