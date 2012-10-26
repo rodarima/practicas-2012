@@ -1,12 +1,13 @@
-
-CC=gcc
-
-CFLAGS=-Wall -g
-
 #Carpetas de los fuentes y ejecutables
 LIB=lib
 SRC=src
 TEST=test
+
+
+#INC=-I$(SRC) -I$(LIB)
+#INCO=-L$(SRC) -L$(LIB)
+
+CFLAGS=-Wall -g $(INC) $(INCO)
 
 OBJ_LIB = $(LIB)/*.o
 
@@ -19,11 +20,15 @@ test_cmd: $(LIB)/entrada.o 	\
 	$(SRC)/pid.o 		\
 	$(SRC)/delete.o 	\
 	$(SRC)/chdir.o 		\
-	$(SRC)/list.o		\
+	$(SRC)/list.o	 	\
 	$(SRC)/quit.o 		\
 	$(LIB)/usuario.o 	\
-	$(LIB)/path.o
+	$(LIB)/path.o		\
+	$(LIB)/carpeta.o
 	$(CC) $(CFLAGS) $^ -o $(TEST)/test_cmd
+
+#$(SRC)/list.o: $(LIB)/carpeta.h $(SRC)/list.c
+#	$(CC) $(CFLAGS) $^ -c -o $(SRC)/list.o
 
 quit.o: $(TEST)/test_cmd.h $(SRC)/quit.c
 	$(CC) $(CFLAGS) $^ -c $(SRC)/quit.o
