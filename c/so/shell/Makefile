@@ -10,6 +10,7 @@ TEST=test
 
 OBJ_LIB = $(LIB)/*.o
 
+
 test_cmd: $(LIB)/entrada.o 	\
 	$(LIB)/parametros.o 	\
 	$(SRC)/comandos.h 	\
