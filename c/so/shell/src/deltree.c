@@ -23,7 +23,7 @@ int deltree(char *ruta)
 	struct dirent **dirlist;
 	int n = scandir(ruta, &dirlist, NULL, alphasort);
 	if (n < 0) {
-		printf("Error: no se pueden obtener las entradas del directorio especificado");
+		printf("Error: no se pueden obtener las entradas del directorio especificado\n");
 		return -1;
 	}
 	
