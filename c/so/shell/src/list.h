@@ -16,6 +16,8 @@
 #include <time.h>
 #include <sys/time.h>
 
+#include "../lib/carpeta.h"
+
 
 #define MODO_L	0x01
 #define MODO_R	0x02
