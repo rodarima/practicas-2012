@@ -4,7 +4,7 @@ int cmd_chdir(char **arg)
 {
 	char *dir = arg[1];
 	
-	// Si solo se pone chdir ir al directorio home/usuario
+	// Si solo se pone chdir mostrar el directorio actual
 	if(dir == NULL){
 		return cmd_pwd(arg);
 	}
