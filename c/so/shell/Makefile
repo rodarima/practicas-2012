@@ -19,6 +19,7 @@ test_cmd: $(LIB)/entrada.o 	\
 	$(SRC)/pwd.o 		\
 	$(SRC)/pid.o 		\
 	$(SRC)/delete.o 	\
+	$(SRC)/deltree.o	\
 	$(SRC)/chdir.o 		\
 	$(SRC)/list.o	 	\
 	$(SRC)/quit.o 		\
