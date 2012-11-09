@@ -8,7 +8,12 @@ double cota_n(int n, double t)
 double cota_nlogn(int n, double t)
 {
 	double nd = n;
-	return t/nd*log(nd);
+	return t/(nd*log(nd));
+}
+double cota_logn(int n, double t)
+{
+	double nd = n;
+	return t/log(nd);
 }
 double cota_n_pow_1_8(int n, double t)
 {
