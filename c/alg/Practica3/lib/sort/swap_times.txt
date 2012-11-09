@@ -1,0 +1,47 @@
+Con 1 millon de elementos, en u_s:
+
+swap  27766.000000
+swap1 18423.000000
+swap2  2974.000000
+swap3  7126.000000
+swap4 14768.000000
+
+void swap(void *a, void *b, void *t, int n, size_t size){
+	memcpy(t, a, n*size);
+	memcpy(a, b, n*size);
+	memcpy(b, t, n*size);
+}
+
+void swap1(register char *a,register char *b, register int bytes)
+{
+	register char t;
+	while(bytes--){
+		t=*a;
+		*a=*b;
+		*b=t;
+
+		a++;
+		b++;
+	}
+}
+
+#define swap2(a, b, type) { type t = a; a = b; b = t; }
+
+#define swap3(a, b) { 		\
+	a ^= b;			\
+	b ^= a;			\
+	a ^= b;			\
+}
+
+#define swap4(a, b, size)				\
+	do						\
+	{						\
+		register size_t __size = (size);	\
+		register char *__a = (a), *__b = (b);	\
+		do					\
+		{					\
+			char __tmp = *__a;		\
+			*__a++ = *__b;			\
+			*__b++ = __tmp;			\
+		} while (--__size > 0);			\
+    } while (0)
