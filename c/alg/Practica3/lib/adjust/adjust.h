@@ -23,6 +23,6 @@ struct func_cota_s
 
 
 
-void estimate(time_value *tv, int values, double (*f)(int, double));
+void estimate(time_value *tv, int values);
 
 #endif

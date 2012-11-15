@@ -24,8 +24,29 @@ double cota_n_pow_2(int n, double t)
 {
 	double nd = n;
 	return t/pow(nd, 2.0);
-}double cota_n_pow_2_2(int n, double t)
+}
+double cota_n_pow_2_2(int n, double t)
 {
 	double nd = n;
 	return t/pow(nd, 2.2);
+}
+double cota_n_pow_1_05(int n, double t)
+{
+	double nd = n;
+	return t/pow(nd, 1.05);
+}
+double cota_n_pow_1_2(int n, double t)
+{
+	double nd = n;
+	return t/pow(nd, 1.2);
+}
+double cota_n_pow_1_5(int n, double t)
+{
+	double nd = n;
+	return t/pow(nd, 1.5);
+}
+double cota_n_pow_5(int n, double t)
+{
+	double nd = n;
+	return t/pow(nd, 5);
 }

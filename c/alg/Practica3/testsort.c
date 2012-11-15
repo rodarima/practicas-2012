@@ -12,6 +12,7 @@
 #define UMBRAL_START	1
 #define UMBRAL_END	100
 #define UMBRAL_STEP	10
+#define STARTUP_STEPS	512
 
 #define get_func_name(f) #f
 
@@ -128,6 +129,11 @@ void table_quicksort(int from, int to, int step)
 	//printf("%d\n", size);
 	time_value *times = malloc(size*sizeof(time_value));
 
+	create_vector(&v, STARTUP_STEPS);
+	r.n=STARTUP_STEPS;
+	time_quicksort(&r, v, 1, vector_int_rand);
+	free_vector(v, STARTUP_STEPS);
+
 	for (j = 0; j < (sizeof(vector_funcs)/sizeof(struct vector_func_name_t)); j++)
 	{
 		for(i=UMBRAL_START; i<=UMBRAL_END; i*=UMBRAL_STEP)
@@ -151,8 +157,58 @@ void table_quicksort(int from, int to, int step)
 				times[k].t = r.t;
 				k++;
 			}
-			estimate(times, size, NULL);
+			estimate(times, size);
 		}
+	}
+	free(times);
+}
+
+void time_insertsort(struct time_row_t *r, int *v, vector_func_t f)
+{
+	timeof(r->t, r->k, 
+	//qsort(v, r->n, 4, (__compar_fn_t) cmp_int)
+	//quicksort_int(v, r->n, umbral)
+	insertsort_int(v, r->n)
+	,f(v, r->n), );
+}
+
+void table_insertsort(int from, int to, int step)
+{
+	struct time_row_t r;
+	int *v = NULL;
+	int j,k;
+	int size = steps_to_n(from, to, step);
+	//printf("%d\n", size);
+	time_value *times = malloc(size*sizeof(time_value));
+
+	r.n=STARTUP_STEPS;
+	create_vector(&v, STARTUP_STEPS);
+	time_insertsort(&r, v, vector_int_rand);
+	free_vector(v, STARTUP_STEPS);
+
+	for (j = 0; j < (sizeof(vector_funcs)/sizeof(struct vector_func_name_t)); j++)
+	{
+		
+		k=0;
+		printf("Insertsort orden=%s\n", vector_funcs[j].name);
+		print_head();
+		for(r.n=from; r.n<=to; r.n*=step){
+			create_vector(&v, r.n);
+			
+			time_insertsort(&r, v, vector_funcs[j].f);
+
+			r.aj = cota_quicksort_aj(r.n, r.t);
+			r.sub = cota_quicksort_sub(r.n, r.t);
+			r.sob = cota_quicksort_sob(r.n, r.t);
+
+			print_row(&r);
+
+			free_vector(v, r.n);
+			times[k].n = r.n;
+			times[k].t = r.t;
+			k++;
+		}
+		estimate(times, size);
 	}
 	free(times);
 }
@@ -166,6 +222,7 @@ void table_quicksort(int from, int to, int step)
 int main(int argc, char **argv)
 {
 	table_quicksort(128, 32768, 2);
+	table_insertsort(128, 32768, 2);
 
 	/*struct time_row_t tr;
 	int *v = NULL;
