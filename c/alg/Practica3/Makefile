@@ -16,13 +16,14 @@ LIB = lib
 LIBRARIES = sort crono adjust
 
 
+
+all: 	$(LIBRARIES) testsort
+
 $(LIBRARIES):
 	$(MAKE) --directory=$(LIB)/$@
 
 testsort: testsort.c sort crono adjust
 	$(CC) $(CFLAGS) testsort.c -o testsort -lsort -lcrono -ladjust -lm
-
-all: 	$(LIBRARIES) testsort
 
 clean: clean-libs
 	rm -f *.o testsort

@@ -1,79 +1,78 @@
-ALGORITMOS: PRÁCTICA 2.
+ALGORITMOS: PRÁCTICA 3.
 Rodrigo Arias Mallo; login: rodrigo.arias
 Carlos Pérez Ramil; login: c.pramil
 
 
-Verificación empírica de los análisis de dos algoritmos para calcular la suma de
-la subsecuencia máxima.
+Verificación empírica de los análisis de dos algoritmos de ordenación: inserción
+y quicksort.
 
 
 Características de la máquina donde fue realizado el experimento:
 	- Procesador Intel(R) Core(TM) i7 CPU Q 720  @ 1.60GHz
 	- Memoria RAM 4GB
 
+
 Realizaremos un  análisis de la eficiencia de dos  algoritmos diferentes para la 
-suma de la subsecuencia máxima.  Nos centraremos en el estudio de los tiempos de 
-ejecución, que serán medidos siempre en microsegundos.
+ordenación de vectores. Concretamente, para el experimento utilizaremos vectores
+de números enteros. Nos  centraremos  en el estudio de los tiempos de ejecución, 
+que serán medidos siempre en microsegundos.
 
-El primer algoritmo es  iterativo,  mientras que el  segundo es recursivo siendo
-este más eficiente que el primero,  ya que emplea  la técnica de divide y vence-
-rás. Aquí presentamos ambos algoritmos:
+La ordenación  por inserción es iterativa.  Se recorren los elementos del vector
+uno a uno, comprobando si el actual es menor que los anteriores hasta dar con su
+posición adecuada, donde se "inserta". 
 
-función sumaSubMax1 (v[1..n])
-	sumaMax := 0;
-	para i := 1 hasta n hacer
-		estaSuma := 0 ;
-		para j := i hasta n hacer
-			estaSuma := estaSuma + v[j] ;
-			si estaSuma > sumaMax entonces sumaMax := estaSuma
-			fin si
+Quicksort, en cambio, es un algoritmo recursivo, y emplea la técnica de divide y
+vencerás.  Consiste en  comparar todos los  elementos  del vector con un pivote, 
+obteniendo dos nuevos subvectores  (el de los mayores y el de los menores que el
+pivote),  y aplicando quicksort de nuevo sobre ellos.  También  establecemos  un
+valor umbral que comparamos con el tamaño de los subvectores. Si este  último es
+inferior al umbral, no se realizan más llamadas recursivas, y se deja el trabajo
+de terminar la ordenación para el algoritmo de inserción. 
+
+
+	procedimiento Ordenación por inserción (var v[1..n])
+		para i := 2 hasta n hacer
+			x := v[i] ;
+			j := i-1 ;
+			mientras j > 0 y v[j] > x hacer
+				v[j+1] := v[j] ;
+				j := j-1
+			fin mientras ;
+			v[j+1] := x
 		fin para
-	fin para ;
-	devolver sumaMax
-fin función
+	fin procedimiento
+
 
 	-------------------------------------------------------------
 
-función sumaSubMax2 (v[1..n])
-	devolver sumaSubMaxAux (v,1,n)
-fin función
-
-función sumaSubMaxAux (v[1..n],izq,der)
-	si izq = der entonces
-		si v[izq] > 0 entonces devolver v[izq]
-		sino devolver 0
+	procedimiento OrdenarAux (V[izq..der])
+		si izq+UMBRAL <= der entonces
+			Mediana3 (V[izq..der]) ;
+			pivote := V[izq] ;
+			i := izq ;
+			j := der ;
+			repetir
+				repetir i := i + 1 ; hasta V[i] >= pivote ;
+				repetir j := j - 1 ; hasta V[j] <= pivote ;
+				intercambiar (V[i], V[j]);
+			hasta j <= i ;
+			intercambiar (V[i], V[j]) ;
+			intercambiar (V[izq], V[j]) ;
+			OrdenarAux (V[izq..j-1]);
+			OrdenarAux (V[j+1..der])
 		fin si
-	sino
-		centro := (izq+der) div 2 ;
-		sumDer := sumaSubMaxAux (v,centro+1,der) ;
-		sumIzq := sumaSubMaxAux (v,izq,centro) ;
-		sumBordeDer := 0; sumAux := 0;
-		para i := centro+1 hasta der hacer
-			sumAux := sumAux + v[i];
-			si sumAux > sumBordeDer entonces sumBordeDer := sumAux
-			fin si
-		fin para
-		sumBordeIzq := 0; sumAux := 0;
-		para i := centro hasta izq paso -1 hacer
-			sumAux := sumAux + v[i];
-			si sumAux > sumBordeIzq entonces sumBordeIzq := sumAux
-			fin si
-		fin para;
-		devolver max(sumIzq, sumDer, sumBordeIzq + sumBordeDer)
-	fin si
-fin función
+	fin procedimiento
+
+	procedimiento Ordenación Rápida (V[1..n])
+		OrdenarAux(V[1..n]);
+		si (UMBRAL > 1) entonces
+			Ordenación por Inserción (V[1..n])
+		fin si
+	fin procedimiento
 
 
 Los implementamos en  lenguaje C y  comprobamos que funcionan  correctamente con 
 las secuencias de enteros propuestas:
-
-		Esperado  ssm1  ssm2
-		   6       6     6
-		  20      20    20
-		   0       0     0
-		   9       9     9
-		  20      20    20
-		  15      15    15
 
 
 Posteriormente medimos los tiempos de ejecución de los dos algoritmos y tratamos
