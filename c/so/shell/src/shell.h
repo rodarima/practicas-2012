@@ -14,11 +14,22 @@
 #define SHELL_H
 
 #define INTRO_TXT "\
-Shell v0.1 - Intérprete de comandos\n\
 \n\
-Comandos: pid, pwd, chdir, list, delete, deltree, quit, exit, fin\n\
-\n\
-"
+            ___			\n\
+        .-\"; ! ;\"-.              _____ _    _ ______ _      _    	\n\
+      .'!  : | :  !`.  	        / ____| |  | |  ____| |    | |     	\n\
+     /\\  ! : ! : !  /\\         | (___ | |__| | |__  | |    | |  	\n\
+    /\\ |  ! :|: !  | /\\	        \\___ \\|  __  |  __| | |    | |\n\
+   (  \\ \\ ; :!: ; / /  )        ____) | |  | | |____| |____| |____ 	\n\
+  ( `. \\ | !:|:! | / .' )      |_____/|_|  |_|______|______|______|	\n\
+  (`. \\ \\ \\!:|:!/ / / .')						\n\
+   \\ `.`.\\ |!|! |/,'.' /       Rev 0.125 - 2012 - C.Pérez & R.Arias	\n\
+    `._`.\\\\\\!!!// .'_.'						\n\
+       `.`.\\\\|//.'.'	       Comandos: pid, pwd, chdir, list, delete,	\n\
+        |`._`n'_.'|	                  deltree, quit, exit, fin.	\n\
+        \"----^----\"							\n\
+									\n\
+\n"
 
 int salir_cmd;
 
