@@ -75,5 +75,6 @@ void quicksort_int
 	register int umbral
 );
 
+void heapSort(int numbers[], int array_size);
 
 #endif

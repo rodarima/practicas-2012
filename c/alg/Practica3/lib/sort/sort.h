@@ -82,4 +82,6 @@ void quicksort_int
 );
 
 
+void heapSort(int numbers[], int array_size);
+
 #endif
