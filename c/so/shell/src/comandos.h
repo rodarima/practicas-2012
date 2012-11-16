@@ -20,9 +20,11 @@
 #include "chdir.h"
 #include "list.h"
 #include "quit.h"
+//Practica 2
+#include "priority.h"
 
 struct cmd_t {
-	char * name;
+	char *name;
 	int (*pfunc)(char **);
 };
 
@@ -42,8 +44,12 @@ struct cmd_t lista_cmd[] =
 	{"fin", cmd_quit},
 	{"exit", cmd_quit},
 	
-	// Funciones reales
+	//Practica 2
+	{"prio", cmd_prio},
 	
+
+
+	// Funciones reales
 	{"rm", cmd_delete},
 	{"cd", cmd_chdir},
 	{"ls", cmd_list},
