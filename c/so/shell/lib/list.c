@@ -12,7 +12,7 @@
 
 #include "list.h"
 #include <stdlib.h>
-//#include <string.h>
+#include <stdio.h>
 #define SIZE_BLOCK	10
 #define SIZE_DATA	(sizeof(node_t))
 
@@ -49,12 +49,13 @@ void list_free(list_t l)
 	free(l);
 
 }
-#define NEED_REALLOC(n) ((n%SIZE_BLOCK)==0)
+#define NEED_REALLOC(n) ((((n)%SIZE_BLOCK)==(SIZE_BLOCK/2)))
 void *list_new(list_t l, size_t size)
 {
 	size_t n = l->n+1;
 	void **p = l->data;
 	if(NEED_REALLOC(n)){
+		printf("new realloc n=%lu\n", n);
 		size_t newsize = (n+SIZE_BLOCK)*sizeof(void*);
 		p = realloc(l->data, newsize);
 		if(!p) return NULL;
@@ -70,22 +71,33 @@ void *list_new(list_t l, size_t size)
 
 	return d;
 }
-#undef NEED_REALLOC
 
 void *list_get(list_t l, size_t n)
 {
-	return l->data[n];
+	return (l->data)+n;
 }
 
 void list_delete(list_t l, void **pos)
 {
+	printf("Friendo: %p\n", *pos);
 	free(*pos);
 	while(*pos!=NULL){
 		*pos=*(pos+1);
 		pos++;
 	}
+
+	size_t n = l->n;
+	void **p = l->data;
+	if(NEED_REALLOC(n)){
+		printf("delete realloc n=%lu\n", n);
+		size_t newsize = (n+SIZE_BLOCK)*sizeof(void*);
+		p = realloc(l->data, newsize);
+		if(!p) return;
+	}
+	l->data=p;
 	l->n--;
 }
+#undef NEED_REALLOC
 
 
 /*
