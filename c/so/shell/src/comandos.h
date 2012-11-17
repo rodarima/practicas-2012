@@ -22,6 +22,7 @@
 #include "quit.h"
 //Practica 2
 #include "priority.h"
+#include "fork.h"
 
 struct cmd_t {
 	char *name;
@@ -46,6 +47,7 @@ struct cmd_t lista_cmd[] =
 	
 	//Practica 2
 	{"prio", cmd_prio},
+	{"fork", cmd_fork},
 	
 
 

@@ -39,6 +39,7 @@ test_cmd: $(LIB)/entrada.o 	\
 	$(SRC)/list.o	 	\
 	$(SRC)/quit.o 		\
 	$(SRC)/priority.o	\
+	$(SRC)/fork.o		\
 	$(LIB)/usuario.o 	\
 	$(LIB)/path.o		\
 	$(LIB)/carpeta.o
