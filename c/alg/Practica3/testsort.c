@@ -7,12 +7,17 @@
 #include "lib/crono/time.h"
 #include "lib/crono/table.h"
 #include "lib/adjust/adjust.h"
+#include "cotas.h"
 #include <math.h>
 
 #define UMBRAL_START	1
 #define UMBRAL_END	100
 #define UMBRAL_STEP	10
 #define STARTUP_STEPS	512
+#define MAX 		1000000
+#define NMAX 		(1024*32)
+#define REP 		1000
+#define UMBRAL 		15
 
 #define get_func_name(f) #f
 
@@ -30,8 +35,8 @@ struct vector_func_name_t
 struct vector_func_name_t vector_funcs[] = 
 {
 	{ vector_int_rand, "Aleatorio"  },
-	{ vector_int_asc,  "Ascendente" },
-	{ vector_int_desc, "Descendente"}
+	{ vector_int_desc, "Descendente"},
+	{ vector_int_asc,  "Ascendente" }
 };
 
 int cmp_int(register void *a, register void *b){
@@ -92,7 +97,7 @@ void free_vector(int *v, int n)
 double cota_quicksort_sub(int n, double t)
 {
 	double nd = n;
-	return t/(nd);
+	return t/pow(nd*log(nd),0.985);
 }
 double cota_quicksort_aj(int n, double t)
 {
@@ -102,7 +107,43 @@ double cota_quicksort_aj(int n, double t)
 double cota_quicksort_sob(int n, double t)
 {
 	double nd = n;
-	return t/(nd*nd);
+	return t/pow(nd*log(nd),1.015);
+}
+
+
+
+double cota_insertsort_sub(int n, double t)
+{
+	double nd = n;
+	return t/pow(nd,1.9);
+}
+double cota_insertsort_aj(int n, double t)
+{
+	double nd = n;
+	return t/pow(nd, 2.0);
+}
+double cota_insertsort_sob(int n, double t)
+{
+	double nd = n;
+	return t/pow(nd,2.1);
+}
+
+
+
+double cota_insertsort2_sub(int n, double t)
+{
+	double nd = n;
+	return t/pow(nd,0.95);
+}
+double cota_insertsort2_aj(int n, double t)
+{
+	double nd = n;
+	return t/(nd);
+}
+double cota_insertsort2_sob(int n, double t)
+{
+	double nd = n;
+	return t/pow(nd,1.05);
 }
 
 int steps_to_n(int from, int to, int step)
@@ -146,9 +187,9 @@ void table_quicksort(int from, int to, int step)
 				
 				time_quicksort(&r, v, i, vector_funcs[j].f);
 
-				r.aj = cota_quicksort_aj(r.n, r.t);
-				r.sub = cota_quicksort_sub(r.n, r.t);
-				r.sob = cota_quicksort_sob(r.n, r.t);
+				r.aj = cota_nlog_n_pow_0_9(r.n, r.t);
+				r.sub = cota_nlogn(r.n, r.t);
+				r.sob = cota_nlog_n_pow_1_1(r.n, r.t);
 
 				print_row(&r);
 
@@ -157,7 +198,9 @@ void table_quicksort(int from, int to, int step)
 				times[k].t = r.t;
 				k++;
 			}
+			printf("\n");
 			estimate(times, size);
+			printf("\n\n");
 		}
 	}
 	free(times);
@@ -186,7 +229,7 @@ void table_insertsort(int from, int to, int step)
 	time_insertsort(&r, v, vector_int_rand);
 	free_vector(v, STARTUP_STEPS);
 
-	for (j = 0; j < (sizeof(vector_funcs)/sizeof(struct vector_func_name_t)); j++)
+	for (j = 0; j < 2; j++)
 	{
 		
 		k=0;
@@ -197,9 +240,9 @@ void table_insertsort(int from, int to, int step)
 			
 			time_insertsort(&r, v, vector_funcs[j].f);
 
-			r.aj = cota_quicksort_aj(r.n, r.t);
-			r.sub = cota_quicksort_sub(r.n, r.t);
-			r.sob = cota_quicksort_sob(r.n, r.t);
+			r.aj  = cota_n_pow_1_9(r.n, r.t);
+			r.sub = cota_n_pow_2(r.n, r.t);
+			r.sob = cota_n_pow_2_1(r.n, r.t);
 
 			print_row(&r);
 
@@ -210,14 +253,34 @@ void table_insertsort(int from, int to, int step)
 		}
 		estimate(times, size);
 	}
+
+	k=0;
+	printf("Insertsort orden=%s\n", vector_funcs[2].name);
+	print_head();
+	for(r.n=from; r.n<=to; r.n*=step){
+		create_vector(&v, r.n);
+		
+		time_insertsort(&r, v, vector_funcs[j].f);
+
+		r.aj = cota_n_pow_0_95(r.n, r.t);
+		r.sub = cota_n(r.n, r.t);
+		r.sob = cota_n_pow_1_05(r.n, r.t);
+
+		print_row(&r);
+
+		free_vector(v, r.n);
+		times[k].n = r.n;
+		times[k].t = r.t;
+		k++;
+	}
+	estimate(times, size);
+
+
+
 	free(times);
 }
 
 
-#define MAX 	1000000
-#define NMAX 	(1024*32)
-#define REP 	1000
-#define UMBRAL 	15
 
 int main(int argc, char **argv)
 {
