@@ -7,7 +7,7 @@ CFLAGS = $(XFLAGS)
 
 DIR = adjust
 PROJECT = libadjust.a
-OBJECTS = adjust.o cotas.o
+OBJECTS = adjust.o
 
 all:		$(PROJECT)
 

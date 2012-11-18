@@ -8,13 +8,23 @@
 
 struct func_cota_s list_cotas[] =
 {
-	{ cota_n, "n" },
-	{ cota_n_pow_1_05, "n^1.05" },
-	{ cota_nlogn, "n*ln(n)" },
-	{ cota_n_pow_1_2, "n^1.2" },
-	{ cota_n_pow_1_5, "n^1.5" },
-	{ cota_n_pow_2, "n^2" },
-	{ cota_n_pow_5, "n^5" }
+	{ cota_nlog_n_pow_0_9, 		"(n*ln n)^0.9" },
+	{ cota_nlogn, 			"n*ln(n)" },
+	{ cota_nlog_n_pow_1_1, 		"(n*ln n)^1.1" },
+
+
+	{ cota_n_pow_1_9,		"n^1.9"},
+	{ cota_n_pow_2, 		"n^2" },
+	{ cota_n_pow_2_1,		"n^2.1"},
+
+	{ cota_n_pow_0_95, 		"n^0.95" },
+	{ cota_n, 			"n" },
+	{ cota_n_pow_1_05, 		"n^1.05" },
+
+	{ cota_n_pow_1_2, 		"n^1.2" },
+	{ cota_n_pow_1_5, 		"n^1.5" },
+	{ cota_n_pow_2, 		"n^2" },
+	{ cota_n_pow_5, 		"n^5" }
 
 };
 
@@ -115,15 +125,16 @@ void interpolate(time_value *t, int n){
 		}
 	}
 	printf("La función más acotada es: %s al %d%%\n", list_cotas[pos].name, (int)(100*(1.0-log(1.0+l_var[pos]))));
-	printf("Concretamente: %f*(%s)\n", l_med[pos], list_cotas[pos].name);
+	printf("Concretamente: %f*(%s)\n\n", l_med[pos], list_cotas[pos].name);
 	printf("Otras cotas aproximadas:\n");
 	for(i=0; i<n_cotas; i++){
 		double lg = log(1.0+l_var[i]);
 
 		double p = (lg>1) ? 0.0 : (100.0*(1.0-lg));
-		printf("%s (%5.2f%%)\n", list_cotas[i].name, p);
+		printf("%s(%5.2f%%)\t", list_cotas[i].name, p);
+		if((i%3)==2) printf("\n");
 	}
-	
+	printf("\n");
 	free(l_adj);
 	free(l_var);
 	free(l_med);
