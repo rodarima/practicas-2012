@@ -11,7 +11,7 @@
  */
 
 #ifndef COMANDOS_H
-#define COMANDOS_H
+#define COMANDOS_H 1
 
 #include "pwd.h"
 #include "pid.h"
@@ -20,6 +20,7 @@
 #include "chdir.h"
 #include "list.h"
 #include "quit.h"
+#include "help.h"
 //Practica 2
 #include "priority.h"
 #include "fork.h"
@@ -27,37 +28,39 @@
 struct cmd_t {
 	char *name;
 	int (*pfunc)(char **);
+	char *use;
 };
 
 int cmd_pid(char **arg);
 
 
-struct cmd_t lista_cmd[] = 
+static struct cmd_t lista_cmd[] = 
 {
 	//{"ls", cmd_ls},
-	{"pwd", cmd_pwd},
-	{"pid", cmd_pid},
-	{"delete", cmd_delete},
-	{"deltree", cmd_deltree},
-	{"chdir", cmd_chdir},
-	{"list", cmd_list},
-	{"quit", cmd_quit},
-	{"fin", cmd_quit},
-	{"exit", cmd_quit},
+	{"pwd", 	cmd_pwd,	"pwd"},
+	{"pid", 	cmd_pid,	"pid"},
+	{"delete", 	cmd_delete,	"delete FILE"},
+	{"deltree", 	cmd_deltree,	"deltree DIR"},
+	{"chdir", 	cmd_chdir,	"chdir [DIR]"},
+	{"list", 	cmd_list,	"list [-l] [-r] [-h] [DIR]"},
+	{"quit", 	cmd_quit,	"quit"},
+	{"fin", 	cmd_quit,	"fin"},
+	{"exit", 	cmd_quit,	"exit"},
 	
 	//Practica 2
-	{"prio", cmd_prio},
-	{"fork", cmd_fork},
+	{"prio", 	cmd_prio,	"prio [PID [PRIORITY]]"},
+	{"fork", 	cmd_fork,	"fork"},
 	
 
 
 	// Funciones reales
-	{"rm", cmd_delete},
-	{"cd", cmd_chdir},
-	{"ls", cmd_list},
+	{"rm", 		cmd_delete,	"rm FILE"},
+	{"cd", 		cmd_chdir,	"chdir [DIR]"},
+	{"ls", 		cmd_list,	"ls [-l] [-r] [-h] [DIR]"},
+	{"help", 	cmd_help,	"help [COMANDO]"},
 	
 	
-	{NULL, NULL}
+	{NULL, NULL, NULL}
 };
 
 #endif /* COMANDOS_H */

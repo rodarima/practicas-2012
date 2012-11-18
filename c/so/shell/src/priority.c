@@ -11,22 +11,57 @@
  */
 #include <sys/time.h>
 #include <sys/resource.h>
+#include <sys/types.h>
+#include <stdlib.h>
+#include <errno.h>
+
 #include "priority.h"
 
-int show_priority(){
-	int prio = getpriority(PRIO_PROCESS, 0);
-	if(prio<0) {
-		perror("No se pudo obtener la prioridad.");
+#define NOPID	0
+
+char *priorities[] = { "Muy alta", "Alta", "Normal", "Baja", "Muy baja" };
+
+#define GETPRIO(p)  priorities[((p+20)/8)%5] 
+
+int show_priority(pid_t pid){
+	errno = 0;
+	int prio = getpriority(PRIO_PROCESS, pid);
+	if((prio==-1) && errno) {
+		perror("No se pudo obtener la prioridad");
 		return -1;
 	}
-	printf("Prioridad del shell: %d\n", prio);
+	if(pid==NOPID)
+	{
+		printf("Prioridad del shell: %d (%s)\n", prio, GETPRIO(prio));
+	}
+	else
+	{
+		printf("Prioridad del proceso %d: %d (%s)\n", pid, prio, GETPRIO(prio));
+	}
+	return 0;
+}
+
+int set_priority(pid_t pid, int prio){
+	if(setpriority(PRIO_PROCESS, pid, prio)) {
+		perror("No se pudo establecer la prioridad");
+		return -1;
+	}
+	//printf("Prioridad del proceso %d: %d\n", pid, prio);
 	return 0;
 }
 
 int cmd_prio(char **arg)
 {
 	if(arg[1]==NULL){
-		show_priority();
+		show_priority(NOPID);
+	}else if(arg[2]==NULL){
+		pid_t pid = atoi(arg[1]);
+		show_priority(pid);
+
+	}else if(arg[3]==NULL){
+		pid_t pid = atoi(arg[1]);
+		int prio = atoi(arg[2]);
+		set_priority(pid, prio);
 	}
 		
 		

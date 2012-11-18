@@ -29,8 +29,6 @@ all:	$(LIB)/entrada.o 	\
 
 test_cmd: $(LIB)/entrada.o 	\
 	$(LIB)/parametros.o 	\
-	$(SRC)/comandos.h 	\
-	$(TEST)/test_cmd.c 	\
 	$(SRC)/pwd.o 		\
 	$(SRC)/pid.o 		\
 	$(SRC)/delete.o 	\
@@ -39,12 +37,16 @@ test_cmd: $(LIB)/entrada.o 	\
 	$(SRC)/list.o	 	\
 	$(SRC)/quit.o 		\
 	$(SRC)/priority.o	\
+	$(SRC)/help.o		\
 	$(SRC)/fork.o		\
 	$(LIB)/usuario.o 	\
 	$(LIB)/path.o		\
-	$(LIB)/carpeta.o
+	$(LIB)/carpeta.o 	\
+	$(SRC)/comandos.h 	\
+	$(TEST)/test_cmd.c 	
 	$(CC) $(CFLAGS) $^ -o $(TEST)/test_cmd
 
+help:	$(SRC)/help.c $(SRC)/help.h
 
 
 
