@@ -11,21 +11,21 @@ CFLAGS=-Wall -g $(INC) $(INCO)
 
 OBJ_LIB = $(LIB)/*.o
 
-all:	$(LIB)/entrada.o 	\
-	$(LIB)/parametros.o 	\
-	$(SRC)/comandos.h 	\
-	$(SRC)/shell.c 	\
-	$(SRC)/pwd.o 		\
-	$(SRC)/pid.o 		\
-	$(SRC)/delete.o 	\
-	$(SRC)/deltree.o	\
-	$(SRC)/chdir.o 		\
-	$(SRC)/list.o	 	\
-	$(SRC)/quit.o 		\
-	$(LIB)/usuario.o 	\
-	$(LIB)/path.o		\
-	$(LIB)/carpeta.o
-	$(CC) $(CFLAGS) $^ -o shell
+#all:	$(LIB)/entrada.o 	\
+#	$(LIB)/parametros.o 	\
+#	$(SRC)/comandos.h 	\
+#	$(SRC)/shell.c 		\
+#	$(SRC)/pwd.o 		\
+#	$(SRC)/pid.o 		\
+#	$(SRC)/delete.o 	\
+#	$(SRC)/deltree.o	\
+#	$(SRC)/chdir.o 		\
+#	$(SRC)/list.o	 	\
+#	$(SRC)/quit.o 		\
+#	$(LIB)/usuario.o 	\
+#	$(LIB)/path.o		\
+#	$(LIB)/carpeta.o
+#	$(CC) $(CFLAGS) $^ -o shell
 
 test_cmd: $(LIB)/entrada.o 	\
 	$(LIB)/parametros.o 	\
