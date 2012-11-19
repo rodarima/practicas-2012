@@ -96,57 +96,6 @@ void free_vector(int *v, int n)
 	free(v);
 }
 
-double cota_quicksort_sub(int n, double t)
-{
-	double nd = n;
-	return t/pow(nd*log(nd),0.985);
-}
-double cota_quicksort_aj(int n, double t)
-{
-	double nd = n;
-	return t/(nd*log(nd));
-}
-double cota_quicksort_sob(int n, double t)
-{
-	double nd = n;
-	return t/pow(nd*log(nd),1.015);
-}
-
-
-
-double cota_insertsort_sub(int n, double t)
-{
-	double nd = n;
-	return t/pow(nd,1.9);
-}
-double cota_insertsort_aj(int n, double t)
-{
-	double nd = n;
-	return t/pow(nd, 2.0);
-}
-double cota_insertsort_sob(int n, double t)
-{
-	double nd = n;
-	return t/pow(nd,2.1);
-}
-
-
-
-double cota_insertsort2_sub(int n, double t)
-{
-	double nd = n;
-	return t/pow(nd,0.95);
-}
-double cota_insertsort2_aj(int n, double t)
-{
-	double nd = n;
-	return t/(nd);
-}
-double cota_insertsort2_sob(int n, double t)
-{
-	double nd = n;
-	return t/pow(nd,1.05);
-}
 
 int steps_to_n(int from, int to, int step)
 {
