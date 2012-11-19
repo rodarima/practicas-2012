@@ -79,7 +79,7 @@ void *list_get(list_t l, size_t n)
 
 void list_delete(list_t l, void **pos)
 {
-	printf("Friendo: %p\n", *pos);
+	//printf("Friendo: %p\n", *pos);
 	free(*pos);
 	while(*pos!=NULL){
 		*pos=*(pos+1);
