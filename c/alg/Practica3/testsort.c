@@ -20,7 +20,7 @@
 #define get_func_name(f) #f
 
 void vector_int_rand(int *v, int n);
-void vector_int_asc(int *v, int n);
+void vector_int_asc (int *v, int n);
 void vector_int_desc(int *v, int n);
 
 
