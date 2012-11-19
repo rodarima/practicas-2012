@@ -24,6 +24,7 @@
 //Practica 2
 #include "priority.h"
 #include "fork.h"
+#include "ejecutar.h"
 
 struct cmd_t {
 	char *name;
@@ -50,7 +51,7 @@ static struct cmd_t lista_cmd[] =
 	//Practica 2
 	{"prio", 	cmd_prio,	"prio [PID [PRIORITY]]"},
 	{"fork", 	cmd_fork,	"fork"},
-	
+	{"ejecutar", 	cmd_ejecutar,	"ejecutar prog arg1 arg2 ... [@prio]"},	
 
 
 	// Funciones reales
