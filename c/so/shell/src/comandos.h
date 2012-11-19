@@ -34,7 +34,7 @@ struct cmd_t {
 int cmd_pid(char **arg);
 
 
-struct cmd_t lista_cmd[] = 
+static struct cmd_t lista_cmd[] = 
 {
 	//{"ls", cmd_ls},
 	{"pwd", 	cmd_pwd,	"pwd"},
