@@ -2,13 +2,11 @@
 #include <string.h>
 #include <sys/time.h>
 #include <stdlib.h>
-#include "include/sort.h"
-//#include "include/crono.h"
-#include "lib/crono/time.h"
-#include "lib/crono/table.h"
-#include "lib/adjust/adjust.h"
+
+#include "crono.h"
+#include "adjust.h"
 #include "cotas.h"
-#include <math.h>
+#include "sort.h"
 
 #define UMBRAL_START	1
 #define UMBRAL_END	100
@@ -50,6 +48,10 @@ double u_sec()
 	struct timeval t;
 	if (gettimeofday(&t, 0) < 0 ) return 0.0;
 	return (t.tv_usec + t.tv_sec * 1000000.0);
+}
+
+void rand_init(){
+	srand(u_sec());
 }
 
 void vector_int_rand(int v[], int n){
@@ -187,8 +189,8 @@ void table_quicksort(int from, int to, int step)
 				
 				time_quicksort(&r, v, i, vector_funcs[j].f);
 
-				r.aj = cota_nlog_n_pow_0_9(r.n, r.t);
-				r.sub = cota_nlogn(r.n, r.t);
+				r.sub = cota_nlog_n_pow_0_9(r.n, r.t);
+				r.aj = cota_nlogn(r.n, r.t);
 				r.sob = cota_nlog_n_pow_1_1(r.n, r.t);
 
 				print_row(&r);
@@ -240,8 +242,8 @@ void table_insertsort(int from, int to, int step)
 			
 			time_insertsort(&r, v, vector_funcs[j].f);
 
-			r.aj  = cota_n_pow_1_9(r.n, r.t);
-			r.sub = cota_n_pow_2(r.n, r.t);
+			r.sub  = cota_n_pow_1_9(r.n, r.t);
+			r.aj = cota_n_pow_2(r.n, r.t);
 			r.sob = cota_n_pow_2_1(r.n, r.t);
 
 			print_row(&r);
@@ -262,8 +264,8 @@ void table_insertsort(int from, int to, int step)
 		
 		time_insertsort(&r, v, vector_funcs[j].f);
 
-		r.aj = cota_n_pow_0_95(r.n, r.t);
-		r.sub = cota_n(r.n, r.t);
+		r.sub = cota_n_pow_0_95(r.n, r.t);
+		r.aj = cota_n(r.n, r.t);
 		r.sob = cota_n_pow_1_05(r.n, r.t);
 
 		print_row(&r);
@@ -280,10 +282,25 @@ void table_insertsort(int from, int to, int step)
 	free(times);
 }
 
+void ord_ins (int v [], int n){
+	insertsort_int(v, n);
+}
+
+void rapida_aux(int *v, int u, int n)
+{
+	quicksort_int(v, n+1, u);
+}
+
+void ord_rapida(int v [], int n) {
+	rapida_aux(v, 0, n-1);
+	if (UMBRAL > 1)
+	ord_ins(v, n);
+}
 
 
 int main(int argc, char **argv)
 {
+	rand_init();
 	table_quicksort(128, 32768, 2);
 	table_insertsort(128, 32768, 2);
 

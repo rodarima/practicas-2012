@@ -83,8 +83,10 @@ este proceso obtenemos las siguientes tablas:
 	  k ejecuciones.
 - Las cotas están identificadas en las correspondientes columnas.
 
+Ver el archivo adjunto de RESULTADOS, para ver las cotas ajustadas.
 
-La función h(n) tiene un crecimiento ligeramente inferior a t(n),  y por ello la serie  generada en la tabla es creciente,  con lo que deducimos que  h(n)  es la
+La función h(n) tiene un crecimiento ligeramente inferior a t(n),  y por ello la
+serie  generada en la tabla es creciente,  con lo que deducimos que  h(n)  es la
 cota subestimada. 
 
 Por el contrario, la función f(n)  tiene un crecimiento superior al de t(n), con
@@ -92,10 +94,27 @@ lo cual la serie de la tabla es decreciente, y f(n) es la cota sobreestimada.
 
 La función  g(n)  crece de forma similar a  t(n),  y por tanto los valores de la 
 tabla  tienden  a  estabilizarse  en torno a una constante.  De todas formas, el
-cálculo es aproximado,  pues en ocasiones observamos algunos valores anómalos en la medición.  Esto puede ser debido,  por ejemplo,  a interrupciones del sistema operativo.
+cálculo es aproximado,  pues en ocasiones observamos algunos valores anómalos en
+la medición.  Esto puede ser debido,  por ejemplo,  a interrupciones del sistema
+operativo.
 
+Para el ajuste de las cotas se emplea la biblioteca de ajuste libadjust, leer la
+explicación del funcionamiento en AJUSTE.
 
 
 -------------------------------- CONCLUSIONES ----------------------------------
 
 
+Como se puede observar en los tiempos de ejecución, la función insertsort es en
+general más lenta que la quicksort, sin embargo, para pocos elementos es más rá-
+pida cuando están ordenados, o están distribuidos de forma aleatoria.
+
+Para el resto de los casos, la función quicksort es más rápida para la ordena-
+ción del vector. Además la complejidad de la quicksort es en el peor caso:
+	f(n)=n*ln(n)
+Sin embargo, la función insertsort, tiene de mejor caso n, pero peor n^2.
+
+Para el cálculo del mejor umbral, se han realizado varias ejecuciones del algo-
+ritmo, y apenas cambia el tiempo se ejecución, tan sólo 2 microsegundos de máxi-
+mo. Para el caso de un vector aleatorio, se comporta mejor con umbral = 10, sin
+embargo para los demás es más rápido con umbral = 100.

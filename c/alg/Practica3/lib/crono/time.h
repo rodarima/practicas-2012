@@ -40,7 +40,7 @@ double u_sec();
 		(t)-=__lost_time;					\
 		k=MAX_K;						\
 		t=t/MAX_K;						\
-	}								\
+	}else k=0;							\
 } while(0);								\
 
 
