@@ -12,7 +12,6 @@ struct proc_t
 	time_t time;		//Instante de inicio
 	int status;		//Estado
 	struct rusage ru;	//Uso de recursos
-	char background;	//Segundo plano (Verdadero/Falso)
 };
 
 #endif

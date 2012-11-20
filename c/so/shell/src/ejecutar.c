@@ -15,7 +15,6 @@ int cmd_ejecutar(char **arg)
 	char *last_arg = arg[arg_count-1];
 	if(last_arg[0]=='@') {
 		setpriority(PRIO_PROCESS, 0, atoi(last_arg+1));
-		//free(arg[arg_count-1]);
 		arg[arg_count-1] = NULL;
 	}
 	
