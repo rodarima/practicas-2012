@@ -249,7 +249,6 @@ void ord_rapida(int v [], int n) {
 
 int main(int argc, char **argv)
 {
-	
 	rand_init();
 	table_quicksort(128, 32768, 2);
 	table_insertsort(128, 32768, 2);
