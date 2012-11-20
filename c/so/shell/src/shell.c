@@ -20,6 +20,7 @@
 #include "../src/comandos.h"
 #include "../src/prog.h"
 #include "shell.h"
+ 
 
 int ejecutar(char **arg){
 	int i = 0;
