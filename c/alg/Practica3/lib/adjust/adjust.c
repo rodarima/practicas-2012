@@ -150,4 +150,5 @@ void estimate(time_value *tv, int n)
 		t[i].t = tv[i].t;
 	}
 	interpolate(t, n);
+	free(t);
 }
