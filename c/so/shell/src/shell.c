@@ -25,6 +25,7 @@
 int ejecutar(char **arg){
 	int i = 0;
 	int se_ejecuto = 0;
+	
 	if(!arg[0]){
 		//printf("Error en obtener_argumentos\n");
 		return -1;
