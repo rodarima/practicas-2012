@@ -11,6 +11,7 @@
  */
 
 #include <string.h>
+
 #include "../lib/entrada.h"
 #include "../lib/parametros.h"
 #include "../lib/usuario.h"
