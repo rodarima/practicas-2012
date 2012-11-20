@@ -26,7 +26,6 @@ int cmd_prog(char **arg)
 			
 		default: waitpid(pid, &status, 0);
 	}
-	
 		
 	return 0;
 }
