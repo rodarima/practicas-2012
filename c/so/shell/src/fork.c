@@ -8,7 +8,7 @@ int cmd_fork(char **arg)
 	
 	switch (pid=fork()) {
 		
-		case -1: printf("Error en fork\n");
+		case -1: perror("Error en fork");
 			 return -1;
 			 
 		case 0: break;				//Es el hijo

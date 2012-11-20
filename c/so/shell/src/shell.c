@@ -16,6 +16,7 @@
 #include "../lib/usuario.h"
 #include "../lib/path.h"
 #include "../src/comandos.h"
+#include "../src/prog.h"
 #include "shell.h"
 
 int ejecutar(char **arg){
@@ -38,8 +39,8 @@ int ejecutar(char **arg){
 	}
 	if(!se_ejecuto)
 	{
-		printf("%s: no se encontró la orden.\n", arg[0]);
-		
+		cmd_prog(arg);
+		//printf("%s: no se encontró la orden.\n", arg[0]);		
 	}
 	return 0;
 }

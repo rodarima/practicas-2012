@@ -2,14 +2,14 @@
 
 int cmd_prog(char **arg)
 {	
-	int pid, stat;
+	int pid, status;
+	int arg_count = 0;
 	switch (pid=fork()) {
 		
-		case -1: printf("Error en fork\n");
+		case -1: perror("Error en fork");
 			 return -1;
 			 
-		case 0: int arg_count = 0;
-			while (arg[arg_count]!=NULL) {
+		case 0: while (arg[arg_count]!=NULL) {
 				arg_count++;
 			}
 			
@@ -20,8 +20,8 @@ int cmd_prog(char **arg)
 			}
 			
 			if(execvp(arg[0], arg)) {
-				perror("Error al ejecutar: ");
-				exit();
+				perror("Error al ejecutar");
+				exit(-1);
 			}
 			
 		default: waitpid(pid, &status, 0);

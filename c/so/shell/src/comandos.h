@@ -53,7 +53,6 @@ static struct cmd_t lista_cmd[] =
 	{"fork", 	cmd_fork,	"fork"},
 	{"ejecutar", 	cmd_ejecutar,	"ejecutar prog arg1 arg2 ... [@prio]"},	
 
-
 	// Funciones reales
 	{"rm", 		cmd_delete,	"rm FILE"},
 	{"cd", 		cmd_chdir,	"chdir [DIR]"},
