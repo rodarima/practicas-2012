@@ -21,12 +21,10 @@ struct proc_t
 /*
 FLAGS EN STATUS
 
-status = RRRRRTSS
+status = RRRRRREE
 
 R = Reservado para el futuro
-T = Tipo de salida (0-salida normal, 1-por señal)
-Cuando la salida es por señal se establece en SS la forma de salida
-S = Señal salida
+E = Estado actual
 
 */
 #define PROC_BITS	2
