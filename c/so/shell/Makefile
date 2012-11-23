@@ -44,6 +44,7 @@ test_cmd: $(LIB)/entrada.o 	\
 	$(LIB)/usuario.o 	\
 	$(LIB)/path.o		\
 	$(LIB)/carpeta.o 	\
+	$(LIB)/list.o 		\
 	$(SRC)/comandos.h 	\
 	$(TEST)/test_cmd.c 	
 	$(CC) $(CFLAGS) $^ -o $(TEST)/test_cmd

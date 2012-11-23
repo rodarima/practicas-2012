@@ -10,8 +10,8 @@
  * 	Viernes de 8:30 a 10:30
  */
 
-#ifndef LIST_H
-#define LIST_H
+#ifndef LS_H
+#define LS_H
 
 #include <stdio.h>
 #include <dirent.h>
@@ -37,4 +37,4 @@
 
 int cmd_list(char **argv);
 
-#endif /* LIST_H */
+#endif /* LS_H */

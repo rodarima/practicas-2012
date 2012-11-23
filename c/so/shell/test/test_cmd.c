@@ -18,6 +18,7 @@
 #include "../src/help.h"
 #include "../src/comandos.h"
 #include "../src/prog.h"
+#include "../src/global.h"
 #include "test_cmd.h"
 
 //extern struct cmd_t lista_cmd[];
@@ -52,6 +53,10 @@ int main(int argc, char **argv)
 {
 	char *linea;
 	salir_cmd = 0;
+
+	extern list_t list_proc;
+	list_init(&list_proc);
+
 	while(!salir_cmd)
 	{
 		char *path = obtener_path();
@@ -75,5 +80,6 @@ int main(int argc, char **argv)
 		free(linea);
 		limpiar_argumentos(arg);
 	}
+	list_free(list_proc);
 	return 0;
 }
