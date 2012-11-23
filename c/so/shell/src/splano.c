@@ -1,6 +1,6 @@
 #include "splano.h"
-#include "global.h"
 #include "../lib/proc.h"
+#include "global.h"
 
 char *obtener_cmd(char *ini, char *fin)
 {
@@ -11,7 +11,6 @@ char *obtener_cmd(char *ini, char *fin)
 
 int cmd_splano(char **arg)
 {
-	extern list_t list_proc;
 	struct proc_t *p;
 	int pid, status;
 	time_t t;
@@ -29,9 +28,9 @@ int cmd_splano(char **arg)
 	t = time(0);
 	switch (pid=fork()) {
 		
-		case -1: perror("Error en fork");
-			 return -1;
-			 
+		case -1:perror("Error en fork");
+			return -1;
+		
 		case 0: if(last_arg[0]=='@') {
 				setpriority(PRIO_PROCESS, 0, atoi(last_arg+1));
 				arg[arg_count-1] = NULL;
@@ -43,18 +42,19 @@ int cmd_splano(char **arg)
 			extern int salir_cmd;
 			salir_cmd = 1;	
 			break;
-			
-		default: waitpid(pid, &status, WNOHANG|WUNTRACED|WCONTINUED);
-			 p = list_new(list_proc, sizeof(struct proc_t));
-			 p->pid = pid;
-			 p->prio = atoi(last_arg+1);
-			 p->cmd = obtener_cmd(arg[1], last_arg);
-			 p->time = t;
-			 p->status = 0x00;
-			 SETPROCSTATUS(p->status, PROC_RUN);
-			 p->sig = 0;
-			 p->ru = NULL;			 
-	}
 		
+		default:waitpid(pid, &status, WNOHANG|WUNTRACED|WCONTINUED);
+			printf("%p\n", list_proc);
+			p = list_new(list_proc, sizeof(struct proc_t));
+			p->pid = pid;
+			p->prio = atoi(last_arg+1);
+			p->cmd = obtener_cmd(arg[1], last_arg);
+			p->time = t;
+			p->status = 0x00;
+			SETPROCSTATUS(p->status, PROC_RUN);
+			p->sig = 0;
+			p->ru = NULL;			 
+	}
+	
 	return 0;	
 }

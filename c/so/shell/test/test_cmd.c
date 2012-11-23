@@ -18,9 +18,11 @@
 #include "../src/help.h"
 #include "../src/comandos.h"
 #include "../src/prog.h"
-#include "../src/global.h"
 #include "test_cmd.h"
+#include "../lib/list.h"
 
+list_t list_proc;
+int salir_cmd;
 
 int ejecutar(char **arg){
 	int i = 0;
@@ -53,7 +55,7 @@ int main(int argc, char **argv)
 	char *linea;
 	salir_cmd = 0;
 
-	extern list_t list_proc;
+
 	list_init(&list_proc);
 
 	while(!salir_cmd)

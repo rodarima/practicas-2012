@@ -3,7 +3,7 @@
 
 #include "../lib/list.h"
 
-int salir_cmd;
-static list_t list_proc;
+extern int salir_cmd;
+extern list_t list_proc;
 
 #endif
