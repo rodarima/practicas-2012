@@ -21,7 +21,6 @@
 #include "../src/global.h"
 #include "test_cmd.h"
 
-//extern struct cmd_t lista_cmd[];
 
 int ejecutar(char **arg){
 	int i = 0;
