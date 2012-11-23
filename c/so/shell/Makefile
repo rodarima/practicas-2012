@@ -40,11 +40,14 @@ test_cmd: $(LIB)/entrada.o 	\
 	$(SRC)/fork.o		\
 	$(SRC)/ejecutar.o	\
 	$(SRC)/prog.o		\
+	$(SRC)/splano.o		\
 	$(SRC)/help.o		\
 	$(LIB)/usuario.o 	\
 	$(LIB)/path.o		\
 	$(LIB)/carpeta.o 	\
 	$(LIB)/list.o 		\
+	$(LIB)/proc.o		\
+	$(SRC)/global.h		\
 	$(SRC)/comandos.h 	\
 	$(TEST)/test_cmd.c 	
 	$(CC) $(CFLAGS) $^ -o $(TEST)/test_cmd

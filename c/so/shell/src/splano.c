@@ -1,6 +1,6 @@
 #include "splano.h"
 #include "global.h"
-#include "procesos.h"
+#include "../lib/proc.h"
 
 char *obtener_cmd(char *ini, char *fin)
 {
