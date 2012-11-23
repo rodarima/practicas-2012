@@ -13,6 +13,28 @@
 #include "help.h"
 #include "comandos.h"
 
+void show_help(char *command)
+{
+	int i = 0;
+	int se_ejecuto = 0;
+	while(lista_cmd[i].name)
+	{
+		if(strcmp(lista_cmd[i].name, command)==0)
+		{
+			printf("%s\n", lista_cmd[i].use);
+			se_ejecuto=1;
+			break;
+		}
+		i++;
+	}
+	if(!se_ejecuto)
+	{
+		printf("%s: no se encontró el comando.\n", command);
+		
+	}
+}
+
+
 int cmd_help(char **arg)
 {
 	extern struct cmd_t lista_cmd[];
@@ -24,23 +46,7 @@ int cmd_help(char **arg)
 		}
 		printf("\n");
 	}else if(arg[2]==NULL){
-		int i=0;
-		int se_ejecuto = 0;
-		while(lista_cmd[i].name)
-		{
-			if(strcmp(lista_cmd[i].name, arg[1])==0)
-			{
-				printf("%s\n", lista_cmd[i].use);
-				se_ejecuto=1;
-				break;
-			}
-			i++;
-		}
-		if(!se_ejecuto)
-		{
-			printf("%s: no se encontró el comando.\n", arg[1]);
-			
-		}
+		show_help(arg[1]);
 	}
 	else{
 		printf("Uso: help [COMANDO]\n");

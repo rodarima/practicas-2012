@@ -14,5 +14,6 @@
 #define HELP_H 1
 
 int cmd_help(char **arg);
+void show_help(char *command);
 
 #endif
