@@ -5,7 +5,7 @@
 char *obtener_cmd(char *ini, char *fin)
 {
 	char *str = malloc(fin - ini);
-	memcpy(str, ini, (size_t)fin-ini);
+	memcpy(str, ini, (size_t)(fin-ini));
 	return str;
 }
 
@@ -50,7 +50,8 @@ int cmd_splano(char **arg)
 			 p->prio = atoi(last_arg+1);
 			 p->cmd = obtener_cmd(arg[1], last_arg);
 			 p->time = t;
-			 p->status = SETPROCSTATUS(0x00, PROC_RUN);
+			 p->status = 0x00;
+			 SETPROCSTATUS(p->status, PROC_RUN);
 			 p->sig = 0;
 			 p->ru = NULL;			 
 	}
