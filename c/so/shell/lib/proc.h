@@ -17,13 +17,24 @@ struct proc_t
 	struct rusage *ru;	//Uso de recursos
 };
 
+/*
+FLAGS EN STATUS
+
+status = RRRRRTSS
+
+R = Reservado para el futuro
+T = Tipo de salida (0-salida normal, 1-por señal)
+Cuando la salida es por señal se establece en SS la forma de salida
+S = Señal salida
+
+*/
 #define PROC_BITS	2
 #define PROC_RUN	0x00
 #define PROC_TERM	0x01
 #define PROC_SIG	0x02
 #define PROC_STOP	0x03
 
-#define SETPROCSTATUS(old_status, new_st) do { (old_status)=((old_status)&(0xff<<PROC_BITS))|((new_st)&(0xff>>(8-PROC_BITS))) } while(0);
+#define SETPROCSTATUS(old_status, new_st) do { (old_status)=((old_status)&(0xff<<PROC_BITS))|((new_st)&(0xff>>(8-PROC_BITS))); } while(0);
 
 
 void proc_refresh(struct proc_t *p);
