@@ -13,6 +13,7 @@ struct proc_t
 	char *cmd;		//Comando
 	time_t time;		//Instante de inicio
 	char status;		//Estado
+	int sig;		//Señal
 	struct rusage *ru;	//Uso de recursos
 };
 
@@ -24,5 +25,7 @@ struct proc_t
 
 #define SETPROCSTATUS(old_status, new_st) do { (old_status)=((old_status)&(0xff<<PROC_BITS))|((new_st)&(0xff>>(8-PROC_BITS))) } while(0);
 
+
+void proc_refresh(struct proc_t *p);
 
 #endif
