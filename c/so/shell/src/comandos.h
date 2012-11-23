@@ -26,6 +26,7 @@
 #include "priority.h"
 #include "fork.h"
 #include "ejecutar.h"
+#include "splano.h"
 
 struct cmd_t {
 	char *name;
