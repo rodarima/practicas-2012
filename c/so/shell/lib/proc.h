@@ -1,5 +1,5 @@
-#ifndef PROCESOS_H
-#define PROCESOS_H
+#ifndef PROC_H
+#define PROC_H
 
 #include <time.h>
 #include <sys/time.h>
@@ -14,7 +14,7 @@ struct proc_t
 	char *cmd;		//Comando
 	time_t time;		//Instante de inicio
 	char status;		//Estado
-	int sig;		//Señal
+	int sig_exit;		//Señal o valor devuelto
 	struct rusage *ru;	//Uso de recursos
 };
 

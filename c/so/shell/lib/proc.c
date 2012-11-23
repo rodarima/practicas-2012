@@ -7,15 +7,17 @@ void proc_refresh(struct proc_t *p)
 	
 	if(WIFEXITED(s)) {
 		SETPROCSTATUS(p->status, PROC_TERM);	
+		p->sig_exit = WEXITSTATUS(s);
 		return;
 	}
 	if(WIFSIGNALED(s)) {
 		SETPROCSTATUS(p->status, PROC_SIG);
-		p->sig = WTERMSIG(s);
+		p->sig_exit = WTERMSIG(s);
 		return;
 	}
 	if(WIFSTOPPED(s)) {
 		SETPROCSTATUS(p->status, PROC_STOP);
+		p->sig_exit = WSTOPSIG(s);
 		return;
 	}
 	
