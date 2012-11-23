@@ -38,7 +38,7 @@ int cmd_pid(char **arg);
 
 static struct cmd_t lista_cmd[] = 
 {
-	//{"ls", cmd_ls},
+	//Práctca 1
 	{"pwd", 	cmd_pwd,	"pwd"},
 	{"pid", 	cmd_pid,	"pid"},
 	{"delete", 	cmd_delete,	"delete FILE"},
@@ -52,8 +52,8 @@ static struct cmd_t lista_cmd[] =
 	//Practica 2
 	{"prio", 	cmd_prio,	"prio [PID [PRIORITY]]"},
 	{"fork", 	cmd_fork,	"fork"},
-	{"ejecutar", 	cmd_ejecutar,	"ejecutar prog arg1 arg2 ... [@prio]"},	
-//	{"splano", 	cmd_splano,	"splano prog arg1 arg2 ... [@prio]"},
+	{"ejecutar", 	cmd_ejecutar,	"ejecutar PROGRAM [ARGS ...] [@PRIORITY]"},	
+//	{"splano", 	cmd_splano,	"splano PROGRAM [ARGS ...] [@PRIORITY]"},
 	
 	// Funciones reales
 	{"rm", 		cmd_delete,	"rm FILE"},
