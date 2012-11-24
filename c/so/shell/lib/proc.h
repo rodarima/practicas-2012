@@ -34,6 +34,7 @@ E = Estado actual
 #define PROC_STOP	0x03
 
 #define SETPROCSTATUS(old_status, new_st) do { (old_status)=((old_status)&(0xff<<PROC_BITS))|((new_st)&(0xff>>(8-PROC_BITS))); } while(0);
+#define CHECKPROCSTATUS(status, mask) 	((status)<<(8-PROC_BITS))&((mask)<<(8-PROC_BITS))
 
 
 void proc_refresh(struct proc_t *p);

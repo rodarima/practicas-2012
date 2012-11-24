@@ -3,7 +3,7 @@
 void proc_refresh(struct proc_t *p)
 {
 	int s;
-	wait4(p->pid, &s, WNOHANG|WUNTRACED|WCONTINUED, p->ru);
+	wait4(p->pid, &s, WNOHANG|WUNTRACED|WCONTINUED, &(p->ru));
 	
 	if(WIFEXITED(s)) {
 		SETPROCSTATUS(p->status, PROC_TERM);	
