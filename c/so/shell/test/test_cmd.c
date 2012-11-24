@@ -81,6 +81,7 @@ int main(int argc, char **argv)
 		free(linea);
 		limpiar_argumentos(arg);
 	}
+	//TODO
 	list_free(list_proc);
 	return 0;
 }

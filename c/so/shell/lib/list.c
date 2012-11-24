@@ -55,7 +55,6 @@ void *list_new(list_t l, size_t size)
 	size_t n = l->n+1;
 	void **p = l->data;
 	if(NEED_REALLOC(n)){
-		printf("new realloc n=%lu\n", n);
 		size_t newsize = (n+SIZE_BLOCK)*sizeof(void*);
 		p = realloc(l->data, newsize);
 		if(!p) return NULL;
@@ -89,7 +88,6 @@ void list_delete(list_t l, void **pos)
 	size_t n = l->n;
 	void **p = l->data;
 	if(NEED_REALLOC(n)){
-		printf("delete realloc n=%lu\n", n);
 		size_t newsize = (n+SIZE_BLOCK)*sizeof(void*);
 		p = realloc(l->data, newsize);
 		if(!p) return;

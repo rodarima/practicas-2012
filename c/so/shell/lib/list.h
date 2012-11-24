@@ -46,7 +46,7 @@ void list_free(list_t l);
  * Reserva espacio para un nuevo elemento en la lista
  * Sólo hace realloc si es necesario crear un nuevo bloque de elementos
  * Recibe una list_t y un size_t (el tamaño del elemento que se quiere insertar)
- * Devuelve un puntero a la nueva posición
+ * Devuelve un puntero a la nueva posición o un puntero a NULL si falla malloc
  */
 void *list_new(list_t l, size_t size);
 

@@ -27,6 +27,7 @@
 #include "fork.h"
 #include "ejecutar.h"
 #include "splano.h"
+#include "pplano.h"
 
 struct cmd_t {
 	char *name;
@@ -55,6 +56,7 @@ static struct cmd_t lista_cmd[] =
 	{"fork", 	cmd_fork,	"fork"},
 	{"ejecutar", 	cmd_ejecutar,	"ejecutar PROGRAM [ARGS ...] [@PRIORITY]"},	
 	{"splano", 	cmd_splano,	"splano PROGRAM [ARGS ...] [@PRIORITY]"},
+//	{"pplano", 	cmd_pplano,	"pplano PID"},
 	
 	// Funciones reales
 	{"rm", 		cmd_delete,	"rm FILE"},
