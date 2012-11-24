@@ -1,11 +1,22 @@
 #include "infoproc.h"
 #include <stdio.h>
 
-
-
-print_list_proc()
+void print_row_proc(struct proc_t *p)
 {
+	printf("%d\n", p->pid);
+}
 
+void print_list_proc()
+{
+	int n = list_proc->n;
+	int i;
+	struct proc_t **p = (struct proc_t **)list_proc->data;
+	for(i = 0; i<n; i++)
+	{
+		
+		proc_refresh(p[i]);
+		print_row_proc(p[i]);
+	}
 }
 
 int cmd_infoproc(char **args)
