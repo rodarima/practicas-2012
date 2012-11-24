@@ -1,5 +1,5 @@
 #include "arg_prio.h"
-#include "sys/types.h"
+#include "stdio.h"
 
 char *get_arg_prio(char **args)
 {
@@ -18,6 +18,6 @@ char *get_arg_prio(char **args)
 		return NULL;
 	}
 	args[i] = NULL;
-	
+
 	return p+1;
 }
