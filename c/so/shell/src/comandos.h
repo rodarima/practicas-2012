@@ -30,6 +30,7 @@
 #include "pplano.h"
 #include "procesos.h"
 #include "borraprocesos.h"
+#include "infoproc.h"
 
 struct cmd_t {
 	const char *name;
@@ -61,6 +62,7 @@ static struct cmd_t lista_cmd[] =
 //	{"pplano", 	cmd_pplano,	"pplano PID"},
 	{"procesos", 	cmd_procesos,	"procesos [all|term|sig|stop|act]"},
 	{"borraprocesos", cmd_borraprocesos, "borraprocesos [all|term|sig|stop|act]"},
+	{"infoproc", 	cmd_infoproc, "infoproc PID"},
 	
 	// Funciones reales
 	{"rm", 		cmd_delete,	"rm FILE"},

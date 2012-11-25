@@ -43,6 +43,7 @@ test_cmd: $(LIB)/entrada.o 	\
 	$(SRC)/splano.o		\
 	$(SRC)/procesos.o	\
 	$(SRC)/borraprocesos.o	\
+	$(SRC)/infoproc.o	\
 	$(SRC)/help.o		\
 	$(LIB)/usuario.o 	\
 	$(LIB)/path.o		\
