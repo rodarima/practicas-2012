@@ -28,11 +28,12 @@
 #include "ejecutar.h"
 #include "splano.h"
 #include "pplano.h"
+#include "procesos.h"
 
 struct cmd_t {
-	char *name;
+	const char *name;
 	int (*pfunc)(char **);
-	char *use;
+	const char *use;
 };
 
 int cmd_pid(char **arg);
@@ -57,6 +58,8 @@ static struct cmd_t lista_cmd[] =
 	{"ejecutar", 	cmd_ejecutar,	"ejecutar PROGRAM [ARGS ...] [@PRIORITY]"},	
 	{"splano", 	cmd_splano,	"splano PROGRAM [ARGS ...] [@PRIORITY]"},
 //	{"pplano", 	cmd_pplano,	"pplano PID"},
+	{"procesos", 	cmd_procesos,	"procesos [all|term|sig|stop|act]"},
+//	{"borraprocesos", cmd_borraprocesos, "borraprocesos [all|term|sig|stop|act]"},
 	
 	// Funciones reales
 	{"rm", 		cmd_delete,	"rm FILE"},
