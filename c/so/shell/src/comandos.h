@@ -59,7 +59,7 @@ static struct cmd_t lista_cmd[] =
 	{"fork", 	cmd_fork,	"fork"},
 	{"ejecutar", 	cmd_ejecutar,	"ejecutar PROGRAM [ARGS ...] [@PRIORITY]"},	
 	{"splano", 	cmd_splano,	"splano PROGRAM [ARGS ...] [@PRIORITY]"},
-//	{"pplano", 	cmd_pplano,	"pplano PID"},
+	{"pplano", 	cmd_pplano,	"pplano PID"},
 	{"procesos", 	cmd_procesos,	"procesos [all|term|sig|stop|act]"},
 	{"borraprocesos", cmd_borraprocesos, "borraprocesos [all|term|sig|stop|act]"},
 	{"infoproc", 	cmd_infoproc, "infoproc PID"},
