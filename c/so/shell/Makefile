@@ -42,13 +42,14 @@ test_cmd: $(LIB)/entrada.o 	\
 	$(SRC)/prog.o		\
 	$(SRC)/splano.o		\
 	$(SRC)/help.o		\
+	$(SRC)/procesos.o	\
 	$(LIB)/usuario.o 	\
 	$(LIB)/path.o		\
 	$(LIB)/carpeta.o 	\
 	$(LIB)/list.o 		\
-	$(LIB)/proc.o		\
 	$(LIB)/arg_prio.o	\
 	$(SRC)/global.h		\
+	$(SRC)/borraprocesos.o	\
 	$(SRC)/comandos.h 	\
 	$(TEST)/test_cmd.c 	
 	$(CC) $(CFLAGS) $^ -o $(TEST)/test_cmd
