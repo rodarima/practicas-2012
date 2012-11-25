@@ -23,14 +23,13 @@
    (  \\ \\ ; :!: ; / /  )        ____) | |  | | |____| |____| |____ 	\n\
   ( `. \\ | !:|:! | / .' )      |_____/|_|  |_|______|______|______|	\n\
   (`. \\ \\ \\!:|:!/ / / .')						\n\
-   \\ `.`.\\ |!|! |/,'.' /       Rev 0.125 - 2012 - C.Pérez & R.Arias	\n\
+   \\ `.`.\\ |!|! |/,'.' /       Rev 1.263 - 2012 - C.Pérez & R.Arias	\n\
     `._`.\\\\\\!!!// .'_.'						\n\
-       `.`.\\\\|//.'.'	       Comandos: pid, pwd, chdir, list, delete,	\n\
-        |`._`n'_.'|	                  deltree, quit, exit, fin.	\n\
+       `.`.\\\\|//.'.'	       Introduzca help para ver todos los\n\
+        |`._`n'_.'|	       comandos disponibles.	\n\
         \"----^----\"							\n\
 									\n\
 \n"
 
-int salir_cmd;
 
 #endif

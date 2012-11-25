@@ -37,6 +37,8 @@ int infoproc(struct proc_t *p)
 		p->cmd
 	);
 
+	if(ISPROCSTATUS(p->status, PROC_RUN)) return 0;
+
 	struct rusage *r = &(p->ru);
 	printf("\n");
 	printf("User CPU:	%ld.%06ld\n", r->ru_stime.tv_sec, r->ru_stime.tv_usec);

@@ -11,21 +11,35 @@ CFLAGS=-Wall -g $(INC) $(INCO)
 
 OBJ_LIB = $(LIB)/*.o
 
-#all:	$(LIB)/entrada.o 	\
-#	$(LIB)/parametros.o 	\
-#	$(SRC)/comandos.h 	\
-#	$(SRC)/shell.c 		\
-#	$(SRC)/pwd.o 		\
-#	$(SRC)/pid.o 		\
-#	$(SRC)/delete.o 	\
-#	$(SRC)/deltree.o	\
-#	$(SRC)/chdir.o 		\
-#	$(SRC)/list.o	 	\
-#	$(SRC)/quit.o 		\
-#	$(LIB)/usuario.o 	\
-#	$(LIB)/path.o		\
-#	$(LIB)/carpeta.o
-#	$(CC) $(CFLAGS) $^ -o shell
+all: 	$(LIB)/entrada.o 	\
+	$(LIB)/parametros.o 	\
+	$(SRC)/pwd.o 		\
+	$(SRC)/pid.o 		\
+	$(SRC)/delete.o 	\
+	$(SRC)/deltree.o	\
+	$(SRC)/chdir.o 		\
+	$(SRC)/list.o	 	\
+	$(SRC)/quit.o 		\
+	$(SRC)/priority.o	\
+	$(SRC)/fork.o		\
+	$(SRC)/ejecutar.o	\
+	$(SRC)/prog.o		\
+	$(SRC)/splano.o		\
+	$(SRC)/pplano.o		\
+	$(SRC)/procesos.o	\
+	$(SRC)/borraprocesos.o	\
+	$(SRC)/infoproc.o	\
+	$(SRC)/help.o		\
+	$(LIB)/usuario.o 	\
+	$(LIB)/path.o		\
+	$(LIB)/carpeta.o 	\
+	$(LIB)/list.o 		\
+	$(LIB)/arg_prio.o	\
+	$(LIB)/proc.o		\
+	$(SRC)/global.h		\
+	$(SRC)/comandos.h 	\
+	$(SRC)/shell.c 	
+	$(CC) $(CFLAGS) $^ -o shell
 
 test_cmd: $(LIB)/entrada.o 	\
 	$(LIB)/parametros.o 	\

@@ -12,9 +12,15 @@
 
 #include "prog.h"
 #include "global.h"
+#include "help.h"
 
 int cmd_prog(char **arg)
-{	
+{
+	if(arg[0][0] == '@')
+	{
+		printf("Uso: PROGRAM [ARGS ...] [@PRIORITY]\n");
+		return -1;
+	}
 	int pid, status;
 	int arg_count = 0;
 	while (arg[arg_count]!=NULL) {
@@ -35,7 +41,6 @@ int cmd_prog(char **arg)
 			if(execvp(arg[0], arg)) {
 				perror("Error al ejecutar");
 			}
-			extern int salir_cmd;
 			salir_cmd = 1;	
 			break;
 			

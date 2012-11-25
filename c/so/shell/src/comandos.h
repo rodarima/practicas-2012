@@ -65,9 +65,12 @@ static struct cmd_t lista_cmd[] =
 	{"infoproc", 	cmd_infoproc, 	"infoproc PID"},
 	
 	// Funciones reales
+	/*
 	{"rm", 		cmd_delete,	"rm FILE"},
 	{"cd", 		cmd_chdir,	"chdir [DIR]"},
 	{"ls", 		cmd_list,	"ls [-l] [-r] [-h] [DIR]"},
+	*/
+
 	{"help", 	cmd_help,	"help [COMANDO]"},
 	
 	

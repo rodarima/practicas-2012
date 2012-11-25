@@ -39,10 +39,11 @@ int cmd_help(char **arg)
 {
 	extern struct cmd_t lista_cmd[];
 	if(arg[1]==NULL){
-		printf("Comandos disponibles:\n");
+		printf("Comandos disponibles: ");
 		int i;
 		for(i=0; lista_cmd[i].name; i++){
-			printf("%s ", lista_cmd[i].name);
+			printf("%s", lista_cmd[i].name);
+			if(lista_cmd[i+1].name) printf(", ");
 		}
 		printf("\n");
 	}else if(arg[2]==NULL){

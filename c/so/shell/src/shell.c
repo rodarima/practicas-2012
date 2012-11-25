@@ -11,7 +11,6 @@
  */
 
 #include <string.h>
-
 #include "../lib/entrada.h"
 #include "../lib/parametros.h"
 #include "../lib/usuario.h"
@@ -20,12 +19,15 @@
 #include "../src/comandos.h"
 #include "../src/prog.h"
 #include "shell.h"
- 
+#include "../lib/list.h"
+#include "../src/borraprocesos.h"
+
+list_t list_proc;
+int salir_cmd;
 
 int ejecutar(char **arg){
 	int i = 0;
 	int se_ejecuto = 0;
-	
 	if(!arg[0]){
 		//printf("Error en obtener_argumentos\n");
 		return -1;
@@ -44,7 +46,8 @@ int ejecutar(char **arg){
 	if(!se_ejecuto)
 	{
 		cmd_prog(arg);
-		//printf("%s: no se encontró la orden.\n", arg[0]);		
+		//printf("%s: no se encontró la orden.\n", arg[0]);
+		
 	}
 	return 0;
 }
@@ -52,7 +55,10 @@ int main(int argc, char **argv)
 {
 	char *linea;
 	salir_cmd = 0;
-	printf("%s", INTRO_TXT);
+	printf("%s\n", INTRO_TXT);
+
+	list_init(&list_proc);
+
 	while(!salir_cmd)
 	{
 		char *path = obtener_path();
@@ -76,5 +82,8 @@ int main(int argc, char **argv)
 		free(linea);
 		limpiar_argumentos(arg);
 	}
+	//TODO
+	free_cmd_proc_list();
+	list_free(list_proc);
 	return 0;
 }
