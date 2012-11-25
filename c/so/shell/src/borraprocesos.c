@@ -51,4 +51,5 @@ int cmd_borraprocesos(char **arg)
 		list_delete(list_proc, list_proc->data+i);
 		i--;
 	}
+	return 0;
 }
