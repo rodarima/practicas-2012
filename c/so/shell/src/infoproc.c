@@ -21,8 +21,8 @@ int cmd_infoproc(char **arg)
 	struct proc_t *p = NULL;
 	int pid, i;
 	
-	if(args[1]==NULL) {
-		printf("Uso: %s PID\n", args[0]);
+	if(arg[1]==NULL) {
+		printf("Uso: %s PID\n", arg[0]);
 		return -1;
 	}
 	

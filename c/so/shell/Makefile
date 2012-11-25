@@ -50,6 +50,7 @@ test_cmd: $(LIB)/entrada.o 	\
 	$(LIB)/carpeta.o 	\
 	$(LIB)/list.o 		\
 	$(LIB)/arg_prio.o	\
+	$(LIB)/proc.o		\
 	$(SRC)/global.h		\
 	$(SRC)/comandos.h 	\
 	$(TEST)/test_cmd.c 	
