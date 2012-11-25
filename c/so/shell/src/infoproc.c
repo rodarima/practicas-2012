@@ -27,13 +27,28 @@ int infoproc(struct proc_t *p)
 		tm_tiempo
 	);
 
-	printf("PID    PRI STAT TIME                  CMD\n");
+	int sig_ret = 0;
+	if(ISPROCSTATUS(p->status, PROC_TERM))
+	{
+		sig_ret = WEXITSTATUS(p->status);
+	}
+	else if(ISPROCSTATUS(p->status, PROC_SIG))
+	{
+		sig_ret = WTERMSIG(p->status);
+	}
+	else if(ISPROCSTATUS(p->status, PROC_STOP))
+	{
+		sig_ret = WSTOPSIG(p->status);
+	}
 
-	printf("%-6d %3d %4s %-21s %s\n", 
+	printf("PID    PRI STAT TIME                  SIG/RET CMD\n");
+
+	printf("%-6d %3d %4s %-21s %7d %s\n", 
 		p->pid, 
 		p->prio, 
 		GETPROCSTATUS(p->status), 
 		time_string, 
+		sig_ret,
 		p->cmd
 	);
 

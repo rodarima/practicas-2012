@@ -43,7 +43,8 @@ int cmd_procesos(char **arg)
 	
 	char time_string[50];
 	struct tm *tm_tiempo;
-	printf("PID    PRI STAT TIME                  CMD\n");
+	printf("PID    PRI STAT TIME                  SIG/RET CMD\n");
+
 	for(i=0; i<list_proc->n; i++){
 
 		p = proc[i];
@@ -58,11 +59,26 @@ int cmd_procesos(char **arg)
 			tm_tiempo
 		);
 
-		printf("%-6d %3d %4s %-21s %s\n", 
+		int sig_ret = 0;
+		if(ISPROCSTATUS(p->status, PROC_TERM))
+		{
+			sig_ret = WEXITSTATUS(p->status);
+		}
+		else if(ISPROCSTATUS(p->status, PROC_SIG))
+		{
+			sig_ret = WTERMSIG(p->status);
+		}
+		else if(ISPROCSTATUS(p->status, PROC_STOP))
+		{
+			sig_ret = WSTOPSIG(p->status);
+		}
+
+		printf("%-6d %3d %4s %-21s %7d %s\n", 
 			p->pid, 
 			p->prio, 
 			GETPROCSTATUS(p->status), 
 			time_string, 
+			sig_ret,
 			p->cmd
 		);
 	}
