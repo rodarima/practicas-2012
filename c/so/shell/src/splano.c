@@ -38,7 +38,7 @@ int cmd_splano(char **arg)
 	}
 
 	struct proc_t *p;
-	int pid, status;
+	int pid;
 	time_t t;
 
 	int arg_count = 1;
@@ -68,7 +68,7 @@ int cmd_splano(char **arg)
 	case -1:perror("Error en fork");
 		return -1;
 	
-	case 0: printf("hijo\n");
+	case 0: //printf("hijo\n");
 		if(last_arg[0]=='@') {
 			if(set_priority(0, prio) != 0) 
 			{
@@ -84,32 +84,39 @@ int cmd_splano(char **arg)
 		salir_cmd = 1;	
 		break;
 	
-	default:printf("padre\n");
-		waitpid(pid, &status, WNOHANG|WUNTRACED|WCONTINUED);
+	default://printf("padre\n");
+		//waitpid(pid, &status, WNOHANG|WUNTRACED|WCONTINUED);
 
+		/* Excluimos el último argumento si es la prioridad */
+		if (last_arg[0] == '@') arg_count--;
+
+		/* Añadimos la longitud de la última palabra */
+		char *fin = arg[arg_count]+strlen(arg[arg_count])-1;
+
+		/* Obtenemos la linea de comando desde el principio hasta el
+		último carácter de la última palabra */
+		char *cmd = obtener_cmd(arg[1], fin);
+
+		/* Si obtener_cmd falla, salimos. */
+		if(cmd == NULL) return -1;
+
+		/* Creamos una nueva entrada en la lista */
 		if((p = list_new(list_proc, sizeof(struct proc_t)) ) == NULL)
 		{
 			perror("No se pudo añadir a la lista");
 			return -1;
 		}
+
+		/* Añadimos todos los campos */
 		p->pid = pid;
 		p->prio = prio;
-
-		char *fin;
-		if (last_arg[0] == '@') fin = (last_arg-2);
-		else fin = last_arg+strlen(last_arg);
-
-		if(!(p->cmd = obtener_cmd(arg[1], fin)))
-		{
-			void **p = list_proc->data + (list_proc->n - 1);
-			list_delete(list_proc, p);
-			return -1;
-		}
-
+		p->cmd = cmd;
 		p->time = t;
 		p->status = PROC_RUN;
+
+		/* Ponemos inicialmente sig_exit y ru a 0 */
 		p->sig_exit = 0;
-		p->ru = NULL;			 
+		memset(&(p->ru), 0, sizeof(struct rusage));
 	}
 	
 	return 0;	
