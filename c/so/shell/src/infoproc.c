@@ -1,34 +1,44 @@
 #include "infoproc.h"
-#include <stdio.h>
 
-void print_row_proc(struct proc_t *p)
+int infoproc(struct proc_t *p)
 {
-	printf("%d\n", p->pid);
+	proc_refresh(p);
+	
+	printf("PID   PRI STAT TIME          CMD\n");
+	printf("%5d %3d %4s %lu %s\n", 
+		p->pid, 
+		p->prio, 
+		GETPROCSTATUS(p->status), 
+		p->time, 
+		p->cmd
+	);
+	
+	return 0;
 }
 
-void print_list_proc()
+int cmd_infoproc(char **arg)
 {
-	int n = list_proc->n;
-	int i;
-	struct proc_t **p = (struct proc_t **)list_proc->data;
-	for(i = 0; i<n; i++)
-	{
-		
-		proc_refresh(p[i]);
-		print_row_proc(p[i]);
-	}
-}
-
-int cmd_infoproc(char **args)
-{
-	if(args[1]==NULL)
-	{
+	struct proc_t *p = NULL;
+	int pid, i;
+	
+	if(args[1]==NULL) {
 		printf("Uso: %s PID\n", args[0]);
 		return -1;
 	}
-
-
 	
-	return -1;
+	pid = atoi(arg[1]);
+	for(i=0; i<(list_proc->n); i++) {
+		p = list_get(list_proc, (size_t)i);
+		if(p->pid!=pid) {
+			p = NULL;
+		}
+	}
+	
+	if(p==NULL) {
+		printf("El shell no ha creado ningún proceso con pid %d\n", pid);
+	}else {
+		infoproc(p);
+	}
+	
+	return 0;
 }
-
