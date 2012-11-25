@@ -1,4 +1,5 @@
 #include "infoproc.h"
+#include "help.h"
 
 int infoproc(struct proc_t *p)
 {
@@ -22,7 +23,7 @@ int cmd_infoproc(char **arg)
 	int pid, i;
 	
 	if(arg[1]==NULL) {
-		printf("Uso: %s PID\n", arg[0]);
+		show_help(arg[0]);
 		return -1;
 	}
 	
@@ -35,7 +36,7 @@ int cmd_infoproc(char **arg)
 	}
 	
 	if(p==NULL) {
-		printf("El shell no ha creado ningún proceso con pid %d\n", pid);
+		printf("No se ha encontrado el pid %d en la lista.\n", pid);
 	}else {
 		infoproc(p);
 	}

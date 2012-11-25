@@ -10,6 +10,7 @@ void proc_refresh(struct proc_t *p)
 	if( w == -1)
 	{
 		// El proceso ya no existe o no se puede acceder a su informacion
+		printf("No existe\n");
 		return;
 	}
 	if( w == 0)

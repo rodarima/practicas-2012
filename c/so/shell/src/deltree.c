@@ -81,7 +81,8 @@ int cmd_deltree(char **arg)
 {	
 	char *ruta = arg[1];
 	if (!ruta) {
-		printf("Falta un operando\nUso: %s [ARCHIVO]\n", arg[0]);
+		printf("Falta un operando\n");
+		show_help(arg[0]);
 		return -1;
 	}
 	

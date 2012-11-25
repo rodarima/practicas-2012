@@ -41,6 +41,7 @@ test_cmd: $(LIB)/entrada.o 	\
 	$(SRC)/ejecutar.o	\
 	$(SRC)/prog.o		\
 	$(SRC)/splano.o		\
+	$(SRC)/pplano.o		\
 	$(SRC)/procesos.o	\
 	$(SRC)/borraprocesos.o	\
 	$(SRC)/infoproc.o	\

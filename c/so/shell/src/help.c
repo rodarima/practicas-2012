@@ -49,7 +49,7 @@ int cmd_help(char **arg)
 		show_help(arg[1]);
 	}
 	else{
-		printf("Uso: help [COMANDO]\n");
+		show_help(arg[0]);
 	}
 		
 		

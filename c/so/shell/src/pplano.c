@@ -10,15 +10,11 @@
 
 struct proc_t *get_proc_pid(pid_t pid)
 {
-	int found = 0;
 	struct proc_t **p = (struct proc_t **)list_proc->data;
-	while((*p) && found)
+	while((*p))
 	{
-		if((*p)->pid == pid)
-		{
-			found++;
-		}
-		else p++;
+		if((*p)->pid == pid) break;
+		p++;
 	}
 	return *p;
 }
@@ -27,8 +23,7 @@ int cmd_pplano(char **arg)
 {
 	if(arg[1]==NULL)
 	{
-		printf("Falta el PID\n");
-		show_help("pplano");
+		show_help(arg[0]);
 		return -1;
 	}
 	pid_t pid = atoi(arg[1]);
@@ -37,8 +32,29 @@ int cmd_pplano(char **arg)
 	{
 		printf("El proceso no está en la lista.\n");
 	}
-
-	waitpid(pid, &(p->sig_exit), 0);
+	int s;
+	int w = wait4(p->pid, &s, 0, &(p->ru));
+	if(w==-1)
+	{
+		perror("wait4 ha fallado");
+		return -1;
+	}
+	
+	if(WIFEXITED(s)) {
+		SETPROCSTATUS(p->status, PROC_TERM);	
+		p->sig_exit = WEXITSTATUS(s);
+	}
+	else if(WIFSIGNALED(s)) {
+		SETPROCSTATUS(p->status, PROC_SIG);
+		p->sig_exit = WTERMSIG(s);
+	}
+	else if(WIFSTOPPED(s)) {
+		SETPROCSTATUS(p->status, PROC_STOP);
+		p->sig_exit = WSTOPSIG(s);
+	}
+	else{
+		SETPROCSTATUS(p->status, PROC_RUN);
+	}
 	infoproc(p);
-
+	return 0;
 }

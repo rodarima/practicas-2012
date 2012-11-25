@@ -16,7 +16,8 @@
 int cmd_delete(char **arg)
 {
 	if(arg[1]==NULL){
-		printf("Falta un operando\nUso: %s [ARCHIVO]\n", arg[0]);
+		printf("Falta un operando\n");
+		show_help(arg[0]);
 		return 0;
 	}
 	int i = 1, r = 0;;

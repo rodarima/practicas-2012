@@ -14,5 +14,6 @@
 #include <dirent.h>
 #include <unistd.h>
 #include "../lib/carpeta.h"
+#include "help.h"
 
 int cmd_deltree(char **arg);

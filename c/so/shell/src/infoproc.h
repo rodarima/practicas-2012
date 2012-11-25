@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void infoproc(struct proc_t *p);
+int infoproc(struct proc_t *p);
+int cmd_infoproc(char **arg);
 
 #endif

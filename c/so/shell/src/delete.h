@@ -18,6 +18,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
+#include "help.h"
 
 int cmd_delete(char **arg);
 

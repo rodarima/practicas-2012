@@ -11,7 +11,7 @@
  */
 
 #include "list.h"
-
+#include "help.h"
 #include <sys/types.h>
 #include <pwd.h>
 
@@ -242,8 +242,7 @@ int cmd_list(char **argv)
 			modo|=MODO_H;
 			break;
 		default: /* '?' */
-			fprintf(stderr, "Uso: %s [-l] [-r] [-h] [dir]\n",
-			argv[0]);
+			show_help(argv[0]);
 			return -1;
 		}
 	}
