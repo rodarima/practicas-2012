@@ -36,6 +36,7 @@ E = Estado actual
 #define PROC_MASK	(0xff>>(8-PROC_BITS))
 #define PROC_UMASK	(0xff<<(PROC_BITS))
 
+//TODO: poner esto en algun .c, y luego external
 static const char *proc_name_status[] = { "act", "term", "sig", "stop" };
 
 
@@ -45,7 +46,7 @@ static const char *proc_name_status[] = { "act", "term", "sig", "stop" };
 #define GETPROCSTATUS( status ) proc_name_status[((status)&PROC_MASK)]
 //#define CHECKPROCSTATUS(status, mask) 	((status)<<(8-PROC_BITS))&((mask)<<(8-PROC_BITS))
 
-
+void proc_refresh(struct proc_t *p);
 
 
 #endif
