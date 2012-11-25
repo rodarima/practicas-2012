@@ -20,6 +20,7 @@
 #include "../src/prog.h"
 #include "test_cmd.h"
 #include "../lib/list.h"
+#include "../src/borraprocesos.h"
 
 list_t list_proc;
 int salir_cmd;
@@ -82,6 +83,7 @@ int main(int argc, char **argv)
 		limpiar_argumentos(arg);
 	}
 	//TODO
+	free_cmd_proc_list();
 	list_free(list_proc);
 	return 0;
 }
