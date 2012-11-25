@@ -23,6 +23,18 @@ char *priorities[] = { "Muy alta", "Alta", "Normal", "Baja", "Muy baja" };
 
 #define GETPRIO(p)  priorities[((p+20)/8)%5] 
 
+int get_priority(pid_t pid, int *p)
+{
+	errno = 0;
+	int prio = getpriority(PRIO_PROCESS, pid);
+	if((prio==-1) && errno) {
+		perror("No se pudo obtener la prioridad");
+		return -1;
+	}
+	*p=prio;
+	return 0;
+}
+
 int show_priority(pid_t pid)
 {
 	errno = 0;

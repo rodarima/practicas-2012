@@ -17,6 +17,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+int get_priority(pid_t pid, int *p);
 int set_priority(pid_t pid, int prio);
 int show_priority(pid_t pid);
 int cmd_prio(char **arg);
