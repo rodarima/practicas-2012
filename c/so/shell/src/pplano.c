@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include "infoproc.h"
 #include "../lib/proc.h"
 #include "global.h"
 
@@ -31,10 +32,13 @@ int cmd_pplano(char **arg)
 		return -1;
 	}
 	pid_t pid = atoi(arg[1]);
-	
-	/*if()
+	struct proc_t *p;
+	if((p=get_proc_pid(pid)) == NULL)
+	{
+		printf("El proceso no está en la lista.\n");
+	}
 
-	int status;
-	waitpid(pid, &status, 0);*/
+	waitpid(pid, &(p->sig_exit), 0);
+	infoproc(p);
 
 }
