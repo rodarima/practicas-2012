@@ -1,3 +1,15 @@
+/* 
+ *  AUTORES:
+ * 	* Carlos Pérez Ramil
+ * 	* Rodrigo Arias Mallo
+ * 
+ *  GRUPO:
+ * 	2.3.2
+ * 
+ *  HORARIO:
+ * 	Viernes de 8:30 a 10:30
+ */
+
 #ifndef PROC_H
 #define PROC_H
 
@@ -32,12 +44,13 @@ E = Estado actual
 #define PROC_SIG	0x02
 #define PROC_STOP	0x03
 
+#define PROC_NSTATUS	4
+
 #define PROC_BITS	2
 #define PROC_MASK	(0xff>>(8-PROC_BITS))
 #define PROC_UMASK	(0xff<<(PROC_BITS))
 
-//TODO: poner esto en algun .c, y luego external
-static const char *proc_name_status[] = { "act", "term", "sig", "stop" };
+extern const char *proc_name_status[];
 
 
 #define SETPROCSTATUS(old, st) do {\

@@ -1,3 +1,15 @@
+/* 
+ *  AUTORES:
+ * 	* Carlos Pérez Ramil
+ * 	* Rodrigo Arias Mallo
+ * 
+ *  GRUPO:
+ * 	2.3.2
+ * 
+ *  HORARIO:
+ * 	Viernes de 8:30 a 10:30
+ */
+
 #include "global.h"
 #include "borraprocesos.h"
 #include "../lib/proc.h"
@@ -22,7 +34,7 @@ void free_cmd_proc_list()
 int cmd_borraprocesos(char **arg)
 {
 	char ind;
-	int len = sizeof(proc_name_status) / sizeof(char *);
+	int len = PROC_NSTATUS;
 
 	if(arg[1] != NULL)
 	{

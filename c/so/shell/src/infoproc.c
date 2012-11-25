@@ -1,3 +1,15 @@
+/* 
+ *  AUTORES:
+ * 	* Carlos Pérez Ramil
+ * 	* Rodrigo Arias Mallo
+ * 
+ *  GRUPO:
+ * 	2.3.2
+ * 
+ *  HORARIO:
+ * 	Viernes de 8:30 a 10:30
+ */
+
 #include "infoproc.h"
 #include "help.h"
 
@@ -15,9 +27,9 @@ int infoproc(struct proc_t *p)
 		tm_tiempo
 	);
 
-	printf("PID   PRI STAT TIME                  CMD\n");
+	printf("PID    PRI STAT TIME                  CMD\n");
 
-	printf("%5d %3d %4s %-21s %s\n", 
+	printf("%-6d %3d %4s %-21s %s\n", 
 		p->pid, 
 		p->prio, 
 		GETPROCSTATUS(p->status), 

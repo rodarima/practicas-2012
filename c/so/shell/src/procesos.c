@@ -1,3 +1,15 @@
+/* 
+ *  AUTORES:
+ * 	* Carlos Pérez Ramil
+ * 	* Rodrigo Arias Mallo
+ * 
+ *  GRUPO:
+ * 	2.3.2
+ * 
+ *  HORARIO:
+ * 	Viernes de 8:30 a 10:30
+ */
+
 #include "procesos.h"
 #include "global.h"
 #include "../lib/proc.h"
@@ -7,7 +19,7 @@
 int cmd_procesos(char **arg)
 {
 	char ind;
-	int len = sizeof(proc_name_status) / sizeof(char *);
+	int len = PROC_NSTATUS;
 
 	if(arg[1] != NULL)
 	{
@@ -31,7 +43,7 @@ int cmd_procesos(char **arg)
 	
 	char time_string[50];
 	struct tm *tm_tiempo;
-	printf("PID   PRI STAT TIME                  CMD\n");
+	printf("PID    PRI STAT TIME                  CMD\n");
 	for(i=0; i<list_proc->n; i++){
 
 		p = proc[i];
@@ -46,7 +58,7 @@ int cmd_procesos(char **arg)
 			tm_tiempo
 		);
 
-		printf("%5d %3d %4s %-21s %s\n", 
+		printf("%-6d %3d %4s %-21s %s\n", 
 			p->pid, 
 			p->prio, 
 			GETPROCSTATUS(p->status), 

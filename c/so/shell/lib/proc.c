@@ -1,5 +1,20 @@
+/* 
+ *  AUTORES:
+ * 	* Carlos Pérez Ramil
+ * 	* Rodrigo Arias Mallo
+ * 
+ *  GRUPO:
+ * 	2.3.2
+ * 
+ *  HORARIO:
+ * 	Viernes de 8:30 a 10:30
+ */
+
 #include "proc.h"
 #include "../src/priority.h"
+
+const char *proc_name_status[] = { "act", "term", "sig", "stop" };
+
 
 void proc_refresh(struct proc_t *p)
 {
@@ -10,7 +25,6 @@ void proc_refresh(struct proc_t *p)
 	if( w == -1)
 	{
 		// El proceso ya no existe o no se puede acceder a su informacion
-		printf("No existe\n");
 		return;
 	}
 	if( w == 0)
