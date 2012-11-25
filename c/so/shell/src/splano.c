@@ -52,6 +52,8 @@ int cmd_splano(char **arg)
 	if(last_arg[0] == '@')
 	{
 		prio = atoi(last_arg+1);
+		if(prio>19) prio = 19;
+		else if(prio<-20) prio = -20;
 	}
 	else
 	{

@@ -21,7 +21,7 @@ void show_help(char *command)
 	{
 		if(strcmp(lista_cmd[i].name, command)==0)
 		{
-			printf("%s\n", lista_cmd[i].use);
+			printf("Uso: %s\n", lista_cmd[i].use);
 			se_ejecuto=1;
 			break;
 		}
