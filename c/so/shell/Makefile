@@ -42,7 +42,7 @@ test_cmd: $(LIB)/entrada.o 	\
 	$(SRC)/prog.o		\
 	$(SRC)/splano.o		\
 	$(SRC)/procesos.o	\
-	#$(SRC)/borraprocesos.o	\
+	$(SRC)/borraprocesos.o	\
 	$(SRC)/help.o		\
 	$(LIB)/usuario.o 	\
 	$(LIB)/path.o		\
