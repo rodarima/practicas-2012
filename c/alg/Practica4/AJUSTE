@@ -1,0 +1,27 @@
+
+libadjust:
+
+	La biblioteca de ajuste de funciones libadjust, permite esbozar una cota
+aproximada entre una serie de cotas establecidas (definidas en cotas.h). Para el
+ajuste de las funciones, se realizan una serie de pasos.
+
+	Primero se obtiene una tabla de tiempos igual a la mostrada por pantalla
+con el número de elementos n,  y el tiempo que ha tardado  el algoritmo en cues-
+tión.
+
+	A continuación,  por cada función definida en libadjust,  se calcula una
+tabla similar a la que ha sido generada por el algoritmo,  pero con los resulta-
+dos de dicha función.  Por último se hace una  comparación de los  resultados de
+dividir la tabla original del los resultados del algoritmo, entre los resultados
+de la tabla de la función candidata.
+
+	Ahora se obtiene una desviación de estos resultados, empleando la media-
+na, y se calcula un porcentaje de acierto.  Donde el 100% de acierto corresponde
+a unos resultados de división donde  se tiende a una constante.  Para mejorar la
+suavidad de este ajuste,  se realiza una función logarítmica a los resultados de
+la mediana,  ya que una función muy alejada de los resultados del algoritmo dis-
+pararía este porcentaje.
+
+	Finalmente, se muestran los resultados del análisis, imprimiendo la fun-
+ción más ajustada,  incluyendo la constante media a la que tiene,  y el resto de
+funciones con sus correspondientes porcentajes de acierto.
