@@ -17,5 +17,6 @@
 
 extern int salir_cmd;
 extern list_t list_proc;
+extern list_t list_mem;
 
 #endif

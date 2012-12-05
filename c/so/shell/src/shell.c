@@ -23,6 +23,7 @@
 #include "../src/borraprocesos.h"
 
 list_t list_proc;
+list_t list_mem;
 int salir_cmd;
 
 int ejecutar(char **arg){
@@ -51,13 +52,27 @@ int ejecutar(char **arg){
 	}
 	return 0;
 }
+
+void global_init()
+{
+	salir_cmd = 0;
+	list_init(&list_proc);
+	list_init(&list_mem);
+}
+
+void global_free()
+{
+
+	free_cmd_proc_list();
+	list_free(list_proc);
+	list_free(list_mem);
+}
+
 int main(int argc, char **argv)
 {
 	char *linea;
-	salir_cmd = 0;
 	printf("%s\n", INTRO_TXT);
-
-	list_init(&list_proc);
+	global_init();
 
 	while(!salir_cmd)
 	{
@@ -82,8 +97,8 @@ int main(int argc, char **argv)
 		free(linea);
 		limpiar_argumentos(arg);
 	}
-	//TODO
-	free_cmd_proc_list();
-	list_free(list_proc);
+	
+	global_free();
+
 	return 0;
 }
