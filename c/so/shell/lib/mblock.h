@@ -1,7 +1,9 @@
 #include <sys/types.h>
 #include <time.h>
 
-#define M
+#define MTYPE_MALLOC	0
+#define MTYPE_MMAP	1
+#define MTYPE_SHARED	2
 
 struct mblock_t
 {
@@ -10,5 +12,17 @@ struct mblock_t
 	time_t time;
 
 	char type;
+
+	union
+	{
+		int fd;
+		key_t key;
+	};
+
+	union
+	{
+		int id;
+		char *name;
+	};
 
 };
