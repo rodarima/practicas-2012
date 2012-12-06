@@ -3,7 +3,7 @@
 #include "../lib/list.h"
 #include "../lib/mblock.h"
 
-void free_cmd_malloc(void *pos)
+void free_mblock(void *pos)
 {
 	struct mblock_t *element = (struct mblock_t *)pos;
 	free(element->addr);
@@ -16,7 +16,7 @@ int cmd_malloc(char **arg)
 		return 0;
 	}
 	
-	int size = atoi(arg[1]));
+	int size = atoi(arg[1]);
 	time_t t = time(0);
 	void *p = malloc(size);	
 	if(p==NULL) {
@@ -24,13 +24,13 @@ int cmd_malloc(char **arg)
 		return -1;
 	}
 	
-	struct mblock_t *b = list_new(list_mem, sizeof(struct mblock_t), free_cmd_malloc);
+	struct mblock_t *b = list_new(list_mem, sizeof(struct mblock_t), free_mblock);
 	if(b==NULL) {
 		perror("No se pudo insertar la nueva entrada en la lista");
 		return -1;
 	}
 	
-	printf("Se han asignado %d bytes en la dirección %p\n", size, p);
+	printf("%p\n", p);
 	b->addr = p;
 	b->size = size;
 	b->time = t;
