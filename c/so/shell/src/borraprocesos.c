@@ -15,21 +15,6 @@
 #include "../lib/proc.h"
 #include <string.h>
 
-void free_cmd_proc(struct proc_t *p)
-{
-	if(p->cmd) free(p->cmd);
-	return;
-}
-
-void free_cmd_proc_list()
-{
-	int i;
-	int n = list_proc->n;
-	for(i=0; i<n; i++)
-	{
-		free_cmd_proc(list_proc->data[i]);
-	}
-}
 
 int cmd_borraprocesos(char **arg)
 {
@@ -59,8 +44,7 @@ int cmd_borraprocesos(char **arg)
 
 		if((ind<len) && (!ISPROCSTATUS(p->status, ind))) continue;
 
-		free_cmd_proc(p);
-		list_delete(list_proc, list_proc->data+i);
+		list_delete(list_proc, i);
 		i--;
 	}
 	return 0;

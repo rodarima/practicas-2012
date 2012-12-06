@@ -20,6 +20,12 @@
 #include <sys/resource.h>
 #include <errno.h>
 
+void borrar_proc(void *p)
+{
+	struct proc_t *proc = (struct proc_t *)p;
+	free(proc->cmd);
+}
+
 char *obtener_cmd(char *ini, char *fin)
 {
 	size_t n = (size_t)(fin - ini) + 2;
@@ -115,7 +121,7 @@ int cmd_splano(char **arg)
 		if(cmd == NULL) return -1;
 
 		/* Creamos una nueva entrada en la lista */
-		if((p = list_new(list_proc, sizeof(struct proc_t)) ) == NULL)
+		if((p = list_new(list_proc, sizeof(struct proc_t), borrar_proc)) == NULL)
 		{
 			perror("No se pudo añadir a la lista");
 			return -1;

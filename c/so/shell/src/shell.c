@@ -56,14 +56,13 @@ int ejecutar(char **arg){
 void global_init()
 {
 	salir_cmd = 0;
-	list_init(&list_proc);
-	list_init(&list_mem);
+	list_init(&list_proc, LIST_NO_CLEAR);
+	list_init(&list_mem, LIST_CLEAR);
 }
 
 void global_free()
 {
 
-	free_cmd_proc_list();
 	list_free(list_proc);
 	list_free(list_mem);
 }
