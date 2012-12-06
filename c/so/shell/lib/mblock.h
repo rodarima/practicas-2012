@@ -1,9 +1,9 @@
 #include <sys/types.h>
 #include <time.h>
 
-#define MTYPE_MALLOC	0
-#define MTYPE_MMAP	1
-#define MTYPE_SHARED	2
+#define MTYPE_MALLOC	0x00
+#define MTYPE_MMAP	0x01
+#define MTYPE_SHARED	0x02
 
 struct mblock_t
 {
