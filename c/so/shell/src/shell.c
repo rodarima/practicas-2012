@@ -56,7 +56,7 @@ int ejecutar(char **arg){
 void global_init()
 {
 	salir_cmd = 0;
-	list_init(&list_proc, LIST_NO_CLEAR);
+	list_init(&list_proc, 0);
 	list_init(&list_mem, LIST_CLEAR);
 }
 

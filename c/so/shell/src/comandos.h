@@ -32,6 +32,11 @@
 #include "borraprocesos.h"
 #include "infoproc.h"
 
+//Practica 3
+#include "malloc.h"
+#include "free.h"
+#include "mem.h"
+
 struct cmd_t {
 	const char *name;
 	int (*pfunc)(char **);
@@ -63,6 +68,11 @@ static struct cmd_t lista_cmd[] =
 	{"procesos", 	cmd_procesos,	"procesos [all|term|sig|stop|act]"},
 	{"borraprocesos", cmd_borraprocesos, "borraprocesos [all|term|sig|stop|act]"},
 	{"infoproc", 	cmd_infoproc, 	"infoproc PID"},
+
+	//Practica 3
+	{"malloc",	cmd_malloc,	"malloc [tam]"},
+	{"free",	cmd_free,	"free [tam]"},
+	{"mem",		cmd_mem,	"mem [-malloc|-shared|-mmap]"},
 	
 	// Funciones reales
 	/*

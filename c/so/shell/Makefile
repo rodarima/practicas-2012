@@ -36,10 +36,14 @@ all: 	$(LIB)/entrada.o 	\
 	$(LIB)/list.o 		\
 	$(LIB)/arg_prio.o	\
 	$(LIB)/proc.o		\
+	$(LIB)/mblock.o 	\
+	$(SRC)/malloc.o		\
+	$(SRC)/free.o		\
+	$(SRC)/mem.o		\
 	$(SRC)/global.h		\
 	$(SRC)/comandos.h 	\
 	$(SRC)/shell.c 	
-	$(CC) $(CFLAGS) $^ -o shell
+	$(CC) $(CFLAGS) $^ -lm -o shell
 
 test_cmd: $(LIB)/entrada.o 	\
 	$(LIB)/parametros.o 	\

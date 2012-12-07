@@ -15,7 +15,7 @@ void time_to_str(time_t t, char *buffer, size_t size)
 	strftime (buffer, size, "%d %b %Y %H:%M:%S", tm_tiempo);
 }
 
-void list_mem_print(char mask);
+void list_mem_print(char mask)
 {
 	int pos = 0;
 	struct mblock_t *m;
@@ -28,7 +28,7 @@ void list_mem_print(char mask);
 			m = list_get(list_mem, pos);
 			if (!(m->type&MTYPE_MALLOC)) break;
 			time_to_str(m->time, time_str, sizeof(time_str));
-			printf("%21p %10d %21s",
+			printf("%21p %10lu %21s",
 				m->addr,
 				m->size,
 				time_str
@@ -43,7 +43,7 @@ void list_mem_print(char mask);
 			m = list_get(list_mem, pos);
 			if (!(m->type&MTYPE_MMAP)) break;
 			time_to_str(m->time, time_str, sizeof(time_str));
-			printf("%21p %10d %21s %4d %10s",
+			printf("%21p %10lu %21s %4d %10s",
 				m->addr,
 				m->size,
 				time_str,
@@ -60,7 +60,7 @@ void list_mem_print(char mask);
 			m = list_get(list_mem, pos);
 			if (!(m->type&MTYPE_SHARED)) break;
 			time_to_str(m->time, time_str, sizeof(time_str));
-			printf("%21p %10d %21s %5d %8h",
+			printf("%21p %10lu %21s %5d %8x",
 				m->addr,
 				m->size,
 				time_str,
@@ -79,11 +79,11 @@ int cmd_mem(char **arg)
 		return 0;
 	}
 	char ind;
-	for (ind=0x01; ind&(MTYPE_MALLOC | MTYPE_MMAP | MTYPE_SHARED); ind*2) {
+	for (ind=0x01; ind&(MTYPE_MALLOC | MTYPE_MMAP | MTYPE_SHARED); ind*=2) {
 		if (strcmp(arg[1], mblock_type_name[(int)log2((double)ind)]) == 0) {
 			break;
 		}
-		list_mem_print(i);
+		list_mem_print(ind);
 	}
 	return 0;
 }
