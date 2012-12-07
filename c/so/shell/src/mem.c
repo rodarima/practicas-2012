@@ -5,10 +5,15 @@
 
 /*
  * COSAS PENDIENTES
- * - Array global de tipos de asignación de memoria
  * - Impresión correcta de los elementos de la lista
- * - cmp_mblock en mblock.h?
  */
+void time_to_str(time_t t, char *buffer, size_t size)
+{
+	struct tm *tm_tiempo;
+	
+	tm_tiempo = localtime(&t);
+	strftime (buffer, size, "%d %b %Y %H:%M:%S", tm_tiempo);
+}
 
 void list_mem_print(char mask);
 {
@@ -22,9 +27,11 @@ void list_mem_print(char mask);
 		while (pos<list_mem->n) {
 			m = list_get(list_mem, pos);
 			if (!(m->type&MTYPE_MALLOC)) break;
+			time_to_str(m->time, time_str, sizeof(time_str));
 			printf("%21p %10d %21s",
 				m->addr,
 				m->size,
+				time_str
 			);
 			pos++;
 		}
@@ -35,7 +42,14 @@ void list_mem_print(char mask);
 		while (pos<list_mem->n) {
 			m = list_get(list_mem, pos);
 			if (!(m->type&MTYPE_MMAP)) break;
-			printf("");
+			time_to_str(m->time, time_str, sizeof(time_str));
+			printf("%21p %10d %21s %4d %10s",
+				m->addr,
+				m->size,
+				time_str,
+				m->fd,
+				m->name
+			);
 			pos++;
 		}		
 	}
@@ -45,7 +59,14 @@ void list_mem_print(char mask);
 		while (pos<list_mem->n) {
 			m = list_get(list_mem, pos);
 			if (!(m->type&MTYPE_SHARED)) break;
-			printf("");
+			time_to_str(m->time, time_str, sizeof(time_str));
+			printf("%21p %10d %21s %5d %8h",
+				m->addr,
+				m->size,
+				time_str,
+				m->id,
+				m->key
+			);
 			pos++;
 		}		
 	}
