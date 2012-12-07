@@ -1,6 +1,6 @@
 #include "mem.h"
 #include "global.h"
-#include "mblock.h"
+#include "../lib/mblock.h"
 #include "../lib/list.h"
 
 /*
