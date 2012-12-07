@@ -18,7 +18,7 @@ int cmd_free(char **arg)
 	struct mblock_t *p;
 	while((p=(struct mblock_t *)list_get(list_mem, i)))
 	{
-		if((p->type) & MTYPE_MALLOC)
+		if(((p->type) & MTYPE_MALLOC) && (p->size == tam))
 		{
 			list_delete(list_mem, i);
 			break;
