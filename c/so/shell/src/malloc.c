@@ -16,7 +16,7 @@ int cmd_malloc(char **arg)
 		return 0;
 	}
 	
-	int size = atol(arg[1]);
+	size_t size = atol(arg[1]);
 	time_t t = time(0);
 	void *p = malloc(size);	
 	if(p==NULL) {
