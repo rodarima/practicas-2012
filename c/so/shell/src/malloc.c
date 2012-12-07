@@ -12,7 +12,7 @@ void free_mblock(void *pos)
 int cmd_malloc(char **arg)
 {
 	if(arg[1]==NULL) {
-		//imprimir lista de mallocs
+		list_mem_print(MTYPE_MALLOC);
 		return 0;
 	}
 	

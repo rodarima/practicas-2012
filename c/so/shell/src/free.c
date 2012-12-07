@@ -8,7 +8,7 @@ int cmd_free(char **arg)
 {
 	if(arg[1]==NULL)
 	{
-		//mem_show(MTYPE_MALOC);
+		list_mem_print(MTYPE_MALOC);
 		return 0;
 	}
 
