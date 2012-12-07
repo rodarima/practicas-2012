@@ -1,4 +1,5 @@
 #include "free.h"
+#include "mem.h"
 #include "../lib/mblock.h"
 #include "mem.h"
 #include "global.h"
@@ -8,7 +9,7 @@ int cmd_free(char **arg)
 {
 	if(arg[1]==NULL)
 	{
-		list_mem_print(MTYPE_MALOC);
+		list_mem_print(MTYPE_MALLOC);
 		return 0;
 	}
 

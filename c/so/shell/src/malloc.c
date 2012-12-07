@@ -1,5 +1,6 @@
 #include "malloc.h"
 #include "global.h"
+#include "mem.h"
 #include "../lib/list.h"
 #include "../lib/mblock.h"
 
