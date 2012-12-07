@@ -9,6 +9,7 @@ struct cosa
 	char *a;
 	char *b;
 	char *c;
+	int n;
 };
 
 void borra_cosas(void *p)
@@ -17,6 +18,15 @@ void borra_cosas(void *p)
 	free(s->a);
 	free(s->b);
 	free(s->c);
+}
+int cmp_cosas(void *a, void *b)
+{
+	struct cosa *pa = (struct cosa *)a;
+	struct cosa *pb = (struct cosa *)b;
+
+	if(pa->n < pb->n) return -1;
+	else if(pa->n > pb->n) return 1;
+	else return 0;
 }
 
 
@@ -43,20 +53,35 @@ int main()
 */
 	int i;
 	for(i=0; i<K; i++){
-		struct cosa *p = (struct cosa *) list_new(l, sizeof(struct cosa), borra_cosas);
+		//struct cosa *p = (struct cosa *) list_new(l, sizeof(struct cosa), borra_cosas);
+
+		struct cosa *p = malloc(sizeof(struct cosa));
 
 		p->a = malloc(10);
 		p->b = malloc(10);
 		p->c = malloc(10);
+		p->n = i*5;
 		strcpy(p->a, "aaaa");
 		strcpy(p->b, "bbbbb");
 		strcpy(p->c, "cccccc");
+		list_insert(l, p, borra_cosas, cmp_cosas);
 
 	}
 
+	struct cosa *p = malloc(sizeof(struct cosa));
+
+	p->a = malloc(10);
+	p->b = malloc(10);
+	p->c = malloc(10);
+	p->n = 20;
+	strcpy(p->a, "aaaa");
+	strcpy(p->b, "bbbbb");
+	strcpy(p->c, "cccc20");
+	list_insert(l, p, borra_cosas, cmp_cosas);
+
 	for(i=0; i<K; i++){
 		struct cosa *s = (struct cosa *) list_get(l, i);
-		printf("l->data[%d]=%p a=%s b=%s c=%s\n", i, list_get(l, i), s->a, s->b, s->c);
+		printf("l->data[%d]=%p a=%s b=%s c=%s n=%d\n", i, list_get(l, i), s->a, s->b, s->c, s->n);
 	}
 	
 	for(i=0; i<K/2; i++){
@@ -67,7 +92,7 @@ int main()
 
 	for(i=0; i<K/2; i++){
 		struct cosa *s = (struct cosa *) list_get(l, i);
-		printf("l->data[%d]=%p a=%s b=%s c=%s\n", i, list_get(l, i), s->a, s->b, s->c);
+		printf("l->data[%d]=%p a=%s b=%s c=%s d=%d\n", i, list_get(l, i), s->a, s->b, s->c, s->n);
 	}
 
 	/*

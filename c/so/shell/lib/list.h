@@ -15,18 +15,18 @@
 
 #include <stdlib.h>
 
-#define LIST_NO_CLEAR	0x00
 #define LIST_CLEAR	0x01
-#define LIST_CLEAR_MASK	0x01
+#define LIST_SORT	0x02
 
 //typedef void *node_t;
 
 typedef void free_func_t(void *);
+typedef int cmp_func_t(void *, void *);
 
 struct list_s
 {
 	size_t n;
-	//char type;
+	char type;
 	void **data;
 	free_func_t **clear;
 };
@@ -96,5 +96,15 @@ void *list_get(list_t l, size_t n);
  * Recibe una list_t y un size_t i, que es la posicion del elemento a eliminar.
  */
 void list_delete(list_t l, size_t i);
+
+
+/*
+Inserta un puntero ptr a un nodo en una lista l, con puntero a función de borra-
+do, o no, dependiendo del tipo de lista, y de forma ordenada si cmp es un punte-
+ro no nulo a una funcion comparadora, o inserta al final en otro caso.
+Devuelve -1 si no se ha podido insertar, o 0 si todo ha ido correctamente.
+*/
+
+int list_insert(list_t l, void *ptr, free_func_t *f, cmp_func_t *cmp);
  
 #endif /* LIST_H */

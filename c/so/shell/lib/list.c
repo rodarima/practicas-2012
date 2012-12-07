@@ -19,7 +19,7 @@
 
 int list_init_single(list_t *pl)
 {
-	return list_init(pl, LIST_NO_CLEAR);
+	return list_init(pl, 0);
 }
 
 int list_init(list_t *pl, char type)
@@ -31,13 +31,13 @@ int list_init(list_t *pl, char type)
 	list_t l = (*pl);
 
 	l->n = 0;
-	//l->type = type;
+	l->type = type;
 
 	l->data = malloc(SIZE_BLOCK*sizeof(void *));
 	if(l->data == NULL) return -1;
 	*(l->data) = NULL;
 
-	if((type&LIST_CLEAR_MASK) == LIST_CLEAR)
+	if((type&LIST_CLEAR))
 	{
 		l->clear = malloc(SIZE_BLOCK*sizeof(void **));
 		if(l->clear == NULL) return -1;
@@ -128,6 +128,101 @@ void *list_new(list_t l, size_t size, free_func_t *f)
 	return d;
 }
 
+int list_insert(list_t l, void *ptr, free_func_t *f, cmp_func_t *cmp)
+{
+	size_t n = l->n+1;
+	void **data = l->data;
+	free_func_t **clear = l->clear;
+	
+	if(NEED_REALLOC(n)){
+		size_t newsize = (n+SIZE_BLOCK)*sizeof(void*);
+		data = realloc(l->data, newsize);
+		if(!data) return -1;
+
+		if(clear)
+		{
+			clear = realloc(l->clear, newsize);
+			if(!clear) return -1;
+		}
+	}
+
+
+	if(cmp) /* Insertar empleando el algoritmo de busqueda binaria */
+	{
+		long int inicio = 0;
+		long int final  = n-1;
+		long int mitad = 0;
+
+		while(inicio<final)
+		{
+			mitad = (inicio+final)/2;
+			int c = (*cmp)(ptr, data[mitad]);
+			if(c==-1)
+			{
+				final = mitad;
+			}
+			else
+			{
+				inicio = mitad+1;
+			}
+		}
+
+		void **pmitad = data+inicio;
+		void **pos = data+n-1;
+
+		
+
+		if(clear)
+		{
+			free_func_t **pmitadf = clear+inicio;
+			free_func_t **posf = clear+n-1;
+			while(pos != pmitad){
+				*pos=*(pos-1);
+				*posf=*(posf-1);
+				pos--;
+				posf--;
+			}
+			*pmitad = ptr;
+			*pmitadf = f;
+
+			data[n] = NULL;
+			clear[n] = NULL;
+
+			l->clear = clear;
+		}
+		else
+		{
+			while(pos != pmitad){
+				*pos=*(pos-1);
+				pos--;
+			}
+			*pmitad = ptr;
+			data[n] = NULL;
+		}
+
+		l->n = n;
+		l->data = data;
+
+	}
+	else /* Insertar sin orden */
+	{
+		data[n-1] = ptr;
+		data[n] = NULL;
+
+		if(clear)
+		{
+			clear[n-1] = f;
+			clear[n] = NULL;
+			l->clear = clear;
+		}
+
+		l->n = n;
+		l->data = data;
+	}
+
+	return 0;
+}
+
 void *list_get(list_t l, size_t n)
 {
 	return l->data[n];
@@ -137,7 +232,7 @@ void list_delete(list_t l, size_t i)
 {
 	//printf("Friendo: %p\n", *pos);
 	void **pos = l->data+i;
-	free_func_t **clear = l->clear;
+	free_func_t **clear = l->clear+i;
 	if(clear)
 	{
 		(*clear)(*pos);
