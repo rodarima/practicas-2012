@@ -1,3 +1,6 @@
+#ifndef MBLOCK_H
+#define MBLOCK_H
+
 #include <sys/types.h>
 #include <time.h>
 
@@ -27,4 +30,8 @@ struct mblock_t
 
 };
 
-extern const char *mblock_type_name[] = {"malloc", "mmap", "shared"};
+extern const char *mblock_type_name[];
+
+int cmp_mblock(void *a, void *b);
+
+#endif

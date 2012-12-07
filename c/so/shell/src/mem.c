@@ -14,6 +14,7 @@ void list_mem_print(char mask);
 {
 	int pos = 0;
 	struct mblock_t *m;
+	char time_str[50];
 	
 	if (mask&MTYPE_MALLOC) {
 		printf("Espacios reservados con malloc:\n");
