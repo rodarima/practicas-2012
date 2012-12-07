@@ -26,3 +26,5 @@ struct mblock_t
 	};
 
 };
+
+extern const char *mblock_type_name[] = {"malloc", "mmap", "shared"};

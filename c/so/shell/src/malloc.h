@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-void free_mblock(void *pos);
+//void free_mblock(void *pos);
 int cmd_malloc(char **arg);
 
 #endif
