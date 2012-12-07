@@ -16,7 +16,7 @@
 #include <stdlib.h>
 
 #define LIST_CLEAR	0x01
-#define LIST_SORT	0x02
+//#define LIST_SORT	0x02
 
 //typedef void *node_t;
 
