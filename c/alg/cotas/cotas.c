@@ -3,5 +3,5 @@
 
 int main()
 {
-	printf("Calculando cotas para quicksort");
+	printf("Calculando cotas para quicksort.");
 }
