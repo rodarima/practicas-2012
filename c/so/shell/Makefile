@@ -77,7 +77,7 @@ test_cmd: $(LIB)/entrada.o 	\
 
 help:	$(SRC)/help.c $(SRC)/help.h
 
-
+test_printf: $(TEST)/test_printf
 
 test_entrada: $(LIB)/entrada.o 	\
 	$(LIB)/parametros.o 	\

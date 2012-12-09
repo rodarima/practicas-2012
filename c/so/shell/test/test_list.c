@@ -40,21 +40,12 @@ int main()
 	}
 
 
-	printf("l=%p l->data=%p l->n=%lu l->data=%p\n", l, l->data, l->n, ((int**)(l->data))[0]);
+	printf("l=%p l->data=%p l->n=%lu l->data=%p\n", 
+				l, l->data, l->n, ((int**)(l->data))[0]);
 
-	/*printf("l=%p l->data=%p l->n=%lu l->data=%p\n", l, l->data, l->n, ((int**)(l->data))[0]);
-	int *p = (int *) list_new(l,4);
-	*p=888;
-	printf("l=%p l->data=%p l->n=%lu l->data[0]=%d p=%p \n", l, l->data, l->n, *((int**)(l->data))[0], p);
-	void **f = list_get(l, 0);
-	printf("f=%p\n", f);
-	list_delete(l, f);
-	printf("l=%p l->data=%p l->n=%lu l->data=%p\n f=%p", l, l->data, l->n, ((int**)(l->data)), f);
-*/
 	int i;
-	for(i=0; i<K; i++){
-		//struct cosa *p = (struct cosa *) list_new(l, sizeof(struct cosa), borra_cosas);
-
+	for(i=0; i<K; i++)
+	{
 		struct cosa *p = malloc(sizeof(struct cosa));
 
 		p->a = malloc(10);
@@ -65,7 +56,6 @@ int main()
 		strcpy(p->b, "bbbbb");
 		strcpy(p->c, "cccccc");
 		list_insert(l, p, borra_cosas, cmp_cosas);
-
 	}
 
 	struct cosa *p = malloc(sizeof(struct cosa));
@@ -81,36 +71,23 @@ int main()
 
 	for(i=0; i<K; i++){
 		struct cosa *s = (struct cosa *) list_get(l, i);
-		printf("l->data[%d]=%p a=%s b=%s c=%s n=%d\n", i, list_get(l, i), s->a, s->b, s->c, s->n);
+		printf("l->data[%d]=%p a=%s b=%s c=%s d=%d\n",
+				i, list_get(l, i), s->a, s->b, s->c, s->n);
 	}
 	
-	for(i=0; i<K/2; i++){
-		//int *p = list_get(l, 1);
-		//printf("%p\n", p);
+	for(i=0; i<K/2; i++)
+	{
 		list_delete(l, 0);
 	}
 
 	for(i=0; i<K/2; i++){
 		struct cosa *s = (struct cosa *) list_get(l, i);
-		printf("l->data[%d]=%p a=%s b=%s c=%s d=%d\n", i, list_get(l, i), s->a, s->b, s->c, s->n);
+		printf("l->data[%d]=%p a=%s b=%s c=%s d=%d\n",
+				i, list_get(l, i), s->a, s->b, s->c, s->n);
 	}
-
-	/*
-	printf("l=%p l->data=%p l->n=%lu l->data[0]=%p\n", l, l->data, l->n, ((int**)(l->data))[0]);
-	int *p = (int *) list_new(l,4);
-	*p=2;
-	printf("l=%p l->data=%p l->n=%lu l->data[0]=%d p=%p \n", l, l->data, l->n, *((int**)(l->data))[0], p);
-	p = (int *) list_new(l,4);
-	*p=24;
-	printf("l=%p l->data=%p l->n=%lu *(l->data[1])=%d p=%p \n", l, l->data, l->n, *((int**)(l->data))[1], p);
-	p = (int *) list_new(l,4);
-	*p=33;
-	printf("l=%p l->data=%p l->n=%lu *(l->data[1])=%d p=%p \n", l, l->data, l->n, *((int**)(l->data))[2], p);
-	*/
 
 
 
 	list_free(l);
-	//printf("l=%p l->data=%p l->n=%lu l->data[0]=%p\n", l, l->data, l->n, ((int**)(l->data))[0]);
 	return 0;
 }
