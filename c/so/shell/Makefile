@@ -79,6 +79,8 @@ help:	$(SRC)/help.c $(SRC)/help.h
 
 test_printf: $(TEST)/test_printf
 
+test_open: $(TEST)/test_open
+
 test_entrada: $(LIB)/entrada.o 	\
 	$(LIB)/parametros.o 	\
 	$(TEST)/test_entrada.c

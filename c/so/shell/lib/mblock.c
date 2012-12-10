@@ -1,6 +1,6 @@
 #include "mblock.h"
 
-const char *mblock_type_name[] = {"malloc", "mmap", "shared"};
+const char *mblock_type_name[] = {"-malloc", "-mmap", "-shared"};
  
 int cmp_mblock(void *a, void *b)
 {
