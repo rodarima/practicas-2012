@@ -42,6 +42,7 @@ all: 	$(LIB)/entrada.o 	\
 	$(SRC)/mem.o		\
 	$(SRC)/mmap.o		\
 	$(SRC)/shared.o		\
+	$(SRC)/rmkey.o		\
 	$(SRC)/recursiva.o	\
 	$(SRC)/global.h		\
 	$(SRC)/comandos.h 	\

@@ -36,9 +36,10 @@
 #include "malloc.h"
 #include "free.h"
 #include "mem.h"
-#include "shared.h"
-#include "recursiva.h"
 #include "mmap.h"
+#include "shared.h"
+#include "rmkey.h"
+#include "recursiva.h"
 
 struct cmd_t {
 	const char *name;
@@ -78,6 +79,7 @@ static struct cmd_t lista_cmd[] =
 	{"mem",		cmd_mem,	"mem [-malloc|-shared|-mmap]"},
 	{"mmap",	cmd_mmap,	"mmap FILE [-s] [r][w][x]"},
 	{"shared",	cmd_shared,	"shared [key] [tam]"},
+	{"rmkey",	cmd_rmkey,	"rmkey KEY"},
 	{"recursiva",	cmd_recursiva, 	"recursiva N_LLAMADAS"},
 	
 	// Funciones reales
