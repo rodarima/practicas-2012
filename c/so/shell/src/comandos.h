@@ -38,6 +38,7 @@
 #include "mem.h"
 #include "mmap.h"
 #include "shared.h"
+#include "unshared.h"
 #include "rmkey.h"
 #include "recursiva.h"
 
@@ -79,6 +80,7 @@ static struct cmd_t lista_cmd[] =
 	{"mem",		cmd_mem,	"mem [-malloc|-shared|-mmap]"},
 	{"mmap",	cmd_mmap,	"mmap FILE [-s] [r][w][x]"},
 	{"shared",	cmd_shared,	"shared [key] [tam]"},
+	{"unshared",	cmd_unshared,	"unshared [tam]"},
 	{"rmkey",	cmd_rmkey,	"rmkey KEY"},
 	{"recursiva",	cmd_recursiva, 	"recursiva N_LLAMADAS"},
 	
