@@ -3,6 +3,7 @@
 #include "../lib/mblock.h"
 #include "mem.h"
 #include "global.h"
+#include "malloc.h"
 
 
 int cmd_free(char **arg)
@@ -21,6 +22,7 @@ int cmd_free(char **arg)
 	{
 		if(((p->type) & MTYPE_MALLOC) && (p->size == tam))
 		{
+			free_mblock_malloc(p);
 			list_delete(list_mem, i);
 			break;
 		}

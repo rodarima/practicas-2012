@@ -3,6 +3,9 @@
 #include "mem.h"
 #include "../lib/list.h"
 #include "../lib/mblock.h"
+#include <limits.h>
+#include <stdlib.h>
+#include <errno.h>
 
 void free_mblock_malloc(void *pos)
 {
@@ -17,17 +20,29 @@ int cmd_malloc(char **arg)
 		return 0;
 	}
 	
-	size_t size = atol(arg[1]);
+	errno = 0;
+	size_t size;
+
+	if(((size = strtoul(arg[1], NULL, 10)) == ULONG_MAX) &&
+		(errno != 0))
+	{
+		perror("No se pudo convertir el tamaño a unsigned long");
+		return -1;
+	}
+
+	printf("Tamaño %lu\n", size);
+
 	time_t t = time(0);
 	void *p = malloc(size);	
-	if(p==NULL) {
+	/* falla con malloc 100000000000000 */
+	if(p == NULL) {
 		perror("No se pudo reservar el espacio solicitado");
 		return -1;
 	}
 	
 	//struct mblock_t *b = list_new(list_mem, sizeof(struct mblock_t), free_mblock);
 	struct mblock_t *b = malloc(sizeof(struct mblock_t));
-	if(b==NULL) {
+	if(b == NULL) {
 		perror("malloc ha fallado");
 		return -1;
 	}
