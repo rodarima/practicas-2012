@@ -52,11 +52,11 @@ void list_mem_print(char mask)
 			if (!(m->type&MTYPE_MMAP)) break;
 			if(entro == 0){
 				printf("Espacios reservados con mmap:\n");
-				printf("DIRECCIÓN                   TAMAÑO             INSTANTE FD NOMBRE\n");
+				printf("DIRECCIÓN          TAMAÑO   INSTANTE             FD NOMBRE\n");
 				entro++;
 			}
 			time_to_str(m->time, time_str, sizeof(time_str));
-			printf("0x%016lx %15lu %20s %5d %20s\n",
+			printf("0x%016lx %-8lu %-20s %2d %s\n",
 				(unsigned long)m->addr,
 				m->size,
 				time_str,

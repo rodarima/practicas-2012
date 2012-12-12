@@ -6,9 +6,14 @@
 #include <unistd.h>
 #include <string.h>
 #include "help.h"
+#include "mmap.h"
+#include "../lib/mblock.h"
+#include "global.h"
+#include "../lib/list.h"
+#include <time.h>
 
 #define handle_error(msg) \
-do { perror(msg); exit(EXIT_FAILURE); } while (0)
+do { perror(msg); return -1 ; } while (0)
 
 
 int get_prot_from_string(char *ptr_prot)
@@ -32,89 +37,135 @@ int get_prot_from_string(char *ptr_prot)
 	return prot;
 }
 
+void free_mmap(void *p)
+{
+	struct mblock_t *s = (struct mblock_t *) p;
+	free(s->name);
+}
 
-int cmd_mmap(char **argv)
+int cmd_mmap(char **arg)
 {
 	/* mmap fichero [-s] [perm] */
 
 	/* Fichero no especificado */
-	if(argv[1] == NULL)
+	if(arg[1] == NULL)
 	{
-		show_help(argv[0]);
+		show_help(arg[0]);
+		return -1;
 	}
 
-	char *file = argv[1];
+	char *file = arg[1];
 
-	char *shared = NULL;
-	char *perm = NULL;
+	int shared = MAP_PRIVATE;
+	int perm = 0;
 
 	/* Opcion -s o permisos */
-	if(argv[2] != NULL)
+	if(arg[2] != NULL)
 	{
-		if(strcmp(argv[2], "-s") == 0)
+		if(strcmp(arg[2], "-s") == 0)
 		{
-			shared = argv[2];
+			shared = MAP_SHARED;
 		}
 		else
 		{
-			perm = argv[2];
+			if((perm = get_prot_from_string(arg[2])) == -1)
+			{
+				printf("Permisos no reconocidos\n");
+				return -1;
+			}
+		}
+	}
+	if((arg[2] != NULL) && (arg[3] != NULL))
+	{
+		if((strcmp(arg[3], "-s") == 0) && (shared == MAP_PRIVATE))
+		{
+			shared = MAP_SHARED;
+		}
+		else if((shared == MAP_SHARED) && 
+			((perm = get_prot_from_string(arg[2])) == -1))
+		{
+			printf("Permisos no reconocidos\n");
+			return -1;
+		}
+		else
+		{
+			printf("Parámetros incorrectos\n");
+			show_help(arg[0]);
 		}
 	}
 
-	if(argv[3])
+
 
 	char *addr;
 	int fd;
 	struct stat sb;
-	off_t offset, pa_offset;
-	size_t length;
-	ssize_t s;
 
-	if (argc < 3 || argc > 4) {
-		fprintf(stderr, "%s file offset [length]\n", argv[0]);
-		exit(EXIT_FAILURE);
+	fd = open(file, O_RDONLY);
+	if (fd == -1){
+		perror("open");
+		return -1;
 	}
 
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-		handle_error("open");
-
-if (fstat(fd, &sb) == -1)           /* To obtain file size */
-	handle_error("fstat");
-
-	offset = atoi(argv[2]);
-	pa_offset = offset & ~(sysconf(_SC_PAGE_SIZE) - 1);
-/* offset for mmap() must be page aligned */
-
-	if (offset >= sb.st_size) {
-		fprintf(stderr, "offset is past end of file\n");
-		exit(EXIT_FAILURE);
+	if (fstat(fd, &sb) == -1)           /* To obtain file size */
+	{
+		close(fd);
+		perror("fstat");
+		return -1;
 	}
 
-	if (argc == 4) {
-		length = atoi(argv[3]);
-		if (offset + length > sb.st_size)
-			length = sb.st_size - offset;
-/* Can't display bytes past end of file */
-
-} else {    /* No length arg ==> display to end of file */
-		length = sb.st_size - offset;
-	}
-
-	addr = mmap(NULL, length + offset - pa_offset, PROT_READ,
-		MAP_PRIVATE, fd, pa_offset);
+	
+	addr = mmap(NULL, sb.st_size, perm, shared, fd, 0);
 	if (addr == MAP_FAILED)
-		handle_error("mmap");
+	{
+		close(fd);
+		perror("mmap");
+		return -1;
+	}
 
-	s = write(STDOUT_FILENO, addr + offset - pa_offset, length);
-	if (s != length) {
+	printf("%p\n", addr);
+
+	struct mblock_t *p = (struct mblock_t *) malloc(sizeof(struct mblock_t));
+
+	if(!p)
+	{
+		perror("malloc");
+		return -1;
+	}
+
+	char *fp = malloc(strlen(file));
+	if(!fp)
+	{
+		perror("malloc");
+		return -1;
+	}
+	strcpy(fp, file);
+	
+	p->addr = addr;
+	p->fd = fd;
+	p->name = fp;
+	p->type = MTYPE_MMAP;
+	p->time = time(0);
+	p->size = sb.st_size;
+
+	list_insert(list_mem, p, free_mmap, cmp_mblock);
+
+	//list_new(list_mem, sizeof(struct mblock_t), NULL);
+
+	/*
+	s = write(STDOUT_FILENO, 0, length);
+	if (s != length)
+	{
+		close(fd);
 		if (s == -1)
-			handle_error("write");
+		{
+			perror("write");
+			return -1;
+		}
 
 		fprintf(stderr, "partial write");
-		exit(EXIT_FAILURE);
+		return -1;
 	}
-
-	exit(EXIT_SUCCESS);
+	*/
+	return -1;
 }
 

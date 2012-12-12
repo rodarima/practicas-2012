@@ -40,6 +40,7 @@ all: 	$(LIB)/entrada.o 	\
 	$(SRC)/malloc.o		\
 	$(SRC)/free.o		\
 	$(SRC)/mem.o		\
+	$(SRC)/mmap.o		\
 	$(SRC)/global.h		\
 	$(SRC)/comandos.h 	\
 	$(SRC)/shell.c 	

@@ -36,6 +36,7 @@
 #include "malloc.h"
 #include "free.h"
 #include "mem.h"
+#include "mmap.h"
 
 struct cmd_t {
 	const char *name;
@@ -73,6 +74,7 @@ static struct cmd_t lista_cmd[] =
 	{"malloc",	cmd_malloc,	"malloc [tam]"},
 	{"free",	cmd_free,	"free [tam]"},
 	{"mem",		cmd_mem,	"mem [-malloc|-shared|-mmap]"},
+	{"mmap",	cmd_mmap,	"mmap FILE [-s] [r][w][x]"},
 	
 	// Funciones reales
 	/*
