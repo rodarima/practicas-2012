@@ -24,7 +24,7 @@ struct mblock_t
 
 	union
 	{
-		int id;
+		int shmid;
 		char *name;
 	};
 

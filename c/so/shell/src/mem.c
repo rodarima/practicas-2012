@@ -83,7 +83,7 @@ void list_mem_print(char mask)
 				(unsigned long)m->addr,
 				m->size,
 				time_str,
-				m->id,
+				m->shmid,
 				m->key
 			);
 			pos++;

@@ -36,6 +36,8 @@
 #include "malloc.h"
 #include "free.h"
 #include "mem.h"
+#include "shared.h"
+#include "recursiva.h"
 #include "mmap.h"
 
 struct cmd_t {
@@ -75,6 +77,8 @@ static struct cmd_t lista_cmd[] =
 	{"free",	cmd_free,	"free [tam]"},
 	{"mem",		cmd_mem,	"mem [-malloc|-shared|-mmap]"},
 	{"mmap",	cmd_mmap,	"mmap FILE [-s] [r][w][x]"},
+	{"shared",	cmd_shared,	"shared [key] [tam]"},
+	{"recursiva",	cmd_recursiva, 	"recursiva N_LLAMADAS"},
 	
 	// Funciones reales
 	/*

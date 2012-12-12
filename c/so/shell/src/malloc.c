@@ -4,7 +4,7 @@
 #include "../lib/list.h"
 #include "../lib/mblock.h"
 
-void free_mblock(void *pos)
+void free_mblock_malloc(void *pos)
 {
 	struct mblock_t *element = (struct mblock_t *)pos;
 	free(element->addr);
@@ -37,7 +37,7 @@ int cmd_malloc(char **arg)
 	b->time = t;
 	b->type = MTYPE_MALLOC;
 
-	if(list_insert(list_mem, b, free_mblock, cmp_mblock))
+	if(list_insert(list_mem, b, free_mblock_malloc, cmp_mblock))
 	{
 		perror("No se ha podido insertar en la lista");
 		return -1;
