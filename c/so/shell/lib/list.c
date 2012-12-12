@@ -233,10 +233,10 @@ void list_delete(list_t l, size_t i)
 	//printf("Friendo: %p\n", *pos);
 	void **pos = l->data+i;
 	free_func_t **clear = l->clear+i;
-	if(clear)
+	/*if(clear)
 	{
 		(*clear)(*pos);
-	}
+	}*/
 	free(*pos);
 	while(*pos!=NULL){
 		*pos=*(pos+1);
