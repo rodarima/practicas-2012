@@ -124,48 +124,32 @@ int cmd_mmap(char **arg)
 
 	printf("%p\n", addr);
 
-	struct mblock_t *p = (struct mblock_t *) malloc(sizeof(struct mblock_t));
 
-	if(!p)
-	{
-		perror("malloc");
-		return -1;
-	}
-
-	char *fp = malloc(strlen(file));
-	if(!fp)
-	{
-		perror("malloc");
-		return -1;
-	}
-	strcpy(fp, file);
+	char *pname = malloc(strlen(file) + 1);
+	strcpy(pname, file);
 	
+	if(!pname)
+	{
+		perror("malloc");
+		return -1;
+	}
+
+	struct mblock_t *p = (struct mblock_t *) malloc(sizeof(struct mblock_t));
+        if(!p)
+        {
+                perror("malloc");
+                return -1;
+        }
+
 	p->addr = addr;
 	p->fd = fd;
-	p->name = fp;
+	p->name = pname;
 	p->type = MTYPE_MMAP;
 	p->time = time(0);
 	p->size = sb.st_size;
 
 	list_insert(list_mem, p, free_mmap, cmp_mblock);
 
-	//list_new(list_mem, sizeof(struct mblock_t), NULL);
-
-	/*
-	s = write(STDOUT_FILENO, 0, length);
-	if (s != length)
-	{
-		close(fd);
-		if (s == -1)
-		{
-			perror("write");
-			return -1;
-		}
-
-		fprintf(stderr, "partial write");
-		return -1;
-	}
-	*/
-	return -1;
+	return 0;
 }
 

@@ -60,13 +60,17 @@ void list_free(list_t l)
 
 	if(clear)
 	{
-		while((*data) && (*clear))
+		while(*data)
 		{
-			(*clear)(*data);
+			if(*clear)
+			{
+				(*clear)(*data);
+			}
 			free(*data);
 			data++;
 			clear++;
 		}
+		//printf("friendo %p", l->clear);
 		free(l->clear);
 	}
 	else

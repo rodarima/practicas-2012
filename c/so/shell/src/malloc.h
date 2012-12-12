@@ -2,7 +2,7 @@
 #define MALLOC_H
 
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <time.h>
 
 void free_mblock_malloc(void *pos);

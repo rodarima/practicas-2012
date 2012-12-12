@@ -15,7 +15,7 @@ void free_mblock_malloc(void *pos)
 
 int cmd_malloc(char **arg)
 {
-	if(arg[1]==NULL) {
+	if(arg[1] == NULL) {
 		list_mem_print(MTYPE_MALLOC);
 		return 0;
 	}
