@@ -75,11 +75,11 @@ void list_mem_print(char mask)
 			if(entro == 0)
 			{
 				printf("Espacios reservados con shared:\n");
-				printf("DIRECCIÓN                   TAMAÑO             INSTANTE ID  KEY\n");
+				printf("DIRECCIÓN                   TAMAÑO             INSTANTE         ID KEY\n");
 				entro++;
 			}
 			time_to_str(m->time, time_str, sizeof(time_str));
-			printf("0x%016lx %15lu %20s %5d %16x\n",
+			printf("0x%016lx %15lu %20s %10d 0x%08x\n",
 				(unsigned long)m->addr,
 				m->size,
 				time_str,

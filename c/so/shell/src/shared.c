@@ -36,13 +36,13 @@ int cmd_shared(char **arg)
 	}
 	
 	if ((shmid = shmget(key, size, flags))==-1) {
-		perror("shmget: ");
+		perror("shmget");
 		return -1;
 	}
 	
 	t = time(0);
 	if ((shmaddr = shmat(shmid, NULL, 0)) == (void *)-1) {
-		perror("shmat: ");
+		perror("shmat");
 		if (arg[2]!=NULL) 
 			shmctl(shmid, IPC_RMID, NULL);
 		return -1;

@@ -16,12 +16,12 @@ int cmd_rmkey(char **arg)
 	}
 	
 	if ((shmid=shmget(key, 0, 0666)) == -1) {
-		perror("shmget: ");
+		perror("shmget");
 		return -1;
 	}
 	
 	if (shmctl(shmid, IPC_RMID, NULL)==-1) {
-		perror("shmctl: ");
+		perror("shmctl");
 		return -1;
 	}
 	return 0;
