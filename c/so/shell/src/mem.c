@@ -21,14 +21,13 @@ void list_mem_print(char mask)
 	int pos = 0;
 	struct mblock_t *m;
 	char time_str[50];
+	char entro = 0;
 
-	if (mask&MTYPE_MALLOC) {
-		char entro = 0;
-		while (pos<list_mem->n) {
-
-			m = list_get(list_mem, pos);
-			if (!(m->type&MTYPE_MALLOC)) break;
-
+	while (pos<list_mem->n) {
+		m = list_get(list_mem, pos);
+		if (!(m->type&MTYPE_MALLOC)) break;
+		
+		if (mask&MTYPE_MALLOC) {
 			if(entro == 0){
 				printf("Espacios reservados con malloc:\n");
 				printf("DIRECCIÓN                   TAMAÑO INSTANTE\n");
@@ -41,15 +40,16 @@ void list_mem_print(char mask)
 				m->size,
 				time_str
 				);
-			pos++;
 		}
-
+		pos++;
 	}
-	if (mask&MTYPE_MMAP) {
-		char entro = 0;
-		while (pos<list_mem->n) {
-			m = list_get(list_mem, pos);
-			if (!(m->type&MTYPE_MMAP)) break;
+	
+	entro = 0;
+	while (pos<list_mem->n) {		
+		m = list_get(list_mem, pos);
+		if (!(m->type&MTYPE_MMAP)) break;
+		
+		if (mask&MTYPE_MMAP) {
 			if(entro == 0){
 				printf("Espacios reservados con mmap:\n");
 				printf("DIRECCIÓN          TAMAÑO   INSTANTE             FD NOMBRE\n");
@@ -63,15 +63,16 @@ void list_mem_print(char mask)
 				m->fd,
 				m->name
 			);
-			pos++;
 		}
-	
+		pos++;
 	}
-	if (mask&MTYPE_SHARED) {
-		char entro = 0;
-		while (pos<list_mem->n) {
-			m = list_get(list_mem, pos);
-			if (!(m->type&MTYPE_SHARED)) break;
+	
+	entro = 0;
+	while (pos<list_mem->n) {	
+		m = list_get(list_mem, pos);
+		if (!(m->type&MTYPE_SHARED)) break;
+		
+		if (mask&MTYPE_SHARED) {
 			if(entro == 0)
 			{
 				printf("Espacios reservados con shared:\n");
@@ -86,9 +87,8 @@ void list_mem_print(char mask)
 				m->shmid,
 				m->key
 			);
-			pos++;
 		}
-	
+		pos++;
 	}
 }
 
