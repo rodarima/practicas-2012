@@ -19,7 +19,7 @@ int cmd_munmap(char ** arg)
 	struct mblock_t *p = NULL;
 	while(i < list_mem->n)
 	{
-		struct mblock_t *p = (struct mblock_t *) list_get(list_mem, i);
+		p = (struct mblock_t *) list_get(list_mem, i);
 		if((p->type == MTYPE_MMAP) &&
 		   (strcmp(f, p->name)==0))
 		{
@@ -32,7 +32,7 @@ int cmd_munmap(char ** arg)
 			}
 
 			/* borramos solo la 1 ocurrencia */
-			free_mmap(p);
+			//free_mmap(p);
 			list_delete(list_mem, i);
 			return 0;
 		}

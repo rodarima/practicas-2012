@@ -63,7 +63,7 @@ int cmd_shared(char **arg)
 	b->key = key;
 	b->shmid = shmid;
 		
-	if (list_insert(list_mem, b, free_mblock_shared, cmp_mblock)) {
+	if (list_insert(list_mem, b, NULL, cmp_mblock)) {
 		perror("No se ha podido insertar en la lista");
 		return -1;
 	}

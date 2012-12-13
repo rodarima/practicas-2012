@@ -72,7 +72,7 @@ void list_free(list_t l)
 			data++;
 			clear++;
 		}
-		//printf("friendo %p", l->clear);
+		printf("friendo %p", l->clear);
 		free(l->clear);
 	}
 	else
@@ -264,13 +264,88 @@ void *list_get(list_t l, size_t n)
 
 void list_delete(list_t l, size_t i)
 {
+	free_func_t **baseclear = l->clear;
+	free_func_t **fclear = l->clear + i;
+	void **idata = l->data + i;
+
+	void **data = l->data;
+	free_func_t **clear = l->clear;
+	size_t n = l->n;
+
+
+	/* Si la lista incluye llamadas de borrado */
+	if(baseclear)
+	{
+		/* Si necesitamos llamar a la funcion */
+		if(*fclear)
+		{
+			/* Invocamos a la funcion de borrado */
+			(*fclear)(*idata);
+		}
+
+		/* Borramos la estructura del dato */
+		free(*idata);
+
+		/* Eliminamos el hueco en las listas de data y clear */
+		while(*idata)
+		{
+			*idata = *(idata+1);
+			*fclear = *(fclear+1);
+
+			idata++;
+			fclear++;
+		}
+
+		if(NEED_REALLOC(n))
+		{
+			size_t newsize = (n + SIZE_BLOCK) * sizeof(void*);
+			data = realloc(l->data, newsize);
+			clear = realloc(l->clear, newsize);
+			if(!data) return;
+			if(!clear) return;
+
+			l->data = data;
+			l->clear = clear;
+		}
+
+
+	}
+	else /* Si no tiene funciones de borrado */
+	{
+		/* Borramos la estructura del dato */
+		free(*idata);
+
+		/* Eliminamos el hueco en las listas de data */
+		while(*idata)
+		{
+			*idata = *(idata+1);
+			idata++;
+		}
+
+		if(NEED_REALLOC(n))
+		{
+			size_t newsize = (n + SIZE_BLOCK) * sizeof(void*);
+			data = realloc(l->data, newsize);
+			if(!data) return;
+
+			l->data = data;
+		}
+
+	}
+
+	l->n--;
+	return;
+
+	/*
 	//printf("Friendo: %p\n", *pos);
 	void **pos = l->data+i;
-	free_func_t **clear = l->clear+i;
-	/*if(clear)
+	free_func_t **clear = l->clear;
+	free_func_t **cpos = l->clear+i;
+
+	if(cpos)
 	{
-		(*clear)(*pos);
-	}*/
+		(*cpos)(*pos);
+	}
 	free(*pos);
 	while(*pos!=NULL){
 		*pos=*(pos+1);
@@ -299,6 +374,7 @@ void list_delete(list_t l, size_t i)
 
 	l->data = data;
 	l->n--;
+	*/
 }
 #undef NEED_REALLOC
 

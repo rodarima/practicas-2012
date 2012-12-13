@@ -22,7 +22,7 @@ int cmd_free(char **arg)
 	{
 		if(((p->type) & MTYPE_MALLOC) && (p->size == tam))
 		{
-			free_mblock_malloc(p);
+			//free_mblock_malloc(p);
 			list_delete(list_mem, i);
 			break;
 		}
