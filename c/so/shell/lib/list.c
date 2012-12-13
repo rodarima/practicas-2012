@@ -13,6 +13,8 @@
 #include "list.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdint.h> /* Para SIZE_MAX */
+
 #define SIZE_BLOCK	10
 #define SIZE_DATA	(sizeof(node_t))
 
@@ -131,7 +133,35 @@ void *list_new(list_t l, size_t size, free_func_t *f)
 
 	return d;
 }
+/*
+size_t list_search(list_t l, cmp_func_t *cmp)
+{
+	size_t inicio = 0;
+	size_t final  = (l->n-1);
+	size_t mitad;
 
+	while(inicio <= final)
+	{
+		mitad = (inicio+final)/2;
+		int c = (*cmp)(ptr, data[mitad]);
+		if(c==-1)
+		{
+			final = mitad-1;
+		}
+		else if(c==1)
+		{
+			inicio = mitad+1;
+		}
+		else
+		{
+			return mitad;
+		}
+	}
+
+	return SIZE_MAX;
+
+}
+*/
 int list_insert(list_t l, void *ptr, free_func_t *f, cmp_func_t *cmp)
 {
 	size_t n = l->n+1;

@@ -41,6 +41,7 @@ all: 	$(LIB)/entrada.o 	\
 	$(SRC)/free.o		\
 	$(SRC)/mem.o		\
 	$(SRC)/mmap.o		\
+	$(SRC)/munmap.o		\
 	$(SRC)/shared.o		\
 	$(SRC)/unshared.o	\
 	$(SRC)/rmkey.o		\

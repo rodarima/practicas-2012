@@ -81,7 +81,7 @@ int cmd_mmap(char **arg)
 		{
 			shared = MAP_SHARED;
 		}
-		else if((shared == MAP_SHARED) && 
+		else if((shared == MAP_SHARED) &&
 			((perm = get_prot_from_string(arg[2])) == -1))
 		{
 			printf("Permisos no reconocidos\n");

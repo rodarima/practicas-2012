@@ -1,11 +1,11 @@
-/* 
+/*
  *  AUTORES:
  * 	* Carlos Pérez Ramil
  * 	* Rodrigo Arias Mallo
- * 
+ *
  *  GRUPO:
  * 	2.3.2
- * 
+ *
  *  HORARIO:
  * 	Viernes de 8:30 a 10:30
  */
@@ -21,7 +21,7 @@
 #include "list.h"
 #include "quit.h"
 #include "help.h"
- 
+
 //Practica 2
 #include "priority.h"
 #include "fork.h"
@@ -37,6 +37,7 @@
 #include "free.h"
 #include "mem.h"
 #include "mmap.h"
+#include "munmap.h"
 #include "shared.h"
 #include "unshared.h"
 #include "rmkey.h"
@@ -51,7 +52,7 @@ struct cmd_t {
 int cmd_pid(char **arg);
 
 
-static struct cmd_t lista_cmd[] = 
+static struct cmd_t lista_cmd[] =
 {
 	//Práctca 1
 	{"pwd", 	cmd_pwd,	"pwd"},
@@ -63,11 +64,11 @@ static struct cmd_t lista_cmd[] =
 	{"quit", 	cmd_quit,	"quit"},
 	{"fin", 	cmd_quit,	"fin"},
 	{"exit", 	cmd_quit,	"exit"},
-	
+
 	//Practica 2
 	{"prio", 	cmd_prio,	"prio [PID [PRIORITY]]"},
 	{"fork", 	cmd_fork,	"fork"},
-	{"ejecutar", 	cmd_ejecutar,	"ejecutar PROGRAM [ARGS ...] [@PRIORITY]"},	
+	{"ejecutar", 	cmd_ejecutar,	"ejecutar PROGRAM [ARGS ...] [@PRIORITY]"},
 	{"splano", 	cmd_splano,	"splano PROGRAM [ARGS ...] [@PRIORITY]"},
 	{"pplano", 	cmd_pplano,	"pplano PID"},
 	{"procesos", 	cmd_procesos,	"procesos [all|term|sig|stop|act]"},
@@ -79,11 +80,12 @@ static struct cmd_t lista_cmd[] =
 	{"free",	cmd_free,	"free [tam]"},
 	{"mem",		cmd_mem,	"mem [-malloc|-shared|-mmap]"},
 	{"mmap",	cmd_mmap,	"mmap FILE [-s] [r][w][x]"},
+	{"munmap",	cmd_munmap,	"munmap [FILE]"},
 	{"shared",	cmd_shared,	"shared [key] [tam]"},
 	{"unshared",	cmd_unshared,	"unshared [tam]"},
 	{"rmkey",	cmd_rmkey,	"rmkey KEY"},
 	{"recursiva",	cmd_recursiva, 	"recursiva N_LLAMADAS"},
-	
+
 	// Funciones reales
 	/*
 	{"rm", 		cmd_delete,	"rm FILE"},
@@ -92,8 +94,8 @@ static struct cmd_t lista_cmd[] =
 	*/
 
 	{"help", 	cmd_help,	"help [COMANDO]"},
-	
-	
+
+
 	{NULL, NULL, NULL}
 };
 

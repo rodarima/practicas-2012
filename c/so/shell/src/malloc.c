@@ -30,11 +30,9 @@ int cmd_malloc(char **arg)
 		return -1;
 	}
 
-	printf("Tamaño %lu\n", size);
-
 	time_t t = time(0);
 	void *p = malloc(size);	
-	/* falla con malloc 100000000000000 */
+	
 	if(p == NULL) {
 		perror("No se pudo reservar el espacio solicitado");
 		return -1;
