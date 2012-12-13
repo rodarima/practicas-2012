@@ -84,7 +84,7 @@ int main(int argc, char **argv)
 			
 			free(path);
 			free(pc);
-			exit(0);
+			break;
 		}
 		char **arg = obtener_argumentos(linea);
 		if(!arg) return -1;
