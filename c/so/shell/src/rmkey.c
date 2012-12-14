@@ -11,7 +11,7 @@ int cmd_rmkey(char **arg)
 	int shmid;
 	key_t key = (key_t)strtoul(arg[1], NULL, 10);
 	if (key==IPC_PRIVATE) {
-		printf("Error: clave no válida");
+		printf("Error: clave no válida\n");
 		return -1;
 	}
 	
