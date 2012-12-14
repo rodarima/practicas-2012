@@ -72,12 +72,12 @@ void list_free(list_t l)
 			data++;
 			clear++;
 		}
-		printf("friendo %p", l->clear);
+		//printf("friendo %p", l->clear);
 		free(l->clear);
 	}
 	else
 	{
-		while(*data && *clear)
+		while(*data)
 		{
 			free(*data);
 			data++;
