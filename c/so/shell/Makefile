@@ -47,6 +47,7 @@ all: 	$(LIB)/entrada.o 	\
 	$(SRC)/rmkey.o		\
 	$(SRC)/recursiva.o	\
 	$(SRC)/memdump.o	\
+	$(SRC)/uid.o		\
 	$(SRC)/global.h		\
 	$(SRC)/comandos.h 	\
 	$(SRC)/shell.c 	

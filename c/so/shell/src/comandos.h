@@ -43,6 +43,7 @@
 #include "rmkey.h"
 #include "recursiva.h"
 #include "memdump.h"
+#include "uid.h"
 
 struct cmd_t {
 	const char *name;
@@ -87,6 +88,7 @@ static struct cmd_t lista_cmd[] =
 	{"rmkey",	cmd_rmkey,	"rmkey KEY"},
 	{"recursiva",	cmd_recursiva, 	"recursiva N_LLAMADAS"},
 	{"memdump",	cmd_memdump, 	"memdump ADDR [N]"},
+	{"uid",		cmd_uid,	"uid [[-l] u]"},
 
 	// Funciones reales
 	/*
