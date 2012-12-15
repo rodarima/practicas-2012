@@ -14,21 +14,22 @@ int cmd_uid(char **arg)
 	
 	if (arg[1]==NULL) {
 		char *login, *info, *elogin, *einfo;
+		char *desc = "desconocido";
 		uid = getuid();
 		euid = geteuid();
 		if((pw = getpwuid(uid))) {
 			login = pw->pw_name;
 			info = pw->pw_gecos;
 		} else {
-			login = "desconocido";
-			info = "desconocido";
+			login = desc;
+			info = desc;
 		}			
 		if ((pw=getpwuid(euid))) {
 			elogin = pw->pw_name;
 			einfo = pw->pw_gecos;
 		} else {
-			elogin = "desconocido";
-			einfo = "desconocido";		
+			elogin = desc;
+			einfo = desc;		
 		}
 		printf("UID         LOGIN                  NAME E_UID     E_LOGIN                E_NAME\n");		
 		printf("%-6d %10s %21s %-6d %10s %21s\n", uid, login, info, euid, elogin, einfo);

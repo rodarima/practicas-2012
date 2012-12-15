@@ -11,12 +11,19 @@
  */
 
 #include "usuario.h"
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
 
 
 char *nombre_login()
 {
-	char * l = getenv("USER");
-	return l ? l : USUARIO_ALTERNATIVO;
+	struct passwd *p = getpwuid(getuid());
+	if(!p){
+		perror("getpwuid");
+		return USUARIO_ALTERNATIVO;
+	}
+	return p->pw_name ? p->pw_name : USUARIO_ALTERNATIVO;
 }
 
 char *nombre_pc(){
