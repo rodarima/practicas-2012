@@ -45,7 +45,7 @@ int cmd_uid(char **arg)
 			perror("getpwnam");
 			return -1;
 		}
-		if (setuid(pw->pw_uid)!=0) {
+		if (seteuid(pw->pw_uid)!=0) {
 			perror("setuid");
 			return -1;
 		}
@@ -53,7 +53,7 @@ int cmd_uid(char **arg)
 	}
 	
 	uid = (uid_t)atoi(arg[1]);
-	if (setuid(uid)!=0) {
+	if (seteuid(uid)!=0) {
 		perror("setuid");
 		return -1;
 	}	
