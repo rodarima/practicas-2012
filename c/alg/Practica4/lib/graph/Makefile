@@ -7,7 +7,7 @@ CFLAGS = $(XFLAGS)
 
 DIR = graph
 PROJECT = libgraph.a
-OBJECTS = prim.o list.o
+OBJECTS = prim.o
 
 all:		$(PROJECT)
 
