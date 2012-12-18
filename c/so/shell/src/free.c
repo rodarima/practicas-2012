@@ -33,7 +33,7 @@ int cmd_free(char **arg)
 	}
 	if(!p)
 	{
-		printf("No se ha encontrado ningún bloque de %lu bytes\n", tam);
+		printf("No se ha encontrado ningún bloque de %zu bytes\n", tam);
 		return -1;
 	}
 

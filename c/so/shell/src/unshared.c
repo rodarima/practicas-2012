@@ -25,7 +25,7 @@ int cmd_unshared(char **arg)
 		}
 	}
 	if (b==NULL) {
-		printf("No se ha encontrado ningún bloque de %lu bytes\n", sz);
+		printf("No se ha encontrado ningún bloque de %zu bytes\n", sz);
 		return -1;
 	}
 	

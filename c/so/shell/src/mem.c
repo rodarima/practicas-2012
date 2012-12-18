@@ -35,7 +35,7 @@ void list_mem_print(char mask)
 			}
 			
 			time_to_str(m->time, time_str, sizeof(time_str));
-			printf("0x%016lx %15lu %20s\n",
+			printf("0x%016lx %15zu %20s\n",
 				(unsigned long)m->addr,
 				m->size,
 				time_str
@@ -56,7 +56,7 @@ void list_mem_print(char mask)
 				entro++;
 			}
 			time_to_str(m->time, time_str, sizeof(time_str));
-			printf("0x%016lx %-8lu %-20s %2d %s\n",
+			printf("0x%016lx %-8zu %-20s %2d %s\n",
 				(unsigned long)m->addr,
 				m->size,
 				time_str,
@@ -80,7 +80,7 @@ void list_mem_print(char mask)
 				entro++;
 			}
 			time_to_str(m->time, time_str, sizeof(time_str));
-			printf("0x%016lx %15lu %20s %10d 0x%08x\n",
+			printf("0x%016lx %15zu %20s %10d 0x%08x\n",
 				(unsigned long)m->addr,
 				m->size,
 				time_str,
