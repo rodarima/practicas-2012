@@ -5,8 +5,8 @@
 #include "adjust.h"
 #include "cotas.h"
 #include "graph.h"
-#include "adjust.h"
-#include "./lib/graph/prim.h"
+#include "prim.h"
+#include <string.h>
 
 #define PRIM_K	1000
 
@@ -93,7 +93,6 @@ void table_prim(int from, int to, int step)
 	time_value *times = malloc(size*sizeof(time_value));
 
 
-	r.k = PRIM_K;
 
 	printf("Prim\n");
 	print_head();
@@ -109,6 +108,7 @@ void table_prim(int from, int to, int step)
 		}
 		
 		
+		r.k = PRIM_K;
 
 		timeof(r.t, r.k, prim(m, n, nearest, distance, mst), matrix_init(m, n), );
 
@@ -142,7 +142,7 @@ int main(int argc, char **arg)
 	table_prim(128, 4096, 2);
 
 	/*
-	int n = 100;
+	int n = 5;
 	int **m = matrix_create(n);
 	int *nearest = malloc(n*sizeof(int));
 	int *distance = malloc(n*sizeof(int));
@@ -153,7 +153,7 @@ int main(int argc, char **arg)
 	}
 	
 	
-	matrix_init(m, n);
+	//matrix_init(m, n);
 
 	double t;
  	int k=100000;
@@ -161,8 +161,6 @@ int main(int argc, char **arg)
    	printf("Tiempo = %f k = %d\n", t, k);
 
 	
-	
-	matrix_init(m, n);
 	
 	printf("Matriz de adyacencia:\n");
 	int i, j;
@@ -187,7 +185,7 @@ int main(int argc, char **arg)
 	free(mst);
 	free(distance);
 	free(nearest);
-	matrix_free(m, n);
+	//matrix_free(m, n);
 	*/
 	return 0;
 }
