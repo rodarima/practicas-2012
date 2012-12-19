@@ -5,7 +5,10 @@
 #include "adjust.h"
 #include "cotas.h"
 #include "graph.h"
+#include "adjust.h"
 #include "./lib/graph/prim.h"
+
+#define PRIM_K	10000
 
 int **matrix_create(int n)
 {
@@ -49,10 +52,69 @@ void matrix_free(int **matrix, int n)
 	free(matrix);	
 }
 
+
+int steps_to_n(int from, int to, int step)
+{
+	return (log(to/from)/log(step))+1;
+}
+
+
+
+void table_prim(int from, int to, int step)
+{
+	struct time_row_t r;
+	int k=0;
+	int size = steps_to_n(from, to, step);
+	//printf("%d\n", size);
+	time_value *times = malloc(size*sizeof(time_value));
+
+
+	r.k = PRIM_K;
+	printf("Prim\n");
+	print_head();
+	for(r.n=from; r.n<=to; r.n*=step){
+		int n = 100;
+		int **m = matrix_create(n);
+		int *nearest = malloc(n*sizeof(int));
+		int *distance = malloc(n*sizeof(int));
+		struct edge *mst = (struct edge *)malloc((n-1)*sizeof(struct edge));
+		if ((!nearest)||(!distance)||(!mst)||(!m)) {
+			printf("Ha ocurrido un error en malloc");
+			return;
+		}
+		
+		
+		timeof(r.t, r.k, prim(m, n, nearest, distance, mst), matrix_init(m, r.n), );
+
+		/*r.sub  = cota_n_pow_1_9(r.n, r.t);
+		r.aj = cota_n_pow_2(r.n, r.t);
+		r.sob = cota_n_pow_2_1(r.n, r.t);
+*/
+		print_row(&r);
+
+		free(mst);
+		free(distance);
+		free(nearest);
+		matrix_free(m, r.n);
+		times[k].n = r.n;
+		times[k].t = r.t;
+		k++;
+	}
+	estimate(times, size);
+
+
+
+	free(times);
+}
+
+
 int main(int argc, char **arg)
 {
 	srand(time(NULL));
-	int n = rand() % 10;
+	table_prim(32, 32768, 2);
+
+	/*
+	int n = 100;
 	int **m = matrix_create(n);
 	int *nearest = malloc(n*sizeof(int));
 	int *distance = malloc(n*sizeof(int));
@@ -61,6 +123,17 @@ int main(int argc, char **arg)
 		printf("Ha ocurrido un error en malloc");
 		return -1;
 	}
+	
+	
+	matrix_init(m, n);
+
+	double t;
+ 	int k=100000;
+  	timeof(t, k, prim(m, n, nearest, distance, mst),,);
+   	printf("Tiempo = %f k = %d\n", t, k);
+
+	
+	
 	matrix_init(m, n);
 	
 	printf("Matriz de adyacencia:\n");
@@ -72,8 +145,8 @@ int main(int argc, char **arg)
 		printf("\n");
 	}
 	
-	prim(m, n, nearest, distance, mst);
-	
+
+		
 	int total_weight = 0;
 	printf("\nÁrbol expandido mínimo:\n");
 	for (i=0; i<(n-1); i++) {
@@ -87,5 +160,6 @@ int main(int argc, char **arg)
 	free(distance);
 	free(nearest);
 	matrix_free(m, n);
+	*/
 	return 0;
 }

@@ -21,7 +21,7 @@
  * 	 El vector mst debe ser de tamaño n-1 (nº aristas)
  */	
 
-void prim(int **matrix, int n, int *nearest, int *distance, struct edge *mst)
+void prim(register int **matrix, register int n, register int *nearest, register int *distance, register struct edge *mst)
 {
 	register int i;
 	register int j;

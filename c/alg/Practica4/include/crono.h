@@ -47,21 +47,20 @@ double u_sec();
 	if(t<MIN_MICRO){						\
 		int __k_counter;					\
 		(t)=u_sec();						\
-		for(__k_counter=0; __k_counter<MAX_K; __k_counter++){	\
+		for(__k_counter=0; __k_counter<(k); __k_counter++){	\
 			begin;						\
 			f;						\
 			after;						\
 		}							\
 		(t)=u_sec()-(t);					\
 		double __lost_time=u_sec();				\
-		for(__k_counter=0; __k_counter<MAX_K; __k_counter++){	\
+		for(__k_counter=0; __k_counter<(k); __k_counter++){	\
 			begin;						\
 			after;						\
 		}							\
 		__lost_time = u_sec()-__lost_time;			\
 		(t)-=__lost_time;					\
-		k=MAX_K;						\
-		t=t/MAX_K;						\
+		t=t/k;							\
 	}else k=0;							\
 } while(0);								\
 

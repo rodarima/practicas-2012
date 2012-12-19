@@ -8,6 +8,6 @@ struct edge {
 	int weight;
 };
 
-void prim(int **matrix, int n, int *nearest, int *distance, struct edge *mst);
+void prim(register int **matrix, register int n, register int *nearest, register int *distance, register struct edge *mst);
 
 #endif

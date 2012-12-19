@@ -38,8 +38,7 @@ double u_sec();
 		}							\
 		__lost_time = u_sec()-__lost_time;			\
 		(t)-=__lost_time;					\
-		k=MAX_K;						\
-		t=t/MAX_K;						\
+		t=t/k;							\
 	}else k=0;							\
 } while(0);								\
 

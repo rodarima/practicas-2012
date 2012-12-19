@@ -13,7 +13,7 @@ CFLAGS = $(XFLAGS) $(INCF) $(LIBF)
 
 LIB = lib
 
-LIBRARIES = crono graph
+LIBRARIES = crono graph adjust
 
 
 
@@ -23,7 +23,7 @@ $(LIBRARIES):
 	$(MAKE) --directory=$(LIB)/$@
 
 testprim: testprim.c crono graph
-	$(CC) $(CFLAGS) testprim.c -o testprim -lcrono -lgraph -lm
+	$(CC) $(CFLAGS) testprim.c -o testprim -lcrono -lgraph -lm -ladjust
 
 clean: clean-libs
 	rm -f *.o testprim
