@@ -8,7 +8,7 @@
 #include "adjust.h"
 #include "./lib/graph/prim.h"
 
-#define PRIM_K	100
+#define PRIM_K	1000
 
 int **matrix_create(int n)
 {
@@ -23,7 +23,7 @@ int **matrix_create(int n)
 	}
 	return aux;
 }
-
+/*
 void matrix_init(int **matrix, int n)
 {
 	int i, j;
@@ -42,6 +42,30 @@ void matrix_init(int **matrix, int n)
 		}
 	}
 }
+*/
+
+void matrix_init(int **matrix, int n)
+{
+	int i, j;
+	int r;
+	
+	for (i=0; i<n; i++) {
+		for (j=0; j<=i; j++) {
+			if (i==j)
+			{
+				matrix[i][j] = 0;
+			}
+			else
+			{
+				r = rand()%(n+1);
+
+				matrix[i][j] = r;
+				matrix[j][i] = r;
+			}	
+		}
+	}
+}
+
 
 void matrix_free(int **matrix, int n)
 {
@@ -86,11 +110,11 @@ void table_prim(int from, int to, int step)
 		
 		timeof(r.t, r.k, prim(m, n, nearest, distance, mst), matrix_init(m, n), );
 
-		/*
-		r.sub  = cota_n_pow_1_9(r.n, r.t);
+		
+		r.sub  = (r.t/((r.n-1)*(r.n-1)));
 		r.aj = cota_n_pow_2(r.n, r.t);
 		r.sob = cota_n_pow_2_1(r.n, r.t);
-		*/
+		
 		print_row(&r);
 
 		free(mst);
@@ -112,7 +136,7 @@ void table_prim(int from, int to, int step)
 int main(int argc, char **arg)
 {
 	srand(time(NULL));
-	table_prim(8, 8192, 2);
+	table_prim(8, 4096, 2);
 
 	/*
 	int n = 100;

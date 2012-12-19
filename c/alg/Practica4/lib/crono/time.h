@@ -4,7 +4,7 @@
 #include <sys/time.h>
 
 
-#define MIN_MICRO	500
+#define MIN_MICRO	50
 #define MAX_K		1000
 
 /*
