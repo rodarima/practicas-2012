@@ -111,7 +111,7 @@ void table_prim(int from, int to, int step)
 		timeof(r.t, r.k, prim(m, n, nearest, distance, mst), matrix_init(m, n), );
 
 		
-		r.sub  = (r.t/((r.n-1)*(r.n-1)));
+		r.sub  = cota_n_pow_1_9(r.n, r.t);
 		r.aj = cota_n_pow_2(r.n, r.t);
 		r.sob = cota_n_pow_2_1(r.n, r.t);
 		
@@ -136,7 +136,7 @@ void table_prim(int from, int to, int step)
 int main(int argc, char **arg)
 {
 	srand(time(NULL));
-	table_prim(8, 4096, 2);
+	table_prim(128, 4096, 2);
 
 	/*
 	int n = 100;
