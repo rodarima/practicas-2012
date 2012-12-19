@@ -8,7 +8,7 @@
 #include "adjust.h"
 #include "./lib/graph/prim.h"
 
-#define PRIM_K	10000
+#define PRIM_K	100
 
 int **matrix_create(int n)
 {
@@ -73,7 +73,7 @@ void table_prim(int from, int to, int step)
 	printf("Prim\n");
 	print_head();
 	for(r.n=from; r.n<=to; r.n*=step){
-		int n = 100;
+		int n = r.n;
 		int **m = matrix_create(n);
 		int *nearest = malloc(n*sizeof(int));
 		int *distance = malloc(n*sizeof(int));
@@ -84,12 +84,13 @@ void table_prim(int from, int to, int step)
 		}
 		
 		
-		timeof(r.t, r.k, prim(m, n, nearest, distance, mst), matrix_init(m, r.n), );
+		timeof(r.t, r.k, prim(m, n, nearest, distance, mst), matrix_init(m, n), );
 
-		/*r.sub  = cota_n_pow_1_9(r.n, r.t);
+		/*
+		r.sub  = cota_n_pow_1_9(r.n, r.t);
 		r.aj = cota_n_pow_2(r.n, r.t);
 		r.sob = cota_n_pow_2_1(r.n, r.t);
-*/
+		*/
 		print_row(&r);
 
 		free(mst);
@@ -111,7 +112,7 @@ void table_prim(int from, int to, int step)
 int main(int argc, char **arg)
 {
 	srand(time(NULL));
-	table_prim(32, 32768, 2);
+	table_prim(8, 8192, 2);
 
 	/*
 	int n = 100;
