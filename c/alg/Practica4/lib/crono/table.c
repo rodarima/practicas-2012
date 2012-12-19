@@ -20,6 +20,11 @@ void print_head()
 \n");
 }
 
+void print_cotas(char *a, char *b, char *c)
+{
+	printf("Cotas: h(n)=%s, g(n)=%s, f(n)=%s\n", a,b,c);
+}
+
 void print_table(struct time_table_t *t)
 {
 	printf("%s\n", t->title);

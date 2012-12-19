@@ -94,6 +94,7 @@ void table_prim(int from, int to, int step)
 
 
 	r.k = PRIM_K;
+
 	printf("Prim\n");
 	print_head();
 	for(r.n=from; r.n<=to; r.n*=step){
@@ -108,12 +109,13 @@ void table_prim(int from, int to, int step)
 		}
 		
 		
+
 		timeof(r.t, r.k, prim(m, n, nearest, distance, mst), matrix_init(m, n), );
 
-		
 		r.sub  = cota_n_pow_1_9(r.n, r.t);
 		r.aj = cota_n_pow_2(r.n, r.t);
 		r.sob = cota_n_pow_2_1(r.n, r.t);
+
 		
 		print_row(&r);
 
@@ -125,6 +127,7 @@ void table_prim(int from, int to, int step)
 		times[k].t = r.t;
 		k++;
 	}
+	print_cotas("n^1.9", "n^2", "n^2.1");
 	estimate(times, size);
 
 

@@ -27,6 +27,7 @@ struct time_table_t{
 
 void print_table(struct time_table_t *t);
 void print_row(struct time_row_t *r);
+void print_cotas(char *a, char *b, char *c);
 void print_head();
 
 /*
