@@ -3,7 +3,6 @@
 
 
 #define MIN_MICRO	500
-#define MAX_K		1000
 
 /* Funciones de tabla */
 

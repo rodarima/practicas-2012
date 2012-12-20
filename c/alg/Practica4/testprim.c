@@ -4,7 +4,6 @@
 #include "crono.h"
 #include "adjust.h"
 #include "cotas.h"
-#include "graph.h"
 #include "prim.h"
 #include <string.h>
 
@@ -167,7 +166,7 @@ int prueba1_prim()
 
 int main(int argc, char **arg)
 {
-	prueba1_prim();
+	//prueba1_prim();
 
 	srand(time(NULL));
 	table_prim(128, 4096, 2);
