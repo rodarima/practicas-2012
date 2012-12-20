@@ -23,26 +23,6 @@ int **matrix_create(int n)
 	}
 	return aux;
 }
-/*
-void matrix_init(int **matrix, int n)
-{
-	int i, j;
-	for (i=0; i<n; i++) {
-		for (j=i+1; j<n; j++) {
-			matrix[i][j] = rand() % n + 1;
-		}
-	}
-	
-	for (i=0; i<n; i++) {
-		for (j=0; j<=i; j++) {
-			if (i==j)
-				matrix[i][j] = 0;
-			else
-				matrix[i][j] = matrix[j][i];
-		}
-	}
-}
-*/
 
 void matrix_init(int **matrix, int n)
 {
@@ -135,13 +115,9 @@ void table_prim(int from, int to, int step)
 	free(times);
 }
 
-
-int main(int argc, char **arg)
+int prueba1_prim()
 {
-	srand(time(NULL));
-	table_prim(128, 4096, 2);
-
-	/*
+	int i, j;
 	int n = 5;
 	int **m = matrix_create(n);
 	int *nearest = malloc(n*sizeof(int));
@@ -152,26 +128,26 @@ int main(int argc, char **arg)
 		return -1;
 	}
 	
-	
-	//matrix_init(m, n);
+	int m1[] = { 0,1,8,4,7,1,0,2,6,5,8,2,0,9,5,4,6,9,0,3,7,5,5,3,0 };
 
-	double t;
- 	int k=100000;
-  	timeof(t, k, prim(m, n, nearest, distance, mst),,);
-   	printf("Tiempo = %f k = %d\n", t, k);
+	for (i = 0; i < n; i++)
+	{
+		memcpy(m[i], m1+(i*n), n*sizeof(int));
+	}
 
-	
-	
+
 	printf("Matriz de adyacencia:\n");
-	int i, j;
 	for (i=0; i<n; i++) {
 		for (j=0; j<n; j++) {
 			printf("%d ", m[i][j]);
 		}
 		printf("\n");
 	}
-	
 
+	double t;
+ 	int k=100000;
+  	timeof(t, k, prim(m, n, nearest, distance, mst),,);
+   	printf("Tiempo = %f k = %d\n", t, k);
 		
 	int total_weight = 0;
 	printf("\nÁrbol expandido mínimo:\n");
@@ -185,7 +161,16 @@ int main(int argc, char **arg)
 	free(mst);
 	free(distance);
 	free(nearest);
-	//matrix_free(m, n);
-	*/
+	matrix_free(m, n);
+	return 0;
+}
+
+int main(int argc, char **arg)
+{
+	//prueba1_prim();
+
+	srand(time(NULL));
+	table_prim(128, 4096, 2);
+
 	return 0;
 }
