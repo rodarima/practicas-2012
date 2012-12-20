@@ -8,7 +8,7 @@
 #include "prim.h"
 #include <string.h>
 
-#define PRIM_K	1000
+#define PRIM_K	10000
 
 int **matrix_create(int n)
 {
@@ -167,7 +167,7 @@ int prueba1_prim()
 
 int main(int argc, char **arg)
 {
-	//prueba1_prim();
+	prueba1_prim();
 
 	srand(time(NULL));
 	table_prim(128, 4096, 2);
