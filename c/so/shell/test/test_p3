@@ -1,0 +1,33 @@
+malloc
+free
+
+malloc caca
+free caca
+
+free 10
+
+malloc 10
+malloc 12
+
+mem malloc
+mem
+
+free 10
+free 12
+
+mmap
+mmap AlgoQueNoExiste
+mmap Makefile -s
+mmap Makefile rwx
+pmap
+munmap Makefile
+shared 1 50
+pmap
+shared 1 51
+pmap
+unshared 50
+unshared 51
+rmkey 1
+recursiva 512
+-uid
+

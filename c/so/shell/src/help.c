@@ -45,7 +45,7 @@ int cmd_help(char **arg)
 			printf("%s", lista_cmd[i].name);
 			if(lista_cmd[i+1].name) printf(", ");
 		}
-		printf("\n");
+		printf("\nEscriba 'help COMANDO' para ver más detalles sobre COMANDO.\n");
 	}else if(arg[2]==NULL){
 		show_help(arg[1]);
 	}
